@@ -3,16 +3,9 @@
 
 #include "core/object.h"
 
-template <typename T>
-class PolyMethods {
+class PolyToolBase {
 public:
-	real_t polygon_area() {
-		return backend().polygon_area_impl();
-	}
-private:
-	T &backend() {
-		return *static_cast<T*>(this);
-	}
+	virtual real_t polygon_area(const Vector<Vector2> &p_polygon);
 };
 
 #endif // GEOMETRY_POLY_TOOLS_H

@@ -8,9 +8,7 @@ class GeometryTools {
 private:
 	static PolyTool pt;
 public:
-	static real_t polygon_area() {
-		return pt.polygon_area();
-	}
+	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

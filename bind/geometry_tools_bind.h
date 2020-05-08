@@ -16,9 +16,7 @@ public:
 	static _GeometryTools *get_singleton() { return singleton; }
 	
 public:
-	real_t polygon_area() {
-		return GeometryTools::polygon_area();
-	}
+	real_t polygon_area(const Vector<Vector2> &p_polygon);
 	
 	_GeometryTools();
 };
