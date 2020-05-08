@@ -2,7 +2,7 @@
 #define GODOT_GEOMETRY_TOOLS_H
 
 #include "core/object.h"
-#include "backend/poly_tools.h"
+#include "polytools/poly_tools_backends.h"
 
 class GeometryTools {
 private:

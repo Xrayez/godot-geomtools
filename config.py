@@ -1,14 +1,29 @@
+import utils
+
 
 def can_build(env, platform):
     return True
 
+
 def configure(env):
-    pass
+    from SCons.Script import Glob, Variables, BoolVariable, Help, Exit
+    import os
+    
+    opts = Variables()
+    
+    backends = utils.detect_poly_backends()
+    blist = list(backends.keys())
+    opts.Add("geomtools_poly_backend", "The library used for polygon operations. (%s)" % ("|".join(blist)), "clipper6")
+
+    opts.Update(env)
+    Help(opts.GenerateHelpText(env))
+
 
 def get_doc_classes():
     return [
         "GeometryTools",
     ]
+
 
 def get_doc_path():
     return "docs"

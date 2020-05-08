@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+Import('env_geomtools')
+import os
+
+source_dirs = ["."]
+
+backend = env_geomtools["geomtools_poly_backend"]
+env_geomtools.Prepend(CPPDEFINES=["GEOMETRY_POLY_TOOLS_%s" % (backend.upper())])
+source_dirs.append(os.path.join("polytools", "backends", backend))
+
+sources = [Glob(d + "/" + "*.cpp") for d in source_dirs]
+env_geomtools.add_source_files(env_geomtools.modules_sources, sources)
