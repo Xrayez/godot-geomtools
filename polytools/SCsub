@@ -5,6 +5,16 @@ import os
 source_dirs = ["."]
 
 backend = env_geomtools["geomtools_poly_backend"]
+
+backend_enabled = [
+    "// THIS FILE IS GENERATED, DO NOT EDIT!",
+    "#ifndef GEOMETRY_POLY_TOOLS_BACKEND_H",
+    "#define GEOMETRY_POLY_TOOLS_BACKEND_H",
+    "#include \"polytools/backends/%s/%s.h\"" % (backend, backend),
+    "#endif // GEOMETRY_POLY_TOOLS_BACKEND_H"
+]
+env_geomtools.Textfile(target="poly_tools_backend.gen.h", source=backend_enabled)
+
 env_geomtools.Prepend(CPPDEFINES=["GEOMETRY_POLY_TOOLS_%s" % (backend.upper())])
 source_dirs.append(os.path.join("polytools", "backends", backend))
 

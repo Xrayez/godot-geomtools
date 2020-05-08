@@ -1,3 +1,7 @@
+# Godot auto generated files
+*.gen.*
+.import/
+
 # Compiled Object files
 *.slo
 *.lo
