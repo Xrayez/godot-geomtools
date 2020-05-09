@@ -6,14 +6,22 @@
 #include "polytools/poly_tools_backend.gen.h"
 
 class GeometryTools {
-private:
-	static PolyTool *pt;
+public:
+	// Single polygon vs polygon boolean operations.
+	static Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
+	static Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
+	static Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
+	static Vector<Vector<Point2> > exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
+	
+	// General-purpose polygon boolean operations, accepts multiple polygons.
+	static Ref<PolyNode> polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >());
+	
+	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 public:
 	static void poly_tool_init();
 	static void poly_tool_deinit();
-public:
-	static real_t polygon_area(const Vector<Vector2> &p_polygon);
-	static Ref<PolyNode> polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >());
+private:
+	static PolyTool *pt;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

@@ -4,6 +4,8 @@
 #define SCALE_FACTOR 100000.0 // Based on CMP_EPSILON.
 
 namespace GodotClipperUtils {
+	
+// Methods to scale polypath vertices (Clipper's requirement for robust computation).
 
 using namespace ClipperLib;
 
@@ -63,6 +65,48 @@ static void scale_down_polypath(const Path &p_polypath_in, Vector<Point2> &p_pol
 
 } // namespace GodotClipperUtils
 
+Vector<Vector<Point2> > PolyToolClipper6::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+	return _polygons_boolean_single(OPERATION_UNION, p_polygon_a, p_polygon_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+	return _polygons_boolean_single(OPERATION_DIFFERENCE, p_polygon_a, p_polygon_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+	return _polygons_boolean_single(OPERATION_INTERSECTION, p_polygon_a, p_polygon_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+	return _polygons_boolean_single(OPERATION_XOR, p_polygon_a, p_polygon_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::_polygons_boolean_single(PolyBooleanOperation p_op, const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+	ClipperLib::ClipType op = ClipperLib::ctUnion;
+	switch (p_op) {
+		case OPERATION_UNION: op = ClipperLib::ctUnion; break;
+		case OPERATION_DIFFERENCE: op = ClipperLib::ctDifference; break;
+		case OPERATION_INTERSECTION: op = ClipperLib::ctIntersection; break;
+		case OPERATION_XOR: op = ClipperLib::ctXor; break;
+	}
+	ClipperLib::Path subject, clip;
+	
+	GodotClipperUtils::scale_up_polypath(p_polygon_a, subject);
+	GodotClipperUtils::scale_up_polypath(p_polygon_b, clip);
+	
+	ClipperLib::Clipper clp;
+	clp.AddPath(subject, ClipperLib::ptSubject, true);
+	clp.AddPath(clip, ClipperLib::ptClip, true);
+	
+	ClipperLib::Paths solution;
+    clp.Execute(op, solution, ClipperLib::pftNonZero);
+
+	Vector<Vector<Point2> > ret;
+	GodotClipperUtils::scale_down_polypaths(solution, ret);
+
+	return ret;
+}
+
 Ref<PolyNode> PolyToolClipper6::polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	ClipperLib::ClipType op = ClipperLib::ctUnion;
 	switch (p_op) {
@@ -73,7 +117,6 @@ Ref<PolyNode> PolyToolClipper6::polygons_boolean(PolyBooleanOperation p_op, cons
 	}
 	ClipperLib::Paths subject, clip;
 
-	// Need to scale points (Clipper's requirement for robust computation).
 	GodotClipperUtils::scale_up_polypaths(p_polygons_a, subject);
 	GodotClipperUtils::scale_up_polypaths(p_polygons_b, clip);
 
@@ -81,10 +124,8 @@ Ref<PolyNode> PolyToolClipper6::polygons_boolean(PolyBooleanOperation p_op, cons
 	clp.AddPaths(subject, ClipperLib::ptSubject, true);
 	clp.AddPaths(clip, ClipperLib::ptClip, true);
 
-	ClipperLib::PolyFillType fr = ClipperLib::pftNonZero; // Works better on multiple polygons.
-    
     ClipperLib::PolyTree tree;
-    clp.Execute(op, tree, fr);
+    clp.Execute(op, tree, ClipperLib::pftNonZero);
     
     ClipperLib::PolyNode *n = tree.GetFirst();
     
