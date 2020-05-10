@@ -36,13 +36,12 @@ public:
 	virtual Vector<Vector<Point2> > intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
 	virtual Vector<Vector<Point2> > exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
 	
-	// virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline_a, const Vector<Point2> &p_polygon_b);
-	// virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline_a, const Vector<Point2> &p_polygon_b);
-	
 	virtual Ref<PolyNode> polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) = 0;
 	
-	// virtual Vector<Vector<Point2> > offset_polygon(const Vector<Point2> &p_polygon_a);
-	// virtual Vector<Vector<Point2> > offset_polyline(const Vector<Point2> &p_polygon_a);
+	virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
+	virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
+	virtual Vector<Vector<Point2> > clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) = 0;
+	virtual Vector<Vector<Point2> > intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) = 0;
 	
 	// virtual Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	virtual real_t polygon_area(const Vector<Point2> &p_polygon);

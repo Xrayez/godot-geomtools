@@ -196,3 +196,78 @@ Ref<PolyNode> PolyToolClipper6::polygons_boolean(PolyBooleanOperation p_op, cons
     }
     return poly_tree;
 }
+
+Vector<Vector<Point2> > PolyToolClipper6::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+	return _polylines_boolean_single(OPERATION_DIFFERENCE, p_polyline, p_polygon);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+	return _polylines_boolean_single(OPERATION_INTERSECTION, p_polyline, p_polygon);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+	return _polylines_boolean_multiple(OPERATION_DIFFERENCE, p_polylines, p_polygons);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+	return _polylines_boolean_multiple(OPERATION_INTERSECTION, p_polylines, p_polygons);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::_polylines_boolean_single(PolyBooleanOperation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+	ClipperLib::ClipType op = ClipperLib::ctUnion;
+	switch (p_op) {
+		case OPERATION_UNION: op = ClipperLib::ctUnion; break;
+		case OPERATION_DIFFERENCE: op = ClipperLib::ctDifference; break;
+		case OPERATION_INTERSECTION: op = ClipperLib::ctIntersection; break;
+		case OPERATION_XOR: op = ClipperLib::ctXor; break;
+	}
+	ClipperLib::Path subject, clip;
+	
+	GodotClipperUtils::scale_up_polypath(p_polyline, subject);
+	GodotClipperUtils::scale_up_polypath(p_polygon, clip);
+	
+	ClipperLib::Clipper clp;
+	clp.AddPath(subject, ClipperLib::ptSubject, false);
+	clp.AddPath(clip, ClipperLib::ptClip, true);
+	
+	// Populate polylines, have to use PolyTree.
+	ClipperLib::PolyTree tree;
+	clp.Execute(op, tree, ClipperLib::pftNonZero);
+	ClipperLib::Paths polylines;
+	ClipperLib::OpenPathsFromPolyTree(tree, polylines);
+	
+	Vector<Vector<Point2> > ret;
+	GodotClipperUtils::scale_down_polypaths(polylines, ret);
+
+	return ret;
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::_polylines_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+	ClipperLib::ClipType op = ClipperLib::ctUnion;
+	switch (p_op) {
+		case OPERATION_UNION: op = ClipperLib::ctUnion; break;
+		case OPERATION_DIFFERENCE: op = ClipperLib::ctDifference; break;
+		case OPERATION_INTERSECTION: op = ClipperLib::ctIntersection; break;
+		case OPERATION_XOR: op = ClipperLib::ctXor; break;
+	}
+	ClipperLib::Clipper clp;
+	
+	ClipperLib::Paths subject;
+	GodotClipperUtils::scale_up_polypaths(p_polylines, subject);
+	clp.AddPaths(subject, ClipperLib::ptSubject, true);
+	
+	ClipperLib::Paths clip;
+	GodotClipperUtils::scale_up_polypaths(p_polygons, clip);
+	clp.AddPaths(clip, ClipperLib::ptClip, true);
+	
+	// Populate polylines, have to use PolyTree.
+	ClipperLib::PolyTree tree;
+	clp.Execute(op, tree, ClipperLib::pftNonZero);
+	ClipperLib::Paths polylines;
+	ClipperLib::OpenPathsFromPolyTree(tree, polylines);
+
+	Vector<Vector<Point2> > ret;
+	GodotClipperUtils::scale_down_polypaths(polylines, ret);
+
+	return ret;
+}

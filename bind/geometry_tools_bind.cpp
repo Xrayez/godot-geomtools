@@ -119,6 +119,58 @@ Ref<PolyNode> _GeometryTools::polygons_boolean(PolyToolBase::PolyBooleanOperatio
 	return GeometryTools::polygons_boolean(p_op, polygons_a, polygons_b);
 }
 
+Array _GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) const {
+	Vector<Vector<Point2> > polylines = GeometryTools::clip_polyline_with_polygon(p_polyline, p_polygon);
+	Array ret;
+	for (int i = 0; i < polylines.size(); ++i) {
+		ret.push_back(polylines[i]);
+	}
+	return ret;
+}
+
+Array _GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) const {
+	Vector<Vector<Point2> > polylines = GeometryTools::intersect_polyline_with_polygon(p_polyline, p_polygon);
+	Array ret;
+	for (int i = 0; i < polylines.size(); ++i) {
+		ret.push_back(polylines[i]);
+	}
+	return ret;
+}
+
+Array _GeometryTools::clip_multiple_polylines_with_polygons(const Array &p_polylines, const Array &p_polygons) const {
+	Vector<Vector<Point2> > polylines;
+	for (int i = 0; i < p_polylines.size(); i++) {
+		polylines.push_back(p_polylines[i]);
+	}
+	Vector<Vector<Point2> > polygons;
+	for (int i = 0; i < p_polygons.size(); i++) {
+		polygons.push_back(p_polygons[i]);
+	}
+	Vector<Vector<Vector2> > solution = GeometryTools::clip_multiple_polylines_with_polygons(polylines, polygons);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
+Array _GeometryTools::intersect_multiple_polylines_with_polygons(const Array &p_polylines, const Array &p_polygons) const {
+	Vector<Vector<Point2> > polylines;
+	for (int i = 0; i < p_polylines.size(); i++) {
+		polylines.push_back(p_polylines[i]);
+	}
+	Vector<Vector<Point2> > polygons;
+	for (int i = 0; i < p_polygons.size(); i++) {
+		polygons.push_back(p_polygons[i]);
+	}
+	Vector<Vector<Vector2> > solution = GeometryTools::intersect_multiple_polylines_with_polygons(polylines, polygons);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
 void _GeometryTools::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("merge_polygons", "polygon_a", "polygon_b"), &_GeometryTools::merge_polygons);
 	ClassDB::bind_method(D_METHOD("clip_polygons", "polygon_a", "polygon_b"), &_GeometryTools::clip_polygons);
@@ -130,8 +182,14 @@ void _GeometryTools::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("intersect_multiple_polygons", "polygons_a", "polygons_b"), &_GeometryTools::intersect_multiple_polygons);
 	ClassDB::bind_method(D_METHOD("exclude_multiple_polygons", "polygons_a", "polygons_b"), &_GeometryTools::exclude_multiple_polygons);
 	
-	ClassDB::bind_method(D_METHOD("polygon_area"), &_GeometryTools::polygon_area);
 	ClassDB::bind_method(D_METHOD("polygons_boolean", "polygons_a", "polygons_b"), &_GeometryTools::polygons_boolean, DEFVAL(Variant()));
+	
+	ClassDB::bind_method(D_METHOD("clip_polyline_with_polygon", "polyline", "polygon"), &_GeometryTools::clip_polyline_with_polygon);
+	ClassDB::bind_method(D_METHOD("intersect_polyline_with_polygon", "polyline", "polygon"), &_GeometryTools::intersect_polyline_with_polygon);
+	ClassDB::bind_method(D_METHOD("clip_multiple_polylines_with_polygons", "polylines", "polygons"), &_GeometryTools::clip_multiple_polylines_with_polygons);
+	ClassDB::bind_method(D_METHOD("intersect_multiple_polylines_with_polygons", "polylines", "polygons"), &_GeometryTools::intersect_multiple_polylines_with_polygons);
+	
+	ClassDB::bind_method(D_METHOD("polygon_area"), &_GeometryTools::polygon_area);
 }
 
 _GeometryTools::_GeometryTools() {

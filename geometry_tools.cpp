@@ -42,6 +42,22 @@ Vector<Vector<Point2> > GeometryTools::exclude_multiple_polygons(const Vector<Ve
 	return pt->exclude_multiple_polygons(p_polygons_a, p_polygons_b);
 }
 
+Vector<Vector<Point2> > GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+	return pt->clip_polyline_with_polygon(p_polyline, p_polygon);
+}
+
+Vector<Vector<Point2> > GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+	return pt->intersect_polyline_with_polygon(p_polyline, p_polygon);
+}
+
+Vector<Vector<Point2> > GeometryTools::clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+	return pt->clip_multiple_polylines_with_polygons(p_polylines, p_polygons);
+}
+
+Vector<Vector<Point2> > GeometryTools::intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+	return pt->intersect_multiple_polylines_with_polygons(p_polylines, p_polygons);
+}
+
 real_t GeometryTools::polygon_area(const Vector<Vector2> &p_polygon) {
 	return pt->polygon_area(p_polygon);
 }
