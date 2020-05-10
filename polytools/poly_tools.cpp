@@ -1,10 +1,5 @@
 #include "poly_tools.h"
 
-PolyClipBase::PolyClipBase() {
-    params.instance();
-    poly_tree.instance();
-}
-
 void PolyParams::_bind_methods() {
     
 }

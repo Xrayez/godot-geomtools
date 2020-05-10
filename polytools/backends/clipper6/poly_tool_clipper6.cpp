@@ -176,7 +176,8 @@ Ref<PolyNode> PolyClipClipper6::polygons_boolean(PolyBooleanOperation p_op, cons
     
     List<ClipperLib::PolyNode*> nodes;
 	nodes.push_back(n);
-    poly_tree->clear();
+    Ref<PolyNode> poly_tree;
+	poly_tree.instance();
 
 	while (!nodes.empty()) {
         ClipperLib::PolyNode *cp = nodes.back()->get();
