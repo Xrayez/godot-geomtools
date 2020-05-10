@@ -6,7 +6,7 @@
 class PolyNode;
 class PolyParams;
 
-class PolyToolBase {
+class PolyClipBase {
 public:
 	enum PolyBooleanOperation {
 		OPERATION_UNION,
@@ -47,7 +47,7 @@ public:
 	// virtual Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	virtual real_t polygon_area(const Vector<Point2> &p_polygon);
 	
-	PolyToolBase();
+	PolyClipBase();
 
 protected:
 	Ref<PolyParams> params;

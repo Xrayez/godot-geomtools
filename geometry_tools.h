@@ -22,7 +22,7 @@ public:
 	static Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b);
 	
 	// General-purpose polygon boolean operations.
-	static Ref<PolyNode> polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >());
+	static Ref<PolyNode> polygons_boolean(PolyClipBase::PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >());
 	
 	/* POLYLINE vs POLYGON */
 	// Note: UNION and XOR do not apply here.

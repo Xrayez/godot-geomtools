@@ -1,6 +1,6 @@
 #include "poly_tools.h"
 
-real_t PolyToolBase::polygon_area(const Vector<Vector2> &p_polygon) {
+real_t PolyClipBase::polygon_area(const Vector<Vector2> &p_polygon) {
     if (p_polygon.size() < 3) {
         return 0.0;
     }
@@ -12,7 +12,7 @@ real_t PolyToolBase::polygon_area(const Vector<Vector2> &p_polygon) {
     return -area * 0.5;
 }
 
-PolyToolBase::PolyToolBase() {
+PolyClipBase::PolyClipBase() {
     params.instance();
     poly_tree.instance();
 }

@@ -107,7 +107,7 @@ Array _GeometryTools::exclude_polygons_array(Array p_polygons_a, Array p_polygon
 	return ret;
 }
 
-Ref<PolyNode> _GeometryTools::polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b) {
+Ref<PolyNode> _GeometryTools::polygons_boolean(PolyClipBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b) {
 	Vector<Vector<Point2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); i++) {
 		polygons_a.push_back(p_polygons_a[i]);

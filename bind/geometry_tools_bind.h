@@ -26,7 +26,7 @@ public:
 	Array intersect_polygons_array(Array p_polygons_a, Array p_polygons_b) const;
 	Array exclude_polygons_array(Array p_polygons_a, Array p_polygons_b) const;
 
-	Ref<PolyNode> polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b);
+	Ref<PolyNode> polygons_boolean(PolyClipBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b);
 	
 	Array clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) const;
 	Array intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) const;
@@ -38,6 +38,6 @@ public:
 	_GeometryTools();
 };
 
-VARIANT_ENUM_CAST(PolyToolBase::PolyBooleanOperation);
+VARIANT_ENUM_CAST(PolyClipBase::PolyBooleanOperation);
 
 #endif // GODOT_GEOMETRY_TOOLS_BIND_H
