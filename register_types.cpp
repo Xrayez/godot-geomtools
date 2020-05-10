@@ -8,8 +8,12 @@ static _GeometryTools *_geometry_tools = nullptr;
 void register_geomtools_types() {
 	_geometry_tools = memnew(_GeometryTools);
 	GeometryTools::initialize();
+	
 	ClassDB::register_class<_GeometryTools>();
 	Engine::get_singleton()->add_singleton(Engine::Singleton("GeometryTools", _GeometryTools::get_singleton()));
+	
+	ClassDB::register_class<PolyClipParams>();
+	ClassDB::register_class<PolyNode>();
 }
 
 void unregister_geomtools_types() {

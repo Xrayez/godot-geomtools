@@ -2,6 +2,7 @@
 #define GODOT_GEOMETRY_TOOLS_CLIPPER6
 
 #include "modules/geomtools/polytools/poly_tools.h"
+#include "thirdparty/misc/clipper.hpp"
 
 class PolyClipClipper6 : public PolyClipBase {
 public:
@@ -10,7 +11,7 @@ public:
 	virtual Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
 	virtual Vector<Vector<Point2> > exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
     
-    virtual Vector<Vector<Point2> > merge_polygons_array(const Vector<Vector<Point2> > &p_polygons) override;
+    virtual Vector<Vector<Point2> > merge_polygons_array(const Vector<Vector<Point2> > &p_polygons, const Vector<Vector<Point2> > &p_polygons_b) override;
 	virtual Vector<Vector<Point2> > clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
 	virtual Vector<Vector<Point2> > intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
 	virtual Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
@@ -29,6 +30,14 @@ private:
 	
     Vector<Vector<Point2> > _polylines_boolean_single(PolyBooleanOperation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon);
     Vector<Vector<Point2> > _polylines_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
+	
+protected:
+	ClipperLib::Clipper configure(PolyBooleanOperation p_op, const Ref<PolyClipParams> &p_params);
+	
+private:
+	ClipperLib::ClipType clip_type;
+	ClipperLib::PolyFillType subject_fill_type;
+	ClipperLib::PolyFillType clip_fill_type;
 };
 
 using PolyClip = PolyClipClipper6; // 6.4.2 (stable)
