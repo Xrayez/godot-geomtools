@@ -35,6 +35,7 @@ public:
 	static Vector<Vector<Point2> > clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
 	static Vector<Vector<Point2> > intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
 	
+	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 public:
 	static void poly_tool_init();
