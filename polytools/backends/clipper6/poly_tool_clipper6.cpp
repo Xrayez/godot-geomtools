@@ -254,7 +254,7 @@ Vector<Vector<Point2> > PolyToolClipper6::_polylines_boolean_multiple(PolyBoolea
 	
 	ClipperLib::Paths subject;
 	GodotClipperUtils::scale_up_polypaths(p_polylines, subject);
-	clp.AddPaths(subject, ClipperLib::ptSubject, true);
+	clp.AddPaths(subject, ClipperLib::ptSubject, false);
 	
 	ClipperLib::Paths clip;
 	GodotClipperUtils::scale_up_polypaths(p_polygons, clip);
