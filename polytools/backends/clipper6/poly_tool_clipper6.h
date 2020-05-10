@@ -31,6 +31,6 @@ private:
     Vector<Vector<Point2> > _polylines_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
 };
 
-using PolyTool = PolyClipClipper6; // 6.4.2 (stable)
+using PolyClip = PolyClipClipper6; // 6.4.2 (stable)
 
 #endif // GODOT_GEOMETRY_TOOLS_CLIPPER6

@@ -38,10 +38,10 @@ public:
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 public:
-	static void poly_tool_init();
-	static void poly_tool_deinit();
+	static void initialize();
+	static void finalize();
 private:
-	static PolyTool *pt;
+	static PolyClip *poly_clip;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H
