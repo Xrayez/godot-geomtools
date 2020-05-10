@@ -107,19 +107,19 @@ Vector<Vector<Point2> > PolyToolClipper6::_polygons_boolean_single(PolyBooleanOp
 	return ret;
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyToolClipper6::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons) {
 	return _polygons_boolean_multiple(OPERATION_UNION, p_polygons);
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyToolClipper6::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyToolClipper6::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyToolClipper6::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_XOR, p_polygons_a, p_polygons_b);
 }
 
@@ -205,11 +205,11 @@ Vector<Vector<Point2> > PolyToolClipper6::intersect_polyline_with_polygon(const 
 	return _polylines_boolean_single(OPERATION_INTERSECTION, p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyToolClipper6::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
 	return _polylines_boolean_multiple(OPERATION_DIFFERENCE, p_polylines, p_polygons);
 }
 
-Vector<Vector<Point2> > PolyToolClipper6::intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyToolClipper6::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
 	return _polylines_boolean_multiple(OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
 
