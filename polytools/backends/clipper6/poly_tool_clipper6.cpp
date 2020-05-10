@@ -107,6 +107,51 @@ Vector<Vector<Point2> > PolyToolClipper6::_polygons_boolean_single(PolyBooleanOp
 	return ret;
 }
 
+Vector<Vector<Point2> > PolyToolClipper6::merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons) {
+	return _polygons_boolean_multiple(OPERATION_UNION, p_polygons);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return _polygons_boolean_multiple(OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return _polygons_boolean_multiple(OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return _polygons_boolean_multiple(OPERATION_XOR, p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > PolyToolClipper6::_polygons_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	ClipperLib::ClipType op = ClipperLib::ctUnion;
+	switch (p_op) {
+		case OPERATION_UNION: op = ClipperLib::ctUnion; break;
+		case OPERATION_DIFFERENCE: op = ClipperLib::ctDifference; break;
+		case OPERATION_INTERSECTION: op = ClipperLib::ctIntersection; break;
+		case OPERATION_XOR: op = ClipperLib::ctXor; break;
+	}
+	ClipperLib::Clipper clp;
+	
+	ClipperLib::Paths subject;
+	GodotClipperUtils::scale_up_polypaths(p_polygons_a, subject);
+	clp.AddPaths(subject, ClipperLib::ptSubject, true);
+	
+	if (!p_polygons_b.empty()) {
+		ClipperLib::Paths clip;
+		GodotClipperUtils::scale_up_polypaths(p_polygons_b, clip);
+		clp.AddPaths(clip, ClipperLib::ptClip, true);
+	}
+	
+	ClipperLib::Paths solution;
+    clp.Execute(op, solution, ClipperLib::pftNonZero);
+
+	Vector<Vector<Point2> > ret;
+	GodotClipperUtils::scale_down_polypaths(solution, ret);
+
+	return ret;
+}
+
 Ref<PolyNode> PolyToolClipper6::polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	ClipperLib::ClipType op = ClipperLib::ctUnion;
 	switch (p_op) {

@@ -26,6 +26,22 @@ Vector<Vector<Point2> > GeometryTools::exclude_polygons(const Vector<Point2> &p_
 	return pt->exclude_polygons(p_polygon_a, p_polygon_b);
 }
 
+Vector<Vector<Point2> > GeometryTools::merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons) {
+	return pt->merge_multiple_polygons(p_polygons);
+}
+
+Vector<Vector<Point2> > GeometryTools::clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return pt->clip_multiple_polygons(p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > GeometryTools::intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return pt->intersect_multiple_polygons(p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > GeometryTools::exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+	return pt->exclude_multiple_polygons(p_polygons_a, p_polygons_b);
+}
+
 real_t GeometryTools::polygon_area(const Vector<Vector2> &p_polygon) {
 	return pt->polygon_area(p_polygon);
 }

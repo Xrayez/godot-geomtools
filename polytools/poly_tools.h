@@ -31,10 +31,10 @@ public:
 	virtual Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
 	virtual Vector<Vector<Point2> > exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
 	
-	// virtual Vector<Vector<Point2> > merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons);
-	// virtual Vector<Vector<Point2> > clip_multiple_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
-	// virtual Vector<Vector<Point2> > intersect_multiple_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
-	// virtual Vector<Vector<Point2> > exclude_multiple_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
+	virtual Vector<Vector<Point2> > merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons) = 0;
+	virtual Vector<Vector<Point2> > clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
+	virtual Vector<Vector<Point2> > intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
+	virtual Vector<Vector<Point2> > exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
 	
 	// virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline_a, const Vector<Point2> &p_polygon_b);
 	// virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline_a, const Vector<Point2> &p_polygon_b);

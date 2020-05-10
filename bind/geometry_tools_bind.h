@@ -20,6 +20,11 @@ public:
 	Array clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) const;
 	Array intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) const;
 	Array exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) const;
+	
+	Array merge_multiple_polygons(Array p_polygons) const;
+	Array clip_multiple_polygons(Array p_polygons_a, Array p_polygons_b) const;
+	Array intersect_multiple_polygons(Array p_polygons_a, Array p_polygons_b) const;
+	Array exclude_multiple_polygons(Array p_polygons_a, Array p_polygons_b) const;
 
 	real_t polygon_area(const Vector<Vector2> &p_polygon);
 	Ref<PolyNode> polygons_boolean(PolyToolBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b);
