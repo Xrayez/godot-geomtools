@@ -78,9 +78,72 @@ Ref<PolyNode2D> GeometryTools2D::polygons_boolean(PolyBooleanBase2D::Operation p
 	return poly_boolean->polygons_boolean(p_op, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, const Ref<PolyOffsetParameters2D> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::inflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
 	poly_offset->set_params(p_params);
-	return poly_offset->offset_polygon(p_polygon, p_delta);
+	return poly_offset->offset_polypath(p_polygon, -p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::deflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypath(p_polygon, p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::inflate_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypaths_array(p_polygons, -p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::deflate_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::deflate_polyline(const Vector<Point2> &p_polyline, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	if (p_params.is_valid() && p_params->end_type == PolyOffsetParameters2D::END_POLYGON) {
+		// END_POLYGON does not make sense for polyline deflating.
+		// Implicitly override this to END_JOINED being the closest query.
+		p_params->end_type = PolyOffsetParameters2D::END_JOINED;
+	}
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypath(p_polyline, p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::deflate_polylines_array(const Vector<Vector<Point2> > &p_polylines, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
+	if (p_params.is_valid() && p_params->end_type == PolyOffsetParameters2D::END_POLYGON) {
+		// END_POLYGON does not make sense for polyline deflating.
+		// Implicitly override this to END_JOINED being the closest query.
+		p_params->end_type = PolyOffsetParameters2D::END_JOINED;
+	}
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypaths_array(p_polylines, p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypath(p_polygon, p_delta);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::offset_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+	// Implicitly override end type.
+	p_params->end_type = PolyOffsetParameters2D::END_POLYGON;
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
 }
 
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {

@@ -3,12 +3,28 @@
 
 #define SCALE_FACTOR 100000.0 // Based on CMP_EPSILON.
 
-Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta) {
+Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypath(const Vector<Point2> &p_polypath, real_t p_delta) {
 	ClipperLib::ClipperOffset clp = configure(params);
 	
 	ClipperLib::Path subject;
-	GodotClipperUtils::scale_up_polypath(p_polygon, subject);
+	GodotClipperUtils::scale_up_polypath(p_polypath, subject);
 	clp.AddPath(subject, join_type, end_type);
+	
+	ClipperLib::Paths solution;
+	clp.Execute(solution, p_delta * SCALE_FACTOR);
+	
+	Vector<Vector<Point2> > ret;
+	GodotClipperUtils::scale_down_polypaths(solution, ret);
+
+	return ret;
+}
+
+Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypaths_array(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) {
+	ClipperLib::ClipperOffset clp = configure(params);
+	
+	ClipperLib::Paths subject;
+	GodotClipperUtils::scale_up_polypaths(p_polypaths, subject);
+	clp.AddPaths(subject, join_type, end_type);
 	
 	ClipperLib::Paths solution;
 	clp.Execute(solution, p_delta * SCALE_FACTOR);

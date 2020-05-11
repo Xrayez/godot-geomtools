@@ -6,7 +6,8 @@
 
 class PolyOffset2DClipper6 : public PolyOffsetBase2D {
 public:
-	virtual Vector<Vector<Point2> > offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta) override;
+	virtual Vector<Vector<Point2> > offset_polypath(const Vector<Point2> &p_polygon, real_t p_delta) override;
+	virtual Vector<Vector<Point2> > offset_polypaths_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta) override;
 
 protected:
 	ClipperLib::ClipperOffset configure(const Ref<PolyOffsetParameters2D> &p_params);
