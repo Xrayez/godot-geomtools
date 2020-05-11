@@ -172,6 +172,15 @@ Array GeometryTools2D::intersect_polylines_with_polygons_array(const Array &p_po
 	return ret;
 }
 
+Array GeometryTools2D::offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, const Ref<PolyOffsetParameters2D> &p_params) const {
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::offset_polygon(p_polygon, p_delta, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
 	return ::GeometryTools2D::polygon_area(p_polygon);
 }
@@ -193,6 +202,8 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("intersect_polyline_with_polygon", "polyline", "polygon", "params"), &GeometryTools2D::intersect_polyline_with_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("clip_polylines_with_polygons_array", "polylines", "polygons", "params"), &GeometryTools2D::clip_polylines_with_polygons_array, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("intersect_polylines_with_polygons_array", "polylines", "polygons", "params"), &GeometryTools2D::intersect_polylines_with_polygons_array, DEFVAL(Variant()));
+	
+	ClassDB::bind_method(D_METHOD("offset_polygon", "polygon", "delta", "params"), &GeometryTools2D::offset_polygon, DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
 }

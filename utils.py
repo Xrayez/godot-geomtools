@@ -1,9 +1,17 @@
 import os
 
 def detect_polyboolean_backends():
+    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
+
+
+def detect_polyoffset_backends():
+    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
+
+
+def detect_backends(path):
     from SCons.Script import Glob
 
-    dirs = Glob(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
+    dirs = Glob(path)
     dirs.sort()
     
     backends = {}

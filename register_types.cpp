@@ -14,6 +14,7 @@ void register_geomtools_types() {
 	Engine::get_singleton()->add_singleton(Engine::Singleton("GeometryTools2D", module_bind::GeometryTools2D::get_singleton()));
 	
 	ClassDB::register_class<PolyBooleanParameters2D>();
+	ClassDB::register_class<PolyOffsetParameters2D>();
 	ClassDB::register_class<PolyNode2D>();
 }
 

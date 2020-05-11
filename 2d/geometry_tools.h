@@ -36,6 +36,9 @@ public:
 	static Vector<Vector<Point2> > clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParameters2D> &p_params = nullptr);
 	static Vector<Vector<Point2> > intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParameters2D> &p_params = nullptr);
 	
+	/* POLYGON/POLYLINES OFFSET */
+	static Vector<Vector<Point2> > offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, const Ref<PolyOffsetParameters2D> &p_params = nullptr);
+	
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 
@@ -44,6 +47,7 @@ public:
 	static void finalize();
 private:
 	static PolyBoolean2D *poly_boolean;
+	static PolyOffset2D *poly_offset;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

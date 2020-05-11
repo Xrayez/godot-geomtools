@@ -1,13 +1,16 @@
 #include "geometry_tools.h"
 
 PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
+PolyOffset2D *GeometryTools2D::poly_offset = nullptr;
 
 void GeometryTools2D::initialize() {
 	poly_boolean = memnew(PolyBoolean2D);
+	poly_offset = memnew(PolyOffset2D);
 }
 
 void GeometryTools2D::finalize() {
 	memdelete(poly_boolean);
+	memdelete(poly_offset);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) {
@@ -73,6 +76,11 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_polylines_with_polygons_array
 Ref<PolyNode2D> GeometryTools2D::polygons_boolean(PolyBooleanBase2D::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->polygons_boolean(p_op, p_polygons_a, p_polygons_b);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, const Ref<PolyOffsetParameters2D> &p_params) {
+	poly_offset->set_params(p_params);
+	return poly_offset->offset_polygon(p_polygon, p_delta);
 }
 
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {

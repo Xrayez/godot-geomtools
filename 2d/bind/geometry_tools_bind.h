@@ -35,6 +35,8 @@ public:
 	Array clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) const;
 	Array intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) const;
 	
+	Array offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, const Ref<PolyOffsetParameters2D> &p_params) const;
+	
 	real_t polygon_area(const Vector<Vector2> &p_polygon);
 	
 	GeometryTools2D();
