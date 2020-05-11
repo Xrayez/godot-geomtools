@@ -12,7 +12,7 @@ void register_geomtools_types() {
 	ClassDB::register_class<_GeometryTools>();
 	Engine::get_singleton()->add_singleton(Engine::Singleton("GeometryTools", _GeometryTools::get_singleton()));
 	
-	ClassDB::register_class<PolyClipParams>();
+	ClassDB::register_class<PolyBooleanParams>();
 	ClassDB::register_class<PolyNode>();
 }
 

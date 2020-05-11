@@ -4,11 +4,11 @@
 #include "core/reference.h"
 
 class PolyNode;
-class PolyClipParams;
+class PolyBooleanParams;
 
-class PolyClipBase {
+class PolyBooleanBase {
 public:
-	enum PolyBooleanOperation {
+	enum Operation {
 		OPERATION_UNION,
 		OPERATION_DIFFERENCE,
 		OPERATION_INTERSECTION,
@@ -24,7 +24,7 @@ public:
 	virtual Vector<Vector<Point2> > intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
 	virtual Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
 	
-	virtual Ref<PolyNode> polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) = 0;
+	virtual Ref<PolyNode> polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) = 0;
 	
 	virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
 	virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
@@ -33,13 +33,13 @@ public:
 	virtual Vector<Vector<Point2> > intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) = 0;
 	
 public:
-	void set_params(const Ref<PolyClipParams> &p_params) { params = p_params; }
+	void set_params(const Ref<PolyBooleanParams> &p_params) { params = p_params; }
 protected:
-	Ref<PolyClipParams> params;
+	Ref<PolyBooleanParams> params;
 };
 
-class PolyClipParams : public Reference {
-	GDCLASS(PolyClipParams, Reference);
+class PolyBooleanParams : public Reference {
+	GDCLASS(PolyBooleanParams, Reference);
 
 public:
 	enum FillRule { 
@@ -75,10 +75,10 @@ public:
 	void set_preserve_collinear(bool p_preserve_collinear) { preserve_collinear = p_preserve_collinear; }
 	bool is_preserve_collinear() const { return preserve_collinear; }
 	
-	PolyClipParams();
+	PolyBooleanParams();
 };
 
-VARIANT_ENUM_CAST(PolyClipParams::FillRule);
+VARIANT_ENUM_CAST(PolyBooleanParams::FillRule);
 
 class PolyNode : public Reference {
 	GDCLASS(PolyNode, Reference);

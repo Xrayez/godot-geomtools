@@ -1,16 +1,16 @@
 #include "poly_tools.h"
 
-void PolyClipParams::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("set_subject_fill_rule", "subject_fill_rule"), &PolyClipParams::set_subject_fill_rule);
-    ClassDB::bind_method(D_METHOD("get_subject_fill_rule"), &PolyClipParams::get_subject_fill_rule);
-    ClassDB::bind_method(D_METHOD("set_clip_fill_rule", "clip_fill_rule"), &PolyClipParams::set_clip_fill_rule);
-    ClassDB::bind_method(D_METHOD("get_clip_fill_rule"), &PolyClipParams::get_clip_fill_rule);
-    ClassDB::bind_method(D_METHOD("set_reverse_solution", "reverse_solution"), &PolyClipParams::set_reverse_solution);
-    ClassDB::bind_method(D_METHOD("is_reverse_solution"), &PolyClipParams::is_reverse_solution);
-    ClassDB::bind_method(D_METHOD("set_strictly_simple", "strictly_simple"), &PolyClipParams::set_strictly_simple);
-    ClassDB::bind_method(D_METHOD("is_strictly_simple"), &PolyClipParams::is_strictly_simple);
-    ClassDB::bind_method(D_METHOD("set_preserve_collinear", "preserve_collinear"), &PolyClipParams::set_preserve_collinear);
-    ClassDB::bind_method(D_METHOD("is_preserve_collinear"), &PolyClipParams::is_preserve_collinear);
+void PolyBooleanParams::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("set_subject_fill_rule", "subject_fill_rule"), &PolyBooleanParams::set_subject_fill_rule);
+    ClassDB::bind_method(D_METHOD("get_subject_fill_rule"), &PolyBooleanParams::get_subject_fill_rule);
+    ClassDB::bind_method(D_METHOD("set_clip_fill_rule", "clip_fill_rule"), &PolyBooleanParams::set_clip_fill_rule);
+    ClassDB::bind_method(D_METHOD("get_clip_fill_rule"), &PolyBooleanParams::get_clip_fill_rule);
+    ClassDB::bind_method(D_METHOD("set_reverse_solution", "reverse_solution"), &PolyBooleanParams::set_reverse_solution);
+    ClassDB::bind_method(D_METHOD("is_reverse_solution"), &PolyBooleanParams::is_reverse_solution);
+    ClassDB::bind_method(D_METHOD("set_strictly_simple", "strictly_simple"), &PolyBooleanParams::set_strictly_simple);
+    ClassDB::bind_method(D_METHOD("is_strictly_simple"), &PolyBooleanParams::is_strictly_simple);
+    ClassDB::bind_method(D_METHOD("set_preserve_collinear", "preserve_collinear"), &PolyBooleanParams::set_preserve_collinear);
+    ClassDB::bind_method(D_METHOD("is_preserve_collinear"), &PolyBooleanParams::is_preserve_collinear);
     
     BIND_ENUM_CONSTANT(FILL_RULE_EVEN_ODD);
     BIND_ENUM_CONSTANT(FILL_RULE_NON_ZERO);
@@ -24,7 +24,7 @@ void PolyClipParams::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "preserve_collinear"), "set_preserve_collinear", "is_preserve_collinear");
 }
 
-PolyClipParams::PolyClipParams(): 
+PolyBooleanParams::PolyBooleanParams(): 
     subject_fill_rule(FILL_RULE_NON_ZERO),
     clip_fill_rule(FILL_RULE_NON_ZERO),
 	reverse_solution(false),

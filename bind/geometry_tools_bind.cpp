@@ -3,7 +3,7 @@
 
 _GeometryTools *_GeometryTools::singleton = nullptr;
 
-Array _GeometryTools::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polys = GeometryTools::merge_polygons(p_polygon_a, p_polygon_b, p_params);
 	Array ret;
 	for (int i = 0; i < polys.size(); ++i) {
@@ -12,7 +12,7 @@ Array _GeometryTools::merge_polygons(const Vector<Point2> &p_polygon_a, const Ve
 	return ret;
 }
 
-Array _GeometryTools::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polys = GeometryTools::clip_polygons(p_polygon_a, p_polygon_b, p_params);
 	Array ret;
 	for (int i = 0; i < polys.size(); ++i) {
@@ -21,7 +21,7 @@ Array _GeometryTools::clip_polygons(const Vector<Point2> &p_polygon_a, const Vec
 	return ret;
 }
 
-Array _GeometryTools::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polys = GeometryTools::intersect_polygons(p_polygon_a, p_polygon_b, p_params);
 	Array ret;
 	for (int i = 0; i < polys.size(); ++i) {
@@ -30,7 +30,7 @@ Array _GeometryTools::intersect_polygons(const Vector<Point2> &p_polygon_a, cons
 	return ret;
 }
 
-Array _GeometryTools::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polys = GeometryTools::exclude_polygons(p_polygon_a, p_polygon_b, p_params);
 	Array ret;
 	for (int i = 0; i < polys.size(); ++i) {
@@ -39,7 +39,7 @@ Array _GeometryTools::exclude_polygons(const Vector<Point2> &p_polygon_a, const 
 	return ret;
 }
 
-Array _GeometryTools::merge_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::merge_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -56,7 +56,7 @@ Array _GeometryTools::merge_polygons_array(Array p_polygons_a, Array p_polygons_
 	return ret;
 }
 
-Array _GeometryTools::clip_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::clip_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -73,7 +73,7 @@ Array _GeometryTools::clip_polygons_array(Array p_polygons_a, Array p_polygons_b
 	return ret;
 }
 
-Array _GeometryTools::intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -90,7 +90,7 @@ Array _GeometryTools::intersect_polygons_array(Array p_polygons_a, Array p_polyg
 	return ret;
 }
 
-Array _GeometryTools::exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -107,7 +107,7 @@ Array _GeometryTools::exclude_polygons_array(Array p_polygons_a, Array p_polygon
 	return ret;
 }
 
-Ref<PolyNode> _GeometryTools::polygons_boolean(PolyClipBase::PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, const Ref<PolyClipParams> &p_params) const {
+Ref<PolyNode> _GeometryTools::polygons_boolean(PolyBooleanBase::Operation p_op, Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); i++) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -119,7 +119,7 @@ Ref<PolyNode> _GeometryTools::polygons_boolean(PolyClipBase::PolyBooleanOperatio
 	return GeometryTools::polygons_boolean(p_op, polygons_a, polygons_b, p_params);
 }
 
-Array _GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polylines = GeometryTools::clip_polyline_with_polygon(p_polyline, p_polygon, p_params);
 	Array ret;
 	for (int i = 0; i < polylines.size(); ++i) {
@@ -128,7 +128,7 @@ Array _GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polylin
 	return ret;
 }
 
-Array _GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polylines = GeometryTools::intersect_polyline_with_polygon(p_polyline, p_polygon, p_params);
 	Array ret;
 	for (int i = 0; i < polylines.size(); ++i) {
@@ -137,7 +137,7 @@ Array _GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_po
 	return ret;
 }
 
-Array _GeometryTools::clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polylines;
 	for (int i = 0; i < p_polylines.size(); i++) {
 		polylines.push_back(p_polylines[i]);
@@ -154,7 +154,7 @@ Array _GeometryTools::clip_polylines_with_polygons_array(const Array &p_polyline
 	return ret;
 }
 
-Array _GeometryTools::intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyClipParams> &p_params) const {
+Array _GeometryTools::intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParams> &p_params) const {
 	Vector<Vector<Point2> > polylines;
 	for (int i = 0; i < p_polylines.size(); i++) {
 		polylines.push_back(p_polylines[i]);

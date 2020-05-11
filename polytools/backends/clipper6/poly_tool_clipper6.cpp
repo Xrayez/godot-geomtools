@@ -64,23 +64,23 @@ static void scale_down_polypath(const Path &p_polypath_in, Vector<Point2> &p_pol
 
 } // namespace GodotClipperUtils
 
-Vector<Vector<Point2> > PolyClipClipper6::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
 	return _polygons_boolean_single(OPERATION_UNION, p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
 	return _polygons_boolean_single(OPERATION_DIFFERENCE, p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
 	return _polygons_boolean_single(OPERATION_INTERSECTION, p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
 	return _polygons_boolean_single(OPERATION_XOR, p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::_polygons_boolean_single(PolyBooleanOperation p_op, const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::_polygons_boolean_single(Operation p_op, const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 	
 	ClipperLib::Path subject, clip;
@@ -99,23 +99,23 @@ Vector<Vector<Point2> > PolyClipClipper6::_polygons_boolean_single(PolyBooleanOp
 	return ret;
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_UNION, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	return _polygons_boolean_multiple(OPERATION_XOR, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::_polygons_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBooleanClipper6::_polygons_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 	
 	ClipperLib::Paths subject;
@@ -137,7 +137,7 @@ Vector<Vector<Point2> > PolyClipClipper6::_polygons_boolean_multiple(PolyBoolean
 	return ret;
 }
 
-Ref<PolyNode> PolyClipClipper6::polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Ref<PolyNode> PolyBooleanClipper6::polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 
 	ClipperLib::Paths subject;
@@ -177,23 +177,23 @@ Ref<PolyNode> PolyClipClipper6::polygons_boolean(PolyBooleanOperation p_op, cons
     return poly_tree;
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+Vector<Vector<Point2> > PolyBooleanClipper6::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
 	return _polylines_boolean_single(OPERATION_DIFFERENCE, p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+Vector<Vector<Point2> > PolyBooleanClipper6::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
 	return _polylines_boolean_single(OPERATION_INTERSECTION, p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyBooleanClipper6::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
 	return _polylines_boolean_multiple(OPERATION_DIFFERENCE, p_polylines, p_polygons);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyBooleanClipper6::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
 	return _polylines_boolean_multiple(OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::_polylines_boolean_single(PolyBooleanOperation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
+Vector<Vector<Point2> > PolyBooleanClipper6::_polylines_boolean_single(Operation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 
 	ClipperLib::Path subject;
@@ -216,7 +216,7 @@ Vector<Vector<Point2> > PolyClipClipper6::_polylines_boolean_single(PolyBooleanO
 	return ret;
 }
 
-Vector<Vector<Point2> > PolyClipClipper6::_polylines_boolean_multiple(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyBooleanClipper6::_polylines_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 
 	ClipperLib::Paths subject;
@@ -239,7 +239,7 @@ Vector<Vector<Point2> > PolyClipClipper6::_polylines_boolean_multiple(PolyBoolea
 	return ret;
 }
 
-ClipperLib::Clipper PolyClipClipper6::configure(PolyBooleanOperation p_op, const Ref<PolyClipParams> &p_params) {
+ClipperLib::Clipper PolyBooleanClipper6::configure(Operation p_op, const Ref<PolyBooleanParams> &p_params) {
 	using namespace ClipperLib;
 
 	switch (p_op) {
