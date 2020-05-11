@@ -5,8 +5,8 @@
 
 This is a [Godot](https://github.com/godotengine/godot) module which provides
 geometry math methods not typically provided by the built-in `Geometry`
-singleton. The module provides a `GeometryTools` singleton, which aims cater
-specific user needs.
+singleton. The module currently provides a `GeometryTools2D` singleton, which
+aims cater specific user needs.
 
 ### Compatibility
 There are separate branches which are targeted for specific Godot Engine's major

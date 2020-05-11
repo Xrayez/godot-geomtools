@@ -1,16 +1,16 @@
 #include "poly_boolean.h"
 
-void PolyBooleanParams::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("set_subject_fill_rule", "subject_fill_rule"), &PolyBooleanParams::set_subject_fill_rule);
-    ClassDB::bind_method(D_METHOD("get_subject_fill_rule"), &PolyBooleanParams::get_subject_fill_rule);
-    ClassDB::bind_method(D_METHOD("set_clip_fill_rule", "clip_fill_rule"), &PolyBooleanParams::set_clip_fill_rule);
-    ClassDB::bind_method(D_METHOD("get_clip_fill_rule"), &PolyBooleanParams::get_clip_fill_rule);
-    ClassDB::bind_method(D_METHOD("set_reverse_solution", "reverse_solution"), &PolyBooleanParams::set_reverse_solution);
-    ClassDB::bind_method(D_METHOD("is_reverse_solution"), &PolyBooleanParams::is_reverse_solution);
-    ClassDB::bind_method(D_METHOD("set_strictly_simple", "strictly_simple"), &PolyBooleanParams::set_strictly_simple);
-    ClassDB::bind_method(D_METHOD("is_strictly_simple"), &PolyBooleanParams::is_strictly_simple);
-    ClassDB::bind_method(D_METHOD("set_preserve_collinear", "preserve_collinear"), &PolyBooleanParams::set_preserve_collinear);
-    ClassDB::bind_method(D_METHOD("is_preserve_collinear"), &PolyBooleanParams::is_preserve_collinear);
+void PolyBooleanParameters2D::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("set_subject_fill_rule", "subject_fill_rule"), &PolyBooleanParameters2D::set_subject_fill_rule);
+    ClassDB::bind_method(D_METHOD("get_subject_fill_rule"), &PolyBooleanParameters2D::get_subject_fill_rule);
+    ClassDB::bind_method(D_METHOD("set_clip_fill_rule", "clip_fill_rule"), &PolyBooleanParameters2D::set_clip_fill_rule);
+    ClassDB::bind_method(D_METHOD("get_clip_fill_rule"), &PolyBooleanParameters2D::get_clip_fill_rule);
+    ClassDB::bind_method(D_METHOD("set_reverse_solution", "reverse_solution"), &PolyBooleanParameters2D::set_reverse_solution);
+    ClassDB::bind_method(D_METHOD("is_reverse_solution"), &PolyBooleanParameters2D::is_reverse_solution);
+    ClassDB::bind_method(D_METHOD("set_strictly_simple", "strictly_simple"), &PolyBooleanParameters2D::set_strictly_simple);
+    ClassDB::bind_method(D_METHOD("is_strictly_simple"), &PolyBooleanParameters2D::is_strictly_simple);
+    ClassDB::bind_method(D_METHOD("set_preserve_collinear", "preserve_collinear"), &PolyBooleanParameters2D::set_preserve_collinear);
+    ClassDB::bind_method(D_METHOD("is_preserve_collinear"), &PolyBooleanParameters2D::is_preserve_collinear);
     
     BIND_ENUM_CONSTANT(FILL_RULE_EVEN_ODD);
     BIND_ENUM_CONSTANT(FILL_RULE_NON_ZERO);
@@ -24,7 +24,7 @@ void PolyBooleanParams::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "preserve_collinear"), "set_preserve_collinear", "is_preserve_collinear");
 }
 
-PolyBooleanParams::PolyBooleanParams(): 
+PolyBooleanParameters2D::PolyBooleanParameters2D(): 
     subject_fill_rule(FILL_RULE_NON_ZERO),
     clip_fill_rule(FILL_RULE_NON_ZERO),
 	reverse_solution(false),
@@ -32,22 +32,22 @@ PolyBooleanParams::PolyBooleanParams():
 	preserve_collinear(false)
 {}
 
-Ref<PolyNode> PolyNode::new_child(const Vector<Point2> &p_path) {
-    Ref<PolyNode> child;
+Ref<PolyNode2D> PolyNode2D::new_child(const Vector<Point2> &p_path) {
+    Ref<PolyNode2D> child;
     child.instance();
     child->path = p_path;
     children.push_back(child);
     return child;
 }
 
-Ref<PolyNode> PolyNode::get_child(int p_idx) {
+Ref<PolyNode2D> PolyNode2D::get_child(int p_idx) {
     ERR_FAIL_INDEX_V(p_idx, children.size(), nullptr);
     return children[p_idx];
 }
 
-bool PolyNode::is_hole() const {
+bool PolyNode2D::is_hole() const {
     bool hole = true;
-    Ref<PolyNode> n = parent;
+    Ref<PolyNode2D> n = parent;
     while (n.is_valid()) {
       hole = !hole;
       n = n->parent;
@@ -55,17 +55,17 @@ bool PolyNode::is_hole() const {
     return hole;
 }
 
-void PolyNode::clear() {
+void PolyNode2D::clear() {
     children.clear();
 }
 
-void PolyNode::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("new_child", "path"), &PolyNode::new_child);
-    ClassDB::bind_method(D_METHOD("get_child", "index"), &PolyNode::get_child);
-    ClassDB::bind_method(D_METHOD("get_child_count"), &PolyNode::get_child_count);
-    ClassDB::bind_method(D_METHOD("get_parent"), &PolyNode::get_parent);
-    ClassDB::bind_method(D_METHOD("set_path", "path"), &PolyNode::set_path);
-    ClassDB::bind_method(D_METHOD("get_path"), &PolyNode::get_path);
-    ClassDB::bind_method(D_METHOD("is_hole"), &PolyNode::is_hole);
-    ClassDB::bind_method(D_METHOD("clear"), &PolyNode::clear);
+void PolyNode2D::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("new_child", "path"), &PolyNode2D::new_child);
+    ClassDB::bind_method(D_METHOD("get_child", "index"), &PolyNode2D::get_child);
+    ClassDB::bind_method(D_METHOD("get_child_count"), &PolyNode2D::get_child_count);
+    ClassDB::bind_method(D_METHOD("get_parent"), &PolyNode2D::get_parent);
+    ClassDB::bind_method(D_METHOD("set_path", "path"), &PolyNode2D::set_path);
+    ClassDB::bind_method(D_METHOD("get_path"), &PolyNode2D::get_path);
+    ClassDB::bind_method(D_METHOD("is_hole"), &PolyNode2D::is_hole);
+    ClassDB::bind_method(D_METHOD("clear"), &PolyNode2D::clear);
 }

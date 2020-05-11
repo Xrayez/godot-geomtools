@@ -4,20 +4,20 @@
 #include "2d/bind/geometry_tools_bind.h"
 #include "2d/geometry_tools.h"
 
-static _GeometryTools *_geometry_tools = nullptr;
+static _GeometryTools2D *_geometry_tools = nullptr;
 
 void register_geomtools_types() {
-	_geometry_tools = memnew(_GeometryTools);
-	GeometryTools::initialize();
+	_geometry_tools = memnew(_GeometryTools2D);
+	GeometryTools2D::initialize();
 	
-	ClassDB::register_class<_GeometryTools>();
-	Engine::get_singleton()->add_singleton(Engine::Singleton("GeometryTools", _GeometryTools::get_singleton()));
+	ClassDB::register_class<_GeometryTools2D>();
+	Engine::get_singleton()->add_singleton(Engine::Singleton("GeometryTools2D", _GeometryTools2D::get_singleton()));
 	
-	ClassDB::register_class<PolyBooleanParams>();
-	ClassDB::register_class<PolyNode>();
+	ClassDB::register_class<PolyBooleanParameters2D>();
+	ClassDB::register_class<PolyNode2D>();
 }
 
 void unregister_geomtools_types() {
 	memdelete(_geometry_tools);
-	GeometryTools::finalize();
+	GeometryTools2D::finalize();
 }

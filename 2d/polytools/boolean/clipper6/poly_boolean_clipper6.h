@@ -4,7 +4,7 @@
 #include "modules/geomtools/2d/polytools/boolean/poly_boolean.h"
 #include "thirdparty/misc/clipper.hpp"
 
-class PolyBooleanClipper6 : public PolyBooleanBase {
+class PolyBoolean2DClipper6 : public PolyBooleanBase2D {
 public:
     virtual Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
 	virtual Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
@@ -16,7 +16,7 @@ public:
 	virtual Vector<Vector<Point2> > intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
 	virtual Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
 
-    virtual Ref<PolyNode> polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) override;
+    virtual Ref<PolyNode2D> polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) override;
 	
 	virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) override;
 	virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) override;
@@ -32,7 +32,7 @@ private:
     Vector<Vector<Point2> > _polylines_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
 	
 protected:
-	ClipperLib::Clipper configure(Operation p_op, const Ref<PolyBooleanParams> &p_params);
+	ClipperLib::Clipper configure(Operation p_op, const Ref<PolyBooleanParameters2D> &p_params);
 	
 private:
 	ClipperLib::ClipType clip_type;
@@ -40,6 +40,6 @@ private:
 	ClipperLib::PolyFillType clip_fill_type;
 };
 
-using PolyBoolean = PolyBooleanClipper6; // 6.4.2 (stable)
+using PolyBoolean2D = PolyBoolean2DClipper6; // 6.4.2 (stable)
 
 #endif // GODOT_GEOMETRY_TOOLS_CLIPPER6

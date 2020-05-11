@@ -1,81 +1,81 @@
 #include "geometry_tools.h"
 
-PolyBoolean *GeometryTools::poly_boolean = nullptr;
+PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
 
-void GeometryTools::initialize() {
-	poly_boolean = memnew(PolyBoolean);
+void GeometryTools2D::initialize() {
+	poly_boolean = memnew(PolyBoolean2D);
 }
 
-void GeometryTools::finalize() {
+void GeometryTools2D::finalize() {
 	memdelete(poly_boolean);
 }
 
-Vector<Vector<Point2> > GeometryTools::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->merge_polygons(p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->clip_polygons(p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->intersect_polygons(p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->exclude_polygons(p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->merge_polygons_array(p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->clip_polygons_array(p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->intersect_polygons_array(p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->exclude_polygons_array(p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->clip_polyline_with_polygon(p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > GeometryTools::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->intersect_polyline_with_polygon(p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > GeometryTools::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->clip_polylines_with_polygons_array(p_polylines, p_polygons);
 }
 
-Vector<Vector<Point2> > GeometryTools::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParams> &p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->intersect_polylines_with_polygons_array(p_polylines, p_polygons);
 }
 
-Ref<PolyNode> GeometryTools::polygons_boolean(PolyBooleanBase::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params) {
+Ref<PolyNode2D> GeometryTools2D::polygons_boolean(PolyBooleanBase2D::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) {
 	poly_boolean->set_params(p_params);
 	return poly_boolean->polygons_boolean(p_op, p_polygons_a, p_polygons_b);
 }
 
-real_t GeometryTools::polygon_area(const Vector<Vector2> &p_polygon) {
+real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
 	if (p_polygon.size() < 3) {
         return 0.0;
     }

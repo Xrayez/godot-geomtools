@@ -21,7 +21,7 @@ def configure(env):
 
 def get_doc_classes():
     return [
-        "GeometryTools",
+        "GeometryTools2D",
     ]
 
 
