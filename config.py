@@ -11,9 +11,9 @@ def configure(env):
     
     opts = Variables()
     
-    backends = utils.detect_poly_backends()
-    blist = list(backends.keys())
-    opts.Add("geomtools_poly_backend", "The library used for polygon operations. (%s)" % ("|".join(blist)), "clipper6")
+    polyboolean_backends = utils.detect_polyboolean_backends()
+    blist = list(polyboolean_backends.keys())
+    opts.Add("geomtools_polyboolean", "The library used for polygon operations. (%s)" % ("|".join(blist)), "clipper6")
 
     opts.Update(env)
     Help(opts.GenerateHelpText(env))

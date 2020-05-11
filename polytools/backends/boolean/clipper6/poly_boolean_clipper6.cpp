@@ -1,4 +1,4 @@
-#include "poly_tool_clipper6.h"
+#include "poly_boolean_clipper6.h"
 
 #define SCALE_FACTOR 100000.0 // Based on CMP_EPSILON.
 

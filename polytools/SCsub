@@ -3,22 +3,26 @@ Import('env')
 Import('env_geomtools')
 import os
 
-backend = env_geomtools["geomtools_poly_backend"]
+boolean_backend = env_geomtools["geomtools_polyboolean"]
+# offset_backend = env_geomtools["geomtools_polyoffset"]
+# decomp_backend = env_geomtools["geomtools_polydecomp"]
 
 source_dirs = [
     ".",
-    "backends/%s" % (backend)
+    "backends/boolean/%s" % (boolean_backend),
+    # "backends/offset/%s" % (offset_backend),
+    # "backends/decomp/%s" % (decomp_backend)
 ]
-backend_enabled = [
+backends_enabled = [
     "// THIS FILE IS GENERATED, DO NOT EDIT!",
-    "#ifndef GEOMETRY_POLY_TOOLS_BACKEND_H",
-    "#define GEOMETRY_POLY_TOOLS_BACKEND_H",
-    "#include \"polytools/backends/%s/poly_tool_%s.h\"" % (backend, backend),
-    "#endif // GEOMETRY_POLY_TOOLS_BACKEND_H"
+    "#ifndef GEOMETRY_POLY_BACKENDS_H",
+    "#define GEOMETRY_POLY_BACKENDS_H",
+    "#include \"polytools/backends/boolean/%s/poly_boolean_%s.h\"" % (boolean_backend, boolean_backend),
+    # "#include \"polytools/backends/offset/%s/poly_offset_%s.h\"" % (offset_backend, offset_backend),
+    # "#include \"polytools/backends/decomp/%s/poly_decomp_%s.h\"" % (decomp_backend, decomp_backend),
+    "#endif // GEOMETRY_POLY_BACKENDS_H"
 ]
-env_geomtools.Textfile(target="poly_tools_backend.gen.h", source=backend_enabled)
-
-env_geomtools.Prepend(CPPDEFINES=["GEOMETRY_POLY_TOOLS_%s" % (backend.upper())])
+env_geomtools.Textfile(target="poly_backends.gen.h", source=backends_enabled)
 
 sources = [Glob(d + "/" + "*.cpp") for d in source_dirs]
 env_geomtools.add_source_files(env_geomtools.modules_sources, sources)

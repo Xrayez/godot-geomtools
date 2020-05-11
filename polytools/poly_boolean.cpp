@@ -1,4 +1,4 @@
-#include "poly_tools.h"
+#include "poly_boolean.h"
 
 void PolyBooleanParams::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_subject_fill_rule", "subject_fill_rule"), &PolyBooleanParams::set_subject_fill_rule);
