@@ -14,18 +14,6 @@ public:
 		OPERATION_INTERSECTION,
 		OPERATION_XOR,
 	};
-	enum PolyJoinType {
-		JOIN_SQUARE,
-		JOIN_ROUND,
-		JOIN_MITER,
-	};
-	enum PolyEndType {
-		END_POLYGON,
-		END_JOINED,
-		END_BUTT,
-		END_SQUARE,
-		END_ROUND,
-	};
 	virtual Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
 	virtual Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
 	virtual Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
