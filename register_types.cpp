@@ -1,7 +1,8 @@
 #include "register_types.h"
 #include "core/engine.h"
-#include "bind/geometry_tools_bind.h"
-#include "geometry_tools.h"
+
+#include "2d/bind/geometry_tools_bind.h"
+#include "2d/geometry_tools.h"
 
 static _GeometryTools *_geometry_tools = nullptr;
 

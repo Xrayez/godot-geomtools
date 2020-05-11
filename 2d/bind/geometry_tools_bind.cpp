@@ -1,5 +1,4 @@
 #include "geometry_tools_bind.h"
-#include "geometry_tools.h"
 
 _GeometryTools *_GeometryTools::singleton = nullptr;
 

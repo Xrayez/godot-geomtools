@@ -22,6 +22,7 @@ public:
 	static Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, const Ref<PolyBooleanParams> &p_params = nullptr);
 	
 	// General-purpose polygon boolean operations.
+	// Returns a top-level root node which represents an hierarchy of polygons.
 	static Ref<PolyNode> polygons_boolean(PolyBooleanBase::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >(), const Ref<PolyBooleanParams> &p_params = nullptr);
 	
 	/* POLYLINE vs POLYGON */

@@ -3,20 +3,11 @@ Import('env')
 
 env_geomtools = env.Clone()
 
-# Thirdparty sources
-thirdparty_dir = 'thirdparty/clipper/'
-
-env_geomtools.Prepend(CPPPATH=thirdparty_dir)
-env_geomtools.Prepend(CPPPATH='.')
-
-env_thirdparty = env_geomtools.Clone()
-env_thirdparty.add_source_files(env.modules_sources, thirdparty_dir + '*.cpp')
-env_thirdparty.disable_warnings()
-
-# Module sources
 env_geomtools.add_source_files(env.modules_sources, '*.cpp')
-env_geomtools.add_source_files(env.modules_sources, 'bind/*.cpp')
 
 Export('env_geomtools')
 
-SConscript('polytools/SCsub')
+SConscript('2d/SCsub')
+
+if not env["disable_3d"]:
+    SConscript('3d/SCsub')

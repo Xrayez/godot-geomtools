@@ -1,7 +1,7 @@
 #ifndef GODOT_GEOMETRY_TOOLS_BIND_H
 #define GODOT_GEOMETRY_TOOLS_BIND_H
 
-#include "geometry_tools.h"
+#include "modules/geomtools/2d/geometry_tools.h"
 
 class _GeometryTools : public Object {
 	GDCLASS(_GeometryTools, Object);

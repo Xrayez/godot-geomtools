@@ -1,7 +1,7 @@
 #ifndef GODOT_GEOMETRY_TOOLS_CLIPPER6
 #define GODOT_GEOMETRY_TOOLS_CLIPPER6
 
-#include "modules/geomtools/polytools/boolean/poly_boolean.h"
+#include "modules/geomtools/2d/polytools/boolean/poly_boolean.h"
 #include "thirdparty/misc/clipper.hpp"
 
 class PolyBooleanClipper6 : public PolyBooleanBase {
