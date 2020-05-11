@@ -3,17 +3,19 @@
 
 #include "modules/geomtools/2d/geometry_tools.h"
 
-class _GeometryTools2D : public Object {
-	GDCLASS(_GeometryTools2D, Object);
+namespace module_bind {
+
+class GeometryTools2D : public Object {
+	GDCLASS(GeometryTools2D, Object);
 
 private:
-	static _GeometryTools2D *singleton;
+	static GeometryTools2D *singleton;
 
 protected:
 	static void _bind_methods();
 
 public:
-	static _GeometryTools2D *get_singleton() { return singleton; }
+	static GeometryTools2D *get_singleton() { return singleton; }
 	
 public:
 	Array merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) const;
@@ -35,9 +37,11 @@ public:
 	
 	real_t polygon_area(const Vector<Vector2> &p_polygon);
 	
-	_GeometryTools2D();
+	GeometryTools2D();
 };
 
 VARIANT_ENUM_CAST(PolyBooleanBase2D::Operation);
+
+} // namespace module_bind
 
 #endif // GODOT_GEOMETRY_TOOLS_BIND_H
