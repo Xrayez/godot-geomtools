@@ -8,18 +8,20 @@ boolean_backend = env_geomtools["geomtools_polyboolean"]
 # decomp_backend = env_geomtools["geomtools_polydecomp"]
 
 source_dirs = [
-    ".",
-    "backends/boolean/%s" % (boolean_backend),
-    # "backends/offset/%s" % (offset_backend),
-    # "backends/decomp/%s" % (decomp_backend)
+    "boolean",
+    "offset",
+    "decomp",
+    "boolean/%s" % (boolean_backend),
+    # "offset/%s" % (offset_backend),
+    # "decomp/%s" % (decomp_backend)
 ]
 backends_enabled = [
     "// THIS FILE IS GENERATED, DO NOT EDIT!",
     "#ifndef GEOMETRY_POLY_BACKENDS_H",
     "#define GEOMETRY_POLY_BACKENDS_H",
-    "#include \"polytools/backends/boolean/%s/poly_boolean_%s.h\"" % (boolean_backend, boolean_backend),
-    # "#include \"polytools/backends/offset/%s/poly_offset_%s.h\"" % (offset_backend, offset_backend),
-    # "#include \"polytools/backends/decomp/%s/poly_decomp_%s.h\"" % (decomp_backend, decomp_backend),
+    "#include \"polytools/boolean/%s/poly_boolean_%s.h\"" % (boolean_backend, boolean_backend),
+    # "#include \"polytools/offset/%s/poly_offset_%s.h\"" % (offset_backend, offset_backend),
+    # "#include \"polytools/decomp/%s/poly_decomp_%s.h\"" % (decomp_backend, decomp_backend),
     "#endif // GEOMETRY_POLY_BACKENDS_H"
 ]
 env_geomtools.Textfile(target="poly_backends.gen.h", source=backends_enabled)
