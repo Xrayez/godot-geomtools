@@ -53,6 +53,8 @@ public:
 	real_t polygon_perimeter(const Vector<Vector2> &p_polygon) const;
 	real_t polyline_length(const Vector<Vector2> &p_polyline) const;
 	
+	int point_in_polygon(const Point2 &p_point, const Vector<Point2> &p_polygon) const;
+	
 	Vector<Point2> regular_polygon(int p_edge_count, real_t p_size) const;
 	Vector<Point2> circle(real_t p_radius, real_t p_max_error) const;
 	

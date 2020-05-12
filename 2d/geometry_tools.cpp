@@ -203,7 +203,7 @@ Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {
 	return centroid;
 }
 
-real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
+real_t GeometryTools2D::polygon_area(const Vector<Point2> &p_polygon) {
 	if (p_polygon.size() < 3) {
         return 0.0;
     }
@@ -215,7 +215,7 @@ real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
     return -area * 0.5;
 }
 
-real_t GeometryTools2D::polygon_perimeter(const Vector<Vector2> &p_polygon) {
+real_t GeometryTools2D::polygon_perimeter(const Vector<Point2> &p_polygon) {
 	ERR_FAIL_COND_V(p_polygon.size() < 3, 0.0);
 	
 	real_t perimeter = 0.0;
@@ -228,7 +228,7 @@ real_t GeometryTools2D::polygon_perimeter(const Vector<Vector2> &p_polygon) {
 	return perimeter;
 }
 
-real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) {
+real_t GeometryTools2D::polyline_length(const Vector<Point2> &p_polyline) {
 	ERR_FAIL_COND_V(p_polyline.size() < 2, 0.0);
 	
 	real_t length = 0.0;
@@ -239,6 +239,55 @@ real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) {
 		length += Math::sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
 	}
 	return length;
+}
+
+// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
+// http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.5498&rep=rep1&type=pdf
+//
+// Implementation ported from Clipper 6.4.2.
+//
+int GeometryTools2D::point_in_polygon(const Point2 &p_point, const Vector<Point2> &p_polygon) {
+	ERR_FAIL_COND_V(p_polygon.size() < 3, 0);
+
+	int result = 0;
+	Point2 ip = p_polygon[0];
+	const Point2 &pt = p_point;
+	
+	for(int i = 1; i <= p_polygon.size(); ++i) {
+		Point2 ip_next = i == p_polygon.size() ? p_polygon[0] : p_polygon[i];
+		if (ip_next.y == pt.y) {
+			if ((ip_next.x == pt.x) || (ip.y == pt.y && ((ip_next.x > pt.x) == (ip.x < pt.x)))) {
+				return -1;
+			}
+		}
+		if ((ip.y < pt.y) != (ip_next.y < pt.y)) {
+			if (ip.x >= pt.x) {
+				if (ip_next.x > pt.x) {
+					result = 1 - result;
+				} else {
+					real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
+					if (!d) {
+						return -1;
+					}
+					if ((d > 0) == (ip_next.y > ip.y)) {
+						result = 1 - result;
+					}
+				}
+			} else {
+				if (ip_next.x > pt.x) {
+					real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
+					if (!d) {
+						return -1;
+					}
+					if ((d > 0) == (ip_next.y > ip.y)) {
+						result = 1 - result;
+					}
+				}
+			}
+		}
+		ip = ip_next;
+	} 
+	return result;
 }
 
 Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size) {

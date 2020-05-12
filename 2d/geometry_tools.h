@@ -48,9 +48,12 @@ public:
 	
 	/* Polygon/Polyline attributes */
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
-	static real_t polygon_area(const Vector<Vector2> &p_polygon);
-	static real_t polygon_perimeter(const Vector<Vector2> &p_polygon);
-	static real_t polyline_length(const Vector<Vector2> &p_polyline);
+	static real_t polygon_area(const Vector<Point2> &p_polygon);
+	static real_t polygon_perimeter(const Vector<Point2> &p_polygon);
+	static real_t polyline_length(const Vector<Point2> &p_polyline);
+	
+	// Returns 0 if false, +1 if true, -1 if point is exactly on the polygon's boundary.
+	static int point_in_polygon(const Point2 &p_point, const Vector<Point2> &p_polygon);
 	
 	/* Polygon/shapes generation methods */
 	static Vector<Point2> regular_polygon(int p_edge_count, real_t p_size);
