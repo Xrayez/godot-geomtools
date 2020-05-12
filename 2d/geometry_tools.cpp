@@ -177,6 +177,32 @@ Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2
 	return poly_decomp->triangulate_polygon_vertices(p_polygon);
 }
 
+Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {
+	// Based on formulae from:
+	// "Calculating The Area And Centroid Of A Polygon" Written by Paul Bourke July 1988
+	// https://www.seas.upenn.edu/~sys502/extra_materials/Polygon%20Area%20and%20Centroid.pdf
+	int c = p_polygon.size();
+	ERR_FAIL_COND_V(c < 3, Vector2());
+
+	const Vector2 *p = p_polygon.ptr();
+
+	Vector2 centroid;
+	real_t signed_area = 0.0;
+	real_t a = 0.0;
+
+	for (int i = 0; i < c; i++) {
+		const Vector2 &v1 = p[i];
+		const Vector2 &v2 = p[(i + 1) % c];
+		a = v1.x * v2.y - v2.x * v1.y;
+		signed_area += a;
+		centroid += (v1 + v2) * a;
+	}
+	signed_area *= 0.5;
+	centroid /= (6.0 * signed_area);
+	
+	return centroid;
+}
+
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
 	if (p_polygon.size() < 3) {
         return 0.0;

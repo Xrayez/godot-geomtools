@@ -48,7 +48,8 @@ public:
 	
 	Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const;
 	
-	real_t polygon_area(const Vector<Vector2> &p_polygon);
+	Vector2 polygon_centroid(const Vector<Vector2> &p_polygon) const;
+	real_t polygon_area(const Vector<Vector2> &p_polygon) const;
 	
 	GeometryTools2D();
 };
