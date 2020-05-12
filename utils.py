@@ -1,18 +1,15 @@
 import os
 
-def detect_polyboolean_backends():
-    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
+
+def detect_backends():
+    types = {}
+    types["polyboolean"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
+    types["polyoffset"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
+    types["polydecomp"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "decomp", "*"))
+    return types
 
 
-def detect_polyoffset_backends():
-    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
-
-
-def detect_polydecomp_backends():
-    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "decomp", "*"))
-
-
-def detect_backends(path):
+def detect_backends_at_path(path):
     from SCons.Script import Glob
 
     dirs = Glob(path)
