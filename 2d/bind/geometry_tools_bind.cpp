@@ -272,6 +272,14 @@ real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) const {
 	return ::GeometryTools2D::polygon_area(p_polygon);
 }
 
+real_t GeometryTools2D::polygon_perimeter(const Vector<Vector2> &p_polygon) const {
+	return ::GeometryTools2D::polygon_perimeter(p_polygon);
+}
+
+real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) const {
+	return ::GeometryTools2D::polyline_length(p_polyline);
+}
+
 void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("merge_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::merge_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("clip_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::clip_polygons, DEFVAL(Variant()));
@@ -303,6 +311,8 @@ void GeometryTools2D::_bind_methods() {
 	
 	ClassDB::bind_method(D_METHOD("polygon_centroid", "polygon"), &GeometryTools2D::polygon_centroid);
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
+	ClassDB::bind_method(D_METHOD("polygon_perimeter", "polygon"), &GeometryTools2D::polygon_perimeter);
+	ClassDB::bind_method(D_METHOD("polyline_length", "polyline"), &GeometryTools2D::polyline_length);
 }
 
 GeometryTools2D::GeometryTools2D() {

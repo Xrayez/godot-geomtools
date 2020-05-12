@@ -214,3 +214,29 @@ real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
     }
     return -area * 0.5;
 }
+
+real_t GeometryTools2D::polygon_perimeter(const Vector<Vector2> &p_polygon) {
+	ERR_FAIL_COND_V(p_polygon.size() < 3, 0.0);
+	
+	real_t perimeter = 0.0;
+	
+	for (int i = 0; i < p_polygon.size(); ++i) {
+		const Vector2 &v1 = p_polygon[i];
+		const Vector2 &v2 = p_polygon[(i + 1) % p_polygon.size()];
+		perimeter += Math::sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
+	}
+	return perimeter;
+}
+
+real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) {
+	ERR_FAIL_COND_V(p_polyline.size() < 2, 0.0);
+	
+	real_t length = 0.0;
+	
+	for (int i = 0; i < p_polyline.size() - 1; ++i) {
+		const Vector2 &v1 = p_polyline[i];
+		const Vector2 &v2 = p_polyline[i + 1];
+		length += Math::sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y));
+	}
+	return length;
+}

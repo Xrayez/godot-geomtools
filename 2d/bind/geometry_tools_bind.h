@@ -50,6 +50,8 @@ public:
 	
 	Vector2 polygon_centroid(const Vector<Vector2> &p_polygon) const;
 	real_t polygon_area(const Vector<Vector2> &p_polygon) const;
+	real_t polygon_perimeter(const Vector<Vector2> &p_polygon) const;
+	real_t polyline_length(const Vector<Vector2> &p_polyline) const;
 	
 	GeometryTools2D();
 };

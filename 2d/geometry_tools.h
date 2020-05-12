@@ -46,9 +46,11 @@ public:
 	/* Polygon decomposition */
 	static Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
 	
-	/* Polygon attributes */
+	/* Polygon/Polyline attributes */
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
+	static real_t polygon_perimeter(const Vector<Vector2> &p_polygon);
+	static real_t polyline_length(const Vector<Vector2> &p_polyline);
 	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
