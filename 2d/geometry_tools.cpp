@@ -252,3 +252,15 @@ Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size)
 	}
 	return polygon;
 }
+
+Vector<Point2> GeometryTools2D::circle(real_t p_radius, real_t p_max_error) {
+	ERR_FAIL_COND_V(p_radius < 0.0, Vector<Point2>());
+	ERR_FAIL_COND_V(p_max_error < 0.0, Vector<Point2>());
+	
+	static const int max_points = 4096;
+
+	int vertex_count = static_cast<int>(Math::ceil(Math_PI / Math::acos(1.0 - p_max_error / p_radius)));
+	vertex_count = CLAMP(vertex_count, 3, max_points);
+	
+	return regular_polygon(vertex_count, p_radius); // vertex count == edge count
+}

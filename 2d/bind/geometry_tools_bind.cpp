@@ -284,6 +284,10 @@ Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size)
 	return ::GeometryTools2D::regular_polygon(p_edge_count, p_size);
 }
 
+Vector<Point2> GeometryTools2D::circle(real_t p_radius, real_t p_max_error) const {
+	return ::GeometryTools2D::circle(p_radius, p_max_error);
+}
+
 void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("merge_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::merge_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("clip_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::clip_polygons, DEFVAL(Variant()));
@@ -319,6 +323,7 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("polyline_length", "polyline"), &GeometryTools2D::polyline_length);
 	
 	ClassDB::bind_method(D_METHOD("regular_polygon", "sides", "size"), &GeometryTools2D::regular_polygon, DEFVAL(64.0));
+	ClassDB::bind_method(D_METHOD("circle", "radius", "max_error"), &GeometryTools2D::circle, DEFVAL(0.25));
 }
 
 GeometryTools2D::GeometryTools2D() {

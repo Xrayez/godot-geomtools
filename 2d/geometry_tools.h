@@ -52,8 +52,9 @@ public:
 	static real_t polygon_perimeter(const Vector<Vector2> &p_polygon);
 	static real_t polyline_length(const Vector<Vector2> &p_polyline);
 	
-	/* Polygon generation methods */
+	/* Polygon/shapes generation methods */
 	static Vector<Point2> regular_polygon(int p_edge_count, real_t p_size);
+	static Vector<Point2> circle(real_t p_radius, real_t p_max_error = 0.25);
 	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
