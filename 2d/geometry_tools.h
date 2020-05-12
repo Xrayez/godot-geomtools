@@ -46,6 +46,10 @@ public:
 	// Polygon attributes.
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
+	
+protected:
+	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
+	static Ref<PolyOffsetParameters2D> configure_offset(const Ref<PolyOffsetParameters2D> &p_params);
 
 public:
 	static void initialize();
@@ -53,6 +57,9 @@ public:
 private:
 	static PolyBoolean2D *poly_boolean;
 	static PolyOffset2D *poly_offset;
+	
+	static Ref<PolyBooleanParameters2D> default_poly_boolean_params;
+	static Ref<PolyOffsetParameters2D> default_poly_offset_params;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

@@ -37,26 +37,18 @@ Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypaths_array(const Vecto
 
 ClipperLib::ClipperOffset PolyOffset2DClipper6::configure(const Ref<PolyOffsetParameters2D> &p_params) {
 	using namespace ClipperLib;
-	
-	if (p_params.is_valid()) {
-		switch (p_params->join_type) {
-			case PolyOffsetParameters2D::JOIN_SQUARE: join_type = jtSquare; break;
-			case PolyOffsetParameters2D::JOIN_ROUND: join_type = jtRound; break;
-			case PolyOffsetParameters2D::JOIN_MITER: join_type = jtMiter; break;
-		}
-		switch (p_params->end_type) {
-			case PolyOffsetParameters2D::END_POLYGON: end_type = etClosedPolygon; break;
-			case PolyOffsetParameters2D::END_JOINED: end_type = etClosedLine; break;
-			case PolyOffsetParameters2D::END_BUTT: end_type = etOpenButt; break;
-			case PolyOffsetParameters2D::END_SQUARE: end_type = etOpenSquare; break;
-			case PolyOffsetParameters2D::END_ROUND: end_type = etOpenRound; break;
-		}
-	} else {
-		join_type = jtSquare;
-		end_type = etOpenSquare;
+
+	switch (p_params->join_type) {
+		case PolyOffsetParameters2D::JOIN_SQUARE: join_type = jtSquare; break;
+		case PolyOffsetParameters2D::JOIN_ROUND: join_type = jtRound; break;
+		case PolyOffsetParameters2D::JOIN_MITER: join_type = jtMiter; break;
 	}
-	if (p_params.is_valid()) {
-		return ClipperOffset(p_params->miter_limit, p_params->arc_tolerance * SCALE_FACTOR);
+	switch (p_params->end_type) {
+		case PolyOffsetParameters2D::END_POLYGON: end_type = etClosedPolygon; break;
+		case PolyOffsetParameters2D::END_JOINED: end_type = etClosedLine; break;
+		case PolyOffsetParameters2D::END_BUTT: end_type = etOpenButt; break;
+		case PolyOffsetParameters2D::END_SQUARE: end_type = etOpenSquare; break;
+		case PolyOffsetParameters2D::END_ROUND: end_type = etOpenRound; break;
 	}
-	return ClipperOffset();
+	return ClipperOffset(p_params->miter_limit, p_params->arc_tolerance * SCALE_FACTOR);
 }

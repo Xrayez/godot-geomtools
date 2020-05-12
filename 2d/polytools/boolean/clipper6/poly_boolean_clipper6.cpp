@@ -109,18 +109,12 @@ ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<P
 	
 	int init_options = 0;
 	
-	if (p_params.is_valid()) {
-		subject_fill_type = PolyFillType(p_params->subject_fill_rule);
-		clip_fill_type = PolyFillType(p_params->clip_fill_rule);
-		init_options |= p_params->reverse_solution ? InitOptions::ioReverseSolution : 0;
-		init_options |= p_params->strictly_simple ? InitOptions::ioStrictlySimple : 0;
-		init_options |= p_params->preserve_collinear ? InitOptions::ioPreserveCollinear : 0;
-		subject_open = p_params->subject_open;
-	} else {
-		subject_fill_type = pftNonZero;
-		clip_fill_type = pftNonZero;
-		subject_open = false;
-	}
-	
+	subject_fill_type = PolyFillType(p_params->subject_fill_rule);
+	clip_fill_type = PolyFillType(p_params->clip_fill_rule);
+	init_options |= p_params->reverse_solution ? InitOptions::ioReverseSolution : 0;
+	init_options |= p_params->strictly_simple ? InitOptions::ioStrictlySimple : 0;
+	init_options |= p_params->preserve_collinear ? InitOptions::ioPreserveCollinear : 0;
+	subject_open = p_params->subject_open;
+		
 	return Clipper(init_options);
 }
