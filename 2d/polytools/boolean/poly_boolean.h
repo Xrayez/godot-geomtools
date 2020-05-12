@@ -14,23 +14,9 @@ public:
 		OPERATION_INTERSECTION,
 		OPERATION_XOR,
 	};
-	virtual Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
-	virtual Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
-	virtual Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
-	virtual Vector<Vector<Point2> > exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) = 0;
-	
-	virtual Vector<Vector<Point2> > merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
-	virtual Vector<Vector<Point2> > clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
-	virtual Vector<Vector<Point2> > intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
-	virtual Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) = 0;
-	
-	virtual Ref<PolyNode2D> polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) = 0;
-	
-	virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
-	virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) = 0;
-	
-	virtual Vector<Vector<Point2> > clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) = 0;
-	virtual Vector<Vector<Point2> > intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) = 0;
+	virtual Vector<Vector<Point2> > polypath_boolean(Operation p_op, const Vector<Point2> &p_polypath_a, const Vector<Point2> &p_polypath_b) = 0;
+	virtual Vector<Vector<Point2> > polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
+	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
 	
 public:
 	void set_params(const Ref<PolyBooleanParameters2D> &p_params) { params = p_params; }
@@ -52,6 +38,7 @@ public:
 public:
 	FillRule subject_fill_rule;
 	FillRule clip_fill_rule;
+	bool subject_open;
 	bool reverse_solution;
 	bool strictly_simple;
 	bool preserve_collinear;
@@ -65,6 +52,9 @@ public:
 	
 	void set_clip_fill_rule(FillRule p_clip_fill_rule) { clip_fill_rule = p_clip_fill_rule; }
 	FillRule get_clip_fill_rule() const { return clip_fill_rule; }
+	
+	void set_subject_open(bool p_subject_open) { subject_open = p_subject_open; }
+	bool is_subject_open() const { return subject_open; }
 
 	void set_reverse_solution(bool p_reverse_solution) { reverse_solution = p_reverse_solution; }
 	bool is_reverse_solution() const { return reverse_solution; }

@@ -6,31 +6,10 @@
 
 class PolyBoolean2DClipper6 : public PolyBooleanBase2D {
 public:
-    virtual Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
-	virtual Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
-	virtual Vector<Vector<Point2> > intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
-	virtual Vector<Vector<Point2> > exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) override;
-    
-    virtual Vector<Vector<Point2> > merge_polygons_array(const Vector<Vector<Point2> > &p_polygons, const Vector<Vector<Point2> > &p_polygons_b) override;
-	virtual Vector<Vector<Point2> > clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
-	virtual Vector<Vector<Point2> > intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
-	virtual Vector<Vector<Point2> > exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) override;
+ 	virtual Vector<Vector<Point2> > polypath_boolean(Operation p_op, const Vector<Point2> &p_polypath_a, const Vector<Point2> &p_polypath_b) override;
+	virtual Vector<Vector<Point2> > polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;
+	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;
 
-    virtual Ref<PolyNode2D> polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >()) override;
-	
-	virtual Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) override;
-	virtual Vector<Vector<Point2> > intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) override;
-	
-	virtual Vector<Vector<Point2> > clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) override;
-	virtual Vector<Vector<Point2> > intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) override;
-	
-private:
-    Vector<Vector<Point2> > _polygons_boolean_single(Operation p_op, const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b);
-    Vector<Vector<Point2> > _polygons_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >());
-	
-    Vector<Vector<Point2> > _polylines_boolean_single(Operation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon);
-    Vector<Vector<Point2> > _polylines_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons);
-	
 protected:
 	ClipperLib::Clipper configure(Operation p_op, const Ref<PolyBooleanParameters2D> &p_params);
 	
@@ -38,6 +17,7 @@ private:
 	ClipperLib::ClipType clip_type;
 	ClipperLib::PolyFillType subject_fill_type;
 	ClipperLib::PolyFillType clip_fill_type;
+	bool subject_open;
 };
 
 using PolyBoolean2D = PolyBoolean2DClipper6; // 6.4.2 (stable)

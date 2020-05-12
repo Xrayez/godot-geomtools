@@ -18,22 +18,22 @@ public:
 	static GeometryTools2D *get_singleton() { return singleton; }
 	
 public:
-	Array merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, const Ref<PolyBooleanParameters2D> &p_params) const;
+	Array merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
 	
-	Array merge_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array clip_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) const;
+	Array merge_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array clip_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Array exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 
-	Ref<PolyNode2D> polygons_boolean(PolyBooleanBase2D::Operation p_op, Array p_polygons_a, Array p_polygons_b, const Ref<PolyBooleanParameters2D> &p_params) const;
+	Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanBase2D::Operation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	
-	Array clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) const;
-	Array intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, const Ref<PolyBooleanParameters2D> &p_params) const;
+	Array clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const;
+	Array intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const;
+	Array clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const;
+	Array intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const;
 	
 	Array inflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	Array deflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;

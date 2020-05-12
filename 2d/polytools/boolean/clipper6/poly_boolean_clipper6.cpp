@@ -1,89 +1,72 @@
 #include "poly_boolean_clipper6.h"
 #include "modules/geomtools/2d/polytools/utils/clipper/godot_clipper_path_convert.h"
 
-Vector<Vector<Point2> > PolyBoolean2DClipper6::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
-	return _polygons_boolean_single(OPERATION_UNION, p_polygon_a, p_polygon_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
-	return _polygons_boolean_single(OPERATION_DIFFERENCE, p_polygon_a, p_polygon_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
-	return _polygons_boolean_single(OPERATION_INTERSECTION, p_polygon_a, p_polygon_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
-	return _polygons_boolean_single(OPERATION_XOR, p_polygon_a, p_polygon_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::_polygons_boolean_single(Operation p_op, const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b) {
+Vector<Vector<Point2> > PolyBoolean2DClipper6::polypath_boolean(Operation p_op, const Vector<Point2> &p_polypath_a, const Vector<Point2> &p_polypath_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 	
-	ClipperLib::Path subject, clip;
-	GodotClipperUtils::scale_up_polypath(p_polygon_a, subject);
-	GodotClipperUtils::scale_up_polypath(p_polygon_b, clip);
+	ClipperLib::Path subject;
+	GodotClipperUtils::scale_up_polypath(p_polypath_a, subject);
+	clp.AddPath(subject, ClipperLib::ptSubject, !subject_open);
 	
-	clp.AddPath(subject, ClipperLib::ptSubject, true);
+	ClipperLib::Path clip;
+	GodotClipperUtils::scale_up_polypath(p_polypath_b, clip);
 	clp.AddPath(clip, ClipperLib::ptClip, true);
 	
 	ClipperLib::Paths solution;
-    clp.Execute(clip_type, solution, subject_fill_type, clip_fill_type);
-
+	if (!subject_open) {
+    	clp.Execute(clip_type, solution, subject_fill_type, clip_fill_type);
+	} else {
+		ClipperLib::PolyTree tree;
+		clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
+		ClipperLib::OpenPathsFromPolyTree(tree, solution);
+	}
+	
 	Vector<Vector<Point2> > ret;
 	GodotClipperUtils::scale_down_polypaths(solution, ret);
 
 	return ret;
 }
 
-Vector<Vector<Point2> > PolyBoolean2DClipper6::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
-	return _polygons_boolean_multiple(OPERATION_UNION, p_polygons_a, p_polygons_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
-	return _polygons_boolean_multiple(OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
-	return _polygons_boolean_multiple(OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
-	return _polygons_boolean_multiple(OPERATION_XOR, p_polygons_a, p_polygons_b);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::_polygons_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Vector<Vector<Point2> > PolyBoolean2DClipper6::polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 	
 	ClipperLib::Paths subject;
-	GodotClipperUtils::scale_up_polypaths(p_polygons_a, subject);
-	clp.AddPaths(subject, ClipperLib::ptSubject, true);
+	GodotClipperUtils::scale_up_polypaths(p_polypaths_a, subject);
+	clp.AddPaths(subject, ClipperLib::ptSubject, !subject_open);
 	
-	if (!p_polygons_b.empty()) { // Optional for the merge operation.
+	if (!p_polypaths_b.empty()) { // Optional for merge operation.
 		ClipperLib::Paths clip;
-		GodotClipperUtils::scale_up_polypaths(p_polygons_b, clip);
+		GodotClipperUtils::scale_up_polypaths(p_polypaths_b, clip);
 		clp.AddPaths(clip, ClipperLib::ptClip, true);
 	}
 	
 	ClipperLib::Paths solution;
-    clp.Execute(clip_type, solution, subject_fill_type, clip_fill_type);
-
+	if (!subject_open) {
+    	clp.Execute(clip_type, solution, subject_fill_type, clip_fill_type);
+	} else {
+		ClipperLib::PolyTree tree;
+		clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
+		ClipperLib::OpenPathsFromPolyTree(tree, solution);
+	}
+	
 	Vector<Vector<Point2> > ret;
 	GodotClipperUtils::scale_down_polypaths(solution, ret);
 
 	return ret;
 }
 
-Ref<PolyNode2D> PolyBoolean2DClipper6::polygons_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b) {
+Ref<PolyNode2D> PolyBoolean2DClipper6::polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
 
 	ClipperLib::Paths subject;
-	GodotClipperUtils::scale_up_polypaths(p_polygons_a, subject);
-	clp.AddPaths(subject, ClipperLib::ptSubject, true);
+	GodotClipperUtils::scale_up_polypaths(p_polypaths_a, subject);
+	clp.AddPaths(subject, ClipperLib::ptSubject, !subject_open);
 	
-	ClipperLib::Paths clip;
-	GodotClipperUtils::scale_up_polypaths(p_polygons_b, clip);
-	clp.AddPaths(clip, ClipperLib::ptClip, true);
+	if (!p_polypaths_b.empty()) { // Optional for merge operation.
+		ClipperLib::Paths clip;
+		GodotClipperUtils::scale_up_polypaths(p_polypaths_b, clip);
+		clp.AddPaths(clip, ClipperLib::ptClip, true);
+	}
 
     ClipperLib::PolyTree tree;
     clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
@@ -114,68 +97,6 @@ Ref<PolyNode2D> PolyBoolean2DClipper6::polygons_boolean(Operation p_op, const Ve
     return poly_tree;
 }
 
-Vector<Vector<Point2> > PolyBoolean2DClipper6::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
-	return _polylines_boolean_single(OPERATION_DIFFERENCE, p_polyline, p_polygon);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
-	return _polylines_boolean_single(OPERATION_INTERSECTION, p_polyline, p_polygon);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
-	return _polylines_boolean_multiple(OPERATION_DIFFERENCE, p_polylines, p_polygons);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
-	return _polylines_boolean_multiple(OPERATION_INTERSECTION, p_polylines, p_polygons);
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::_polylines_boolean_single(Operation p_op, const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon) {
-	ClipperLib::Clipper clp = configure(p_op, params);
-
-	ClipperLib::Path subject;
-	GodotClipperUtils::scale_up_polypath(p_polyline, subject);
-	clp.AddPath(subject, ClipperLib::ptSubject, false);
-	
-	ClipperLib::Path clip;
-	GodotClipperUtils::scale_up_polypath(p_polygon, clip);
-	clp.AddPath(clip, ClipperLib::ptClip, true);
-	
-	// Populate polylines, have to use PolyTree.
-	ClipperLib::PolyTree tree;
-	clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
-	ClipperLib::Paths polylines;
-	ClipperLib::OpenPathsFromPolyTree(tree, polylines);
-	
-	Vector<Vector<Point2> > ret;
-	GodotClipperUtils::scale_down_polypaths(polylines, ret);
-
-	return ret;
-}
-
-Vector<Vector<Point2> > PolyBoolean2DClipper6::_polylines_boolean_multiple(Operation p_op, const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons) {
-	ClipperLib::Clipper clp = configure(p_op, params);
-
-	ClipperLib::Paths subject;
-	GodotClipperUtils::scale_up_polypaths(p_polylines, subject);
-	clp.AddPaths(subject, ClipperLib::ptSubject, false);
-	
-	ClipperLib::Paths clip;
-	GodotClipperUtils::scale_up_polypaths(p_polygons, clip);
-	clp.AddPaths(clip, ClipperLib::ptClip, true);
-	
-	// Populate polylines, have to use PolyTree.
-	ClipperLib::PolyTree tree;
-	clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
-	ClipperLib::Paths polylines;
-	ClipperLib::OpenPathsFromPolyTree(tree, polylines);
-
-	Vector<Vector<Point2> > ret;
-	GodotClipperUtils::scale_down_polypaths(polylines, ret);
-
-	return ret;
-}
-
 ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<PolyBooleanParameters2D> &p_params) {
 	using namespace ClipperLib;
 
@@ -188,15 +109,18 @@ ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<P
 	
 	int init_options = 0;
 	
-	if (params.is_valid()) {
-		subject_fill_type = PolyFillType(params->subject_fill_rule);
-		clip_fill_type = PolyFillType(params->clip_fill_rule);
-		init_options |= params->reverse_solution ? InitOptions::ioReverseSolution : 0;
-		init_options |= params->strictly_simple ? InitOptions::ioStrictlySimple : 0;
-		init_options |= params->preserve_collinear ? InitOptions::ioPreserveCollinear : 0;
+	if (p_params.is_valid()) {
+		subject_fill_type = PolyFillType(p_params->subject_fill_rule);
+		clip_fill_type = PolyFillType(p_params->clip_fill_rule);
+		init_options |= p_params->reverse_solution ? InitOptions::ioReverseSolution : 0;
+		init_options |= p_params->strictly_simple ? InitOptions::ioStrictlySimple : 0;
+		init_options |= p_params->preserve_collinear ? InitOptions::ioPreserveCollinear : 0;
+		subject_open = p_params->subject_open;
 	} else {
 		subject_fill_type = pftNonZero;
 		clip_fill_type = pftNonZero;
+		subject_open = false;
 	}
+	
 	return Clipper(init_options);
 }
