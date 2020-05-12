@@ -43,13 +43,17 @@ public:
 	static Vector<Vector<Point2> > offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params = nullptr);
 	static Vector<Vector<Point2> > offset_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params = nullptr);
 	
-	// Polygon attributes.
+	/* Polygon decomposition */
+	static Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
+	
+	/* Polygon attributes. */
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);
 	static real_t polygon_area(const Vector<Vector2> &p_polygon);
 	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
 	static Ref<PolyOffsetParameters2D> configure_offset(const Ref<PolyOffsetParameters2D> &p_params);
+	static Ref<PolyDecompParameters2D> configure_decomp(const Ref<PolyDecompParameters2D> &p_params);
 
 public:
 	static void initialize();
@@ -57,9 +61,11 @@ public:
 private:
 	static PolyBoolean2D *poly_boolean;
 	static PolyOffset2D *poly_offset;
+	static PolyDecomp2D *poly_decomp;
 	
 	static Ref<PolyBooleanParameters2D> default_poly_boolean_params;
 	static Ref<PolyOffsetParameters2D> default_poly_offset_params;
+	static Ref<PolyDecompParameters2D> default_poly_decomp_params;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

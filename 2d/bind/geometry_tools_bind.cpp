@@ -260,6 +260,10 @@ Array GeometryTools2D::offset_polygons_array(const Array &p_polygons, real_t p_d
 	return ret;
 }
 
+Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const {
+	return ::GeometryTools2D::triangulate_polygon_vertices(p_polygon, p_params);
+}
+
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {
 	return ::GeometryTools2D::polygon_area(p_polygon);
 }
@@ -290,6 +294,8 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("deflate_polylines_array", "polylines", "delta", "params"), &GeometryTools2D::deflate_polylines_array, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("offset_polygon", "polygon", "delta", "params"), &GeometryTools2D::offset_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("offset_polygons_array", "polygons", "delta", "params"), &GeometryTools2D::offset_polygons_array, DEFVAL(Variant()));
+	
+	ClassDB::bind_method(D_METHOD("triangulate_polygon_vertices", "polygon", "params"), &GeometryTools2D::triangulate_polygon_vertices, DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
 }

@@ -8,6 +8,10 @@ def detect_polyoffset_backends():
     return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
 
 
+def detect_polydecomp_backends():
+    return detect_backends(os.path.join(get_module_path(), "2d", "polytools", "decomp", "*"))
+
+
 def detect_backends(path):
     from SCons.Script import Glob
 

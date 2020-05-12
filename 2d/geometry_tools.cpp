@@ -2,21 +2,28 @@
 
 PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
 PolyOffset2D *GeometryTools2D::poly_offset = nullptr;
+PolyDecomp2D *GeometryTools2D::poly_decomp = nullptr;
+
 Ref<PolyBooleanParameters2D> GeometryTools2D::default_poly_boolean_params = nullptr;
 Ref<PolyOffsetParameters2D> GeometryTools2D::default_poly_offset_params = nullptr;
+Ref<PolyDecompParameters2D> GeometryTools2D::default_poly_decomp_params = nullptr;
 
 void GeometryTools2D::initialize() {
 	default_poly_boolean_params.instance();
 	default_poly_offset_params.instance();
+	default_poly_decomp_params.instance();
 	poly_boolean = memnew(PolyBoolean2D);
 	poly_offset = memnew(PolyOffset2D);
+	poly_decomp = memnew(PolyDecomp2D);
 }
 
 void GeometryTools2D::finalize() {
 	default_poly_boolean_params.unref();
 	default_poly_offset_params.unref();
+	default_poly_decomp_params.unref();
 	memdelete(poly_boolean);
 	memdelete(poly_offset);
+	memdelete(poly_decomp);
 }
 
 Ref<PolyBooleanParameters2D> GeometryTools2D::configure_boolean(const Ref<PolyBooleanParameters2D> &p_params) {
@@ -35,6 +42,15 @@ Ref<PolyOffsetParameters2D> GeometryTools2D::configure_offset(const Ref<PolyOffs
 	}
 	poly_offset->set_params(default_poly_offset_params);
 	return default_poly_offset_params;
+}
+
+Ref<PolyDecompParameters2D> GeometryTools2D::configure_decomp(const Ref<PolyDecompParameters2D> &p_params) {
+	if (p_params.is_valid()) {
+		poly_decomp->set_params(p_params);
+		return p_params;
+	}
+	poly_decomp->set_params(default_poly_decomp_params);
+	return default_poly_decomp_params;
 }
 
 Vector<Vector<Point2> > GeometryTools2D::merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) {
@@ -154,6 +170,11 @@ Vector<Vector<Point2> > GeometryTools2D::offset_polygon(const Vector<Point2> &p_
 Vector<Vector<Point2> > GeometryTools2D::offset_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
 	configure_offset(p_params)->end_type = PolyOffsetParameters2D::END_POLYGON;
 	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
+}
+
+Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
+	configure_decomp(p_params);
+	return poly_decomp->triangulate_polygon_vertices(p_polygon);
 }
 
 real_t GeometryTools2D::polygon_area(const Vector<Vector2> &p_polygon) {

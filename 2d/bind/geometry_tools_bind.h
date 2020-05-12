@@ -46,6 +46,8 @@ public:
 	Array offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	Array offset_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	
+	Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const;
+	
 	real_t polygon_area(const Vector<Vector2> &p_polygon);
 	
 	GeometryTools2D();

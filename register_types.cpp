@@ -1,8 +1,8 @@
 #include "register_types.h"
 #include "core/engine.h"
 
-#include "2d/bind/geometry_tools_bind.h"
 #include "2d/geometry_tools.h"
+#include "2d/bind/geometry_tools_bind.h"
 
 static module_bind::GeometryTools2D *_geometry_tools = nullptr;
 
@@ -15,6 +15,8 @@ void register_geomtools_types() {
 	
 	ClassDB::register_class<PolyBooleanParameters2D>();
 	ClassDB::register_class<PolyOffsetParameters2D>();
+	ClassDB::register_class<PolyDecompParameters2D>();
+	
 	ClassDB::register_class<PolyNode2D>();
 }
 
