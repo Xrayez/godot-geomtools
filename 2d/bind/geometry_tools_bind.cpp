@@ -280,6 +280,10 @@ real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) const
 	return ::GeometryTools2D::polyline_length(p_polyline);
 }
 
+Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size) const {
+	return ::GeometryTools2D::regular_polygon(p_edge_count, p_size);
+}
+
 void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("merge_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::merge_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("clip_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::clip_polygons, DEFVAL(Variant()));
@@ -313,6 +317,8 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
 	ClassDB::bind_method(D_METHOD("polygon_perimeter", "polygon"), &GeometryTools2D::polygon_perimeter);
 	ClassDB::bind_method(D_METHOD("polyline_length", "polyline"), &GeometryTools2D::polyline_length);
+	
+	ClassDB::bind_method(D_METHOD("regular_polygon", "sides", "size"), &GeometryTools2D::regular_polygon, DEFVAL(64.0));
 }
 
 GeometryTools2D::GeometryTools2D() {

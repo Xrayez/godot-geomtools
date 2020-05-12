@@ -52,6 +52,9 @@ public:
 	static real_t polygon_perimeter(const Vector<Vector2> &p_polygon);
 	static real_t polyline_length(const Vector<Vector2> &p_polyline);
 	
+	/* Polygon generation methods */
+	static Vector<Point2> regular_polygon(int p_edge_count, real_t p_size);
+	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
 	static Ref<PolyOffsetParameters2D> configure_offset(const Ref<PolyOffsetParameters2D> &p_params);

@@ -240,3 +240,15 @@ real_t GeometryTools2D::polyline_length(const Vector<Vector2> &p_polyline) {
 	}
 	return length;
 }
+
+Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size) {
+	ERR_FAIL_COND_V(p_edge_count < 3, Vector<Point2>());
+	
+	Vector<Point2> polygon;
+
+	for (int i = 0; i < p_edge_count; ++i) {
+		const real_t phi = (Math_TAU / p_edge_count) * i;
+		polygon.push_back(Vector2(Math::sin(phi), Math::cos(phi)) * p_size);
+	}
+	return polygon;
+}
