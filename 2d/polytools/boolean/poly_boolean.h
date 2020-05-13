@@ -34,14 +34,14 @@ public:
 		FILL_RULE_POSITIVE, 
 		FILL_RULE_NEGATIVE, 
 	};
-	
+
 public:
-	FillRule subject_fill_rule;
-	FillRule clip_fill_rule;
-	bool subject_open;
-	bool reverse_solution;
-	bool strictly_simple;
-	bool preserve_collinear;
+	FillRule subject_fill_rule = FILL_RULE_NON_ZERO;
+	FillRule clip_fill_rule = FILL_RULE_NON_ZERO;
+	bool subject_open = false;
+	bool reverse_solution = false;
+	bool strictly_simple = false;
+	bool preserve_collinear = false;
 	
 protected:
 	static void _bind_methods();
@@ -64,8 +64,6 @@ public:
 	
 	void set_preserve_collinear(bool p_preserve_collinear) { preserve_collinear = p_preserve_collinear; }
 	bool is_preserve_collinear() const { return preserve_collinear; }
-	
-	PolyBooleanParameters2D();
 };
 
 VARIANT_ENUM_CAST(PolyBooleanParameters2D::FillRule);

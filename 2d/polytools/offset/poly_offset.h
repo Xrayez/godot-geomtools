@@ -35,10 +35,10 @@ public:
 	};
 	
 public:
-	JoinType join_type;
-	EndType end_type;
-	real_t arc_tolerance;
-	real_t miter_limit;
+	JoinType join_type = JOIN_SQUARE;
+	EndType end_type = END_SQUARE;
+	real_t arc_tolerance = 0.25;
+	real_t miter_limit = 2.0;
 	
 protected:
 	static void _bind_methods();
@@ -55,8 +55,6 @@ public:
 	
 	void set_miter_limit(real_t p_miter_limit) { miter_limit = p_miter_limit; }
 	real_t get_miter_limit() const { return miter_limit; }
-	
-	PolyOffsetParameters2D();
 };
 
 VARIANT_ENUM_CAST(PolyOffsetParameters2D::JoinType);

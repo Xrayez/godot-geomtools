@@ -24,10 +24,3 @@ void PolyOffsetParameters2D::_bind_methods() {
     BIND_ENUM_CONSTANT(END_SQUARE);
     BIND_ENUM_CONSTANT(END_ROUND);
 }
-
-PolyOffsetParameters2D::PolyOffsetParameters2D():
-	join_type(JOIN_SQUARE),
-	end_type(END_SQUARE),
-	arc_tolerance(0.25),
-	miter_limit(2.0)
-{}

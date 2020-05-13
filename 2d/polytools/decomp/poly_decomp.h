@@ -20,9 +20,6 @@ class PolyDecompParameters2D : public Reference {
 	
 protected:
 	static void _bind_methods();
-
-public:
-	PolyDecompParameters2D();
 };
 
 #endif // GEOMETRY_POLY_DECOMP_H

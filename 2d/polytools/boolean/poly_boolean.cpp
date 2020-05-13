@@ -27,15 +27,6 @@ void PolyBooleanParameters2D::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "preserve_collinear"), "set_preserve_collinear", "is_preserve_collinear");
 }
 
-PolyBooleanParameters2D::PolyBooleanParameters2D(): 
-    subject_fill_rule(FILL_RULE_NON_ZERO),
-    clip_fill_rule(FILL_RULE_NON_ZERO),
-    subject_open(false),
-	reverse_solution(false),
-	strictly_simple(false),
-	preserve_collinear(false)
-{}
-
 Ref<PolyNode2D> PolyNode2D::new_child(const Vector<Point2> &p_path) {
     Ref<PolyNode2D> child;
     child.instance();
