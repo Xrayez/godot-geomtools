@@ -249,12 +249,12 @@ real_t GeometryTools2D::polyline_length(const Vector<Point2> &p_polyline) {
 int GeometryTools2D::point_in_polygon(const Point2 &p_point, const Vector<Point2> &p_polygon) {
 	ERR_FAIL_COND_V(p_polygon.size() < 3, 0);
 
-	int result = 0;
+	int pip_result = 0;
 	Point2 ip = p_polygon[0];
 	const Point2 &pt = p_point;
 	
 	for(int i = 1; i <= p_polygon.size(); ++i) {
-		Point2 ip_next = i == p_polygon.size() ? p_polygon[0] : p_polygon[i];
+		const Point2 &ip_next = i == p_polygon.size() ? p_polygon[0] : p_polygon[i];
 		if (ip_next.y == pt.y) {
 			if ((ip_next.x == pt.x) || (ip.y == pt.y && ((ip_next.x > pt.x) == (ip.x < pt.x)))) {
 				return -1;
@@ -263,31 +263,31 @@ int GeometryTools2D::point_in_polygon(const Point2 &p_point, const Vector<Point2
 		if ((ip.y < pt.y) != (ip_next.y < pt.y)) {
 			if (ip.x >= pt.x) {
 				if (ip_next.x > pt.x) {
-					result = 1 - result;
+					pip_result = 1 - pip_result;
 				} else {
-					real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
+					const real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
 					if (!d) {
 						return -1;
 					}
 					if ((d > 0) == (ip_next.y > ip.y)) {
-						result = 1 - result;
+						pip_result = 1 - pip_result;
 					}
 				}
 			} else {
 				if (ip_next.x > pt.x) {
-					real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
+					const real_t d = (ip.x - pt.x) * (ip_next.y - pt.y) - (ip_next.x - pt.x) * (ip.y - pt.y);
 					if (!d) {
 						return -1;
 					}
 					if ((d > 0) == (ip_next.y > ip.y)) {
-						result = 1 - result;
+						pip_result = 1 - pip_result;
 					}
 				}
 			}
 		}
 		ip = ip_next;
-	} 
-	return result;
+	}
+	return pip_result;
 }
 
 Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size) {
