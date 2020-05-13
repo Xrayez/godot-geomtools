@@ -5,6 +5,8 @@ env_geomtools = env.Clone()
 
 env_geomtools.add_source_files(env.modules_sources, '*.cpp')
 
+env_geomtools.Prepend(CPPDEFINES={"GEOMETRY_TOOLS_SCALE_FACTOR" : env_geomtools["geomtools_scale_factor"]})
+
 Export('env_geomtools')
 
 SConscript('2d/SCsub')

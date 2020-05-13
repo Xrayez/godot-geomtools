@@ -1,8 +1,6 @@
 #include "poly_offset_clipper6.h"
 #include "modules/geomtools/2d/polytools/utils/clipper/godot_clipper_path_convert.h"
 
-#define SCALE_FACTOR 100000.0 // Based on CMP_EPSILON.
-
 Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypath(const Vector<Point2> &p_polypath, real_t p_delta) {
 	ClipperLib::ClipperOffset clp = configure(params);
 	
@@ -11,7 +9,7 @@ Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypath(const Vector<Point
 	clp.AddPath(subject, join_type, end_type);
 	
 	ClipperLib::Paths solution;
-	clp.Execute(solution, p_delta * SCALE_FACTOR);
+	clp.Execute(solution, p_delta * GEOMETRY_TOOLS_SCALE_FACTOR);
 	
 	Vector<Vector<Point2> > ret;
 	GodotClipperUtils::scale_down_polypaths(solution, ret);
@@ -27,7 +25,7 @@ Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypaths_array(const Vecto
 	clp.AddPaths(subject, join_type, end_type);
 	
 	ClipperLib::Paths solution;
-	clp.Execute(solution, p_delta * SCALE_FACTOR);
+	clp.Execute(solution, p_delta * GEOMETRY_TOOLS_SCALE_FACTOR);
 	
 	Vector<Vector<Point2> > ret;
 	GodotClipperUtils::scale_down_polypaths(solution, ret);
@@ -50,5 +48,5 @@ ClipperLib::ClipperOffset PolyOffset2DClipper6::configure(const Ref<PolyOffsetPa
 		case PolyOffsetParameters2D::END_SQUARE: end_type = etOpenSquare; break;
 		case PolyOffsetParameters2D::END_ROUND: end_type = etOpenRound; break;
 	}
-	return ClipperOffset(p_params->miter_limit, p_params->arc_tolerance * SCALE_FACTOR);
+	return ClipperOffset(p_params->miter_limit, p_params->arc_tolerance * GEOMETRY_TOOLS_SCALE_FACTOR);
 }
