@@ -71,36 +71,39 @@ Ref<PolyNode2D> PolyBoolean2DClipper6::polypaths_boolean_tree(Operation p_op, co
     ClipperLib::PolyTree tree;
     clp.Execute(clip_type, tree, subject_fill_type, clip_fill_type);
     
-    ClipperLib::PolyNode *n = tree.GetFirst();
+    Ref<PolyNode2D> root;
+	root.instance();
     
-    List<ClipperLib::PolyNode*> nodes;
-	nodes.push_back(n);
-    Ref<PolyNode2D> poly_tree;
-	poly_tree.instance();
+    List<ClipperLib::PolyNode*> to_visit;
+	Map<ClipperLib::PolyNode*, Ref<PolyNode2D> > nodes;
+	
+	nodes.insert(&tree, root);
+    to_visit.push_back(&tree);
 
-	while (!nodes.empty()) {
-        ClipperLib::PolyNode *cp = nodes.back()->get();
-		nodes.pop_back();
-        
-        Vector<Point2> parent_path;
-        GodotClipperUtils::scale_down_polypath(cp->Contour, parent_path);
-        Ref<PolyNode2D> c = poly_tree->new_child(parent_path);
+	while (!to_visit.empty()) {
+        ClipperLib::PolyNode* parent = to_visit.back()->get();
+		to_visit.pop_back();
 
-		for (int i = 0; i < cp->ChildCount(); ++i) {
-			ClipperLib::PolyNode *cc = cp->Childs[i];
+		for (int i = 0; i < parent->ChildCount(); ++i) {
+			ClipperLib::PolyNode *child = parent->Childs[i];
             Vector<Point2> child_path;
-            GodotClipperUtils::scale_down_polypath(cc->Contour, child_path);
-			c->new_child(child_path);
-            nodes.push_back(cc);
+            GodotClipperUtils::scale_down_polypath(child->Contour, child_path);
+			Ref<PolyNode2D> new_child = nodes[parent]->new_child(child_path);
+			nodes.insert(child, new_child);
+            to_visit.push_back(child);
 		}
     }
-    return poly_tree;
+    return root;
 }
 
 ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<PolyBooleanParameters2D> &p_params) {
 	using namespace ClipperLib;
 
 	switch (p_op) {
+		case OPERATION_NONE: {
+			clip_type = ctUnion;
+			WARN_PRINT_ONCE("OPERATION_NONE is not available in clipper6 backend, fallback to OPERATION_UNION.");
+		} break;
 		case OPERATION_UNION: clip_type = ctUnion; break;
 		case OPERATION_DIFFERENCE: clip_type = ctDifference; break;
 		case OPERATION_INTERSECTION: clip_type = ctIntersection; break;

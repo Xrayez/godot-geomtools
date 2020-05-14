@@ -63,4 +63,6 @@ void PolyNode2D::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_path"), &PolyNode2D::get_path);
     ClassDB::bind_method(D_METHOD("is_hole"), &PolyNode2D::is_hole);
     ClassDB::bind_method(D_METHOD("clear"), &PolyNode2D::clear);
+    
+    ADD_PROPERTY(PropertyInfo(Variant::POOL_VECTOR2_ARRAY, "path"), "set_path", "get_path");
 }
