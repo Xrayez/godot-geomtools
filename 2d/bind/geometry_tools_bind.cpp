@@ -108,7 +108,7 @@ Array GeometryTools2D::exclude_polygons_array(Array p_polygons_a, Array p_polygo
 	return ret;
 }
 
-Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanBase2D::Operation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); i++) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -117,7 +117,7 @@ Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanBase2D::Operat
 	for (int i = 0; i < p_polygons_b.size(); i++) {
 		polygons_b.push_back(p_polygons_b[i]);
 	}
-	return ::GeometryTools2D::polygons_boolean_tree(p_op, polygons_a, polygons_b, p_params);
+	return ::GeometryTools2D::polygons_boolean_tree(::GeometryTools2D::PolyBooleanOperation(p_op), polygons_a, polygons_b, p_params);
 }
 
 Array GeometryTools2D::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const {
@@ -330,6 +330,12 @@ void GeometryTools2D::_bind_methods() {
 	
 	ClassDB::bind_method(D_METHOD("regular_polygon", "sides", "size"), &GeometryTools2D::regular_polygon, DEFVAL(64.0));
 	ClassDB::bind_method(D_METHOD("circle", "radius", "max_error"), &GeometryTools2D::circle, DEFVAL(0.25));
+	
+	BIND_ENUM_CONSTANT(OPERATION_NONE);
+	BIND_ENUM_CONSTANT(OPERATION_UNION);
+	BIND_ENUM_CONSTANT(OPERATION_DIFFERENCE);
+	BIND_ENUM_CONSTANT(OPERATION_INTERSECTION);
+	BIND_ENUM_CONSTANT(OPERATION_XOR);
 }
 
 GeometryTools2D::GeometryTools2D() {

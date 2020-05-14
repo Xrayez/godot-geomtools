@@ -6,6 +6,13 @@
 
 class GeometryTools2D {
 public:
+	enum PolyBooleanOperation {
+		OPERATION_NONE, // May perform polygons fixup, build hierarchy etc.
+		OPERATION_UNION,
+		OPERATION_DIFFERENCE,
+		OPERATION_INTERSECTION,
+		OPERATION_XOR,
+	};
 	/* Polygon and polyline boolean operations */
 	static Vector<Vector<Point2> > merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params = nullptr);
 	static Vector<Vector<Point2> > clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params = nullptr);
@@ -19,7 +26,7 @@ public:
 	
 	// General-purpose polygon boolean operations.
 	// Returns a top-level root node which represents an hierarchy of polygons.
-	static Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanBase2D::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >(), Ref<PolyBooleanParameters2D> p_params = nullptr);
+	static Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >(), Ref<PolyBooleanParameters2D> p_params = nullptr);
 	
 	// Note: UNION and XOR do not apply here.
 	static Vector<Vector<Point2> > clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params = nullptr);

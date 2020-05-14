@@ -113,9 +113,9 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_polylines_with_polygons_array
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
 
-Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanBase2D::Operation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean_tree(p_op, p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean_tree(PolyBooleanBase2D::Operation(p_op), p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::inflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {

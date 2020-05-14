@@ -9,7 +9,7 @@ class PolyBooleanParameters2D;
 class PolyBooleanBase2D {
 public:
 	enum Operation {
-		OPERATION_NONE, // May perform polygons fixup, build hierarchy etc.
+		OPERATION_NONE,
 		OPERATION_UNION,
 		OPERATION_DIFFERENCE,
 		OPERATION_INTERSECTION,

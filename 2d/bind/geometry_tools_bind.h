@@ -18,6 +18,13 @@ public:
 	static GeometryTools2D *get_singleton() { return singleton; }
 	
 public:
+	enum PolyBooleanOperation {
+		OPERATION_NONE,
+		OPERATION_UNION,
+		OPERATION_DIFFERENCE,
+		OPERATION_INTERSECTION,
+		OPERATION_XOR,
+	};
 	Array merge_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
 	Array clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
 	Array intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) const;
@@ -28,7 +35,7 @@ public:
 	Array intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	Array exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 
-	Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanBase2D::Operation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
+	Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	
 	Array clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const;
 	Array intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const;
@@ -61,7 +68,7 @@ public:
 	GeometryTools2D();
 };
 
-VARIANT_ENUM_CAST(PolyBooleanBase2D::Operation);
+VARIANT_ENUM_CAST(GeometryTools2D::PolyBooleanOperation);
 
 } // namespace module_bind
 
