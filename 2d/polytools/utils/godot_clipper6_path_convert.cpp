@@ -1,4 +1,4 @@
-#include "godot_clipper_path_convert.h"
+#include "godot_clipper6_path_convert.h"
 
 namespace GodotClipperUtils {
 	

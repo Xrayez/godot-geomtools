@@ -14,8 +14,7 @@ source_dirs = [
     "boolean/%s" % (boolean_backend),
     "offset/%s" % (offset_backend),
     "decomp/%s" % (decomp_backend),
-    
-    "utils/clipper",
+    "utils",
 ]
 backends_enabled = [
     "// THIS FILE IS GENERATED, DO NOT EDIT!",

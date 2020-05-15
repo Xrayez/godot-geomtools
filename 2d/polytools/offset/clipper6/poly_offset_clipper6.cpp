@@ -1,5 +1,5 @@
 #include "poly_offset_clipper6.h"
-#include "modules/geomtools/2d/polytools/utils/clipper/godot_clipper_path_convert.h"
+#include "modules/geomtools/2d/polytools/utils/godot_clipper6_path_convert.h"
 
 Vector<Vector<Point2> > PolyOffset2DClipper6::offset_polypath(const Vector<Point2> &p_polypath, real_t p_delta) {
 	ClipperLib::ClipperOffset clp = configure(params);
