@@ -9,10 +9,10 @@ decomp_backend = env_geomtools["geomtools_polydecomp"]
 
 source_dirs = [
     "boolean",
-    "offset",
-    "decomp",
     "boolean/%s" % (boolean_backend),
+    "offset",
     "offset/%s" % (offset_backend),
+    "decomp",
     "decomp/%s" % (decomp_backend),
     "utils",
 ]
