@@ -1,22 +1,6 @@
 #include "poly_offset_clipper10.h"
 #include "modules/geomtools/2d/polytools/utils/godot_clipper10_path_convert.h"
 
-Vector<Vector<Point2> > PolyOffset2DClipper10::offset_polypath(const Vector<Point2> &p_polypath, real_t p_delta) {
-	clipperlib::ClipperOffset clp = configure(params);
-	
-	clipperlib::Path subject;
-	GodotClipperUtils::scale_up_polypath(p_polypath, subject);
-	clp.AddPath(subject, join_type, end_type);
-	
-	clipperlib::Paths solution;
-	clp.Execute(solution, p_delta * GEOMETRY_TOOLS_SCALE_FACTOR);
-	
-	Vector<Vector<Point2> > ret;
-	GodotClipperUtils::scale_down_polypaths(solution, ret);
-
-	return ret;
-}
-
 Vector<Vector<Point2> > PolyOffset2DClipper10::offset_polypaths_array(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) {
 	clipperlib::ClipperOffset clp = configure(params);
 	

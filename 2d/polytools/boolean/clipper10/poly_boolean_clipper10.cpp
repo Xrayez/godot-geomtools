@@ -1,28 +1,6 @@
 #include "poly_boolean_clipper10.h"
 #include "modules/geomtools/2d/polytools/utils/godot_clipper10_path_convert.h"
 
-Vector<Vector<Point2> > PolyBoolean2DClipper10::polypath_boolean(Operation p_op, const Vector<Point2> &p_polypath_a, const Vector<Point2> &p_polypath_b) {
-	clipperlib::Clipper clp = configure(p_op, params);
-	
-	clipperlib::Path subject;
-	GodotClipperUtils::scale_up_polypath(p_polypath_a, subject);
-	clp.AddPath(subject, clipperlib::ptSubject, subject_open);
-	
-	if (!p_polypath_b.empty()) { // Optional for merge operation.
-		clipperlib::Path clip;
-		GodotClipperUtils::scale_up_polypath(p_polypath_b, clip);
-		clp.AddPath(clip, clipperlib::ptClip, false);
-	}
-
-	clipperlib::Paths solution_closed;
-	clp.Execute(clip_type, solution_closed, subject_fill_rule);
-
-	Vector<Vector<Point2> > ret;
-	GodotClipperUtils::scale_down_polypaths(solution_closed, ret);
-
-	return ret;
-}
-
 Vector<Vector<Point2> > PolyBoolean2DClipper10::polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
 	clipperlib::Clipper clp = configure(p_op, params);
 	
