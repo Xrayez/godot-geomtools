@@ -73,22 +73,22 @@ Vector<Vector<Point2> > GeometryTools2D::exclude_polygons(const Vector<Point2> &
 	return poly_boolean->polypath_boolean(PolyBooleanBase2D::OPERATION_XOR, p_polygon_a, p_polygon_b);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::merge_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_UNION, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::clip_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::intersect_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::exclude_polygons_array(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_XOR, p_polygons_a, p_polygons_b);
 }
@@ -103,12 +103,12 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_polyline_with_polygon(const V
 	return poly_boolean->polypath_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polyline, p_polygon);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::clip_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = true;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_DIFFERENCE, p_polylines, p_polygons);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::intersect_polylines_with_polygons_array(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = true;
 	return poly_boolean->polypaths_boolean_array(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
@@ -130,13 +130,13 @@ Vector<Vector<Point2> > GeometryTools2D::deflate_polygon(const Vector<Point2> &p
 	return poly_offset->offset_polypath(p_polygon, p_delta);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::inflate_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::inflate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
 	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
 	configure_offset(p_params)->end_type = PolyOffsetParameters2D::END_POLYGON;
 	return poly_offset->offset_polypaths_array(p_polygons, -p_delta);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::deflate_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::deflate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
 	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
 	configure_offset(p_params)->end_type = PolyOffsetParameters2D::END_POLYGON;
 	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
@@ -152,7 +152,7 @@ Vector<Vector<Point2> > GeometryTools2D::deflate_polyline(const Vector<Point2> &
 	return poly_offset->offset_polypath(p_polyline, p_delta);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::deflate_polylines_array(const Vector<Vector<Point2> > &p_polylines, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::deflate_multiple_polylines(const Vector<Vector<Point2> > &p_polylines, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
 	ERR_FAIL_COND_V(p_delta < 0, Vector<Vector<Point2> >());
 	Ref<PolyOffsetParameters2D> params = configure_offset(p_params);
 	if (params->end_type == PolyOffsetParameters2D::END_POLYGON) {
@@ -167,7 +167,7 @@ Vector<Vector<Point2> > GeometryTools2D::offset_polygon(const Vector<Point2> &p_
 	return poly_offset->offset_polypath(p_polygon, p_delta);
 }
 
-Vector<Vector<Point2> > GeometryTools2D::offset_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::offset_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
 	configure_offset(p_params)->end_type = PolyOffsetParameters2D::END_POLYGON;
 	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
 }

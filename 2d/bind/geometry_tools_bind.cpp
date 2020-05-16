@@ -40,7 +40,7 @@ Array GeometryTools2D::exclude_polygons(const Vector<Point2> &p_polygon_a, const
 	return ret;
 }
 
-Array GeometryTools2D::merge_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::merge_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -49,7 +49,7 @@ Array GeometryTools2D::merge_polygons_array(Array p_polygons_a, Array p_polygons
 	for (int i = 0; i < p_polygons_b.size(); ++i) {
 		polygons_b.push_back(p_polygons_b[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::merge_polygons_array(polygons_a, polygons_b, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::merge_multiple_polygons(polygons_a, polygons_b, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -57,7 +57,7 @@ Array GeometryTools2D::merge_polygons_array(Array p_polygons_a, Array p_polygons
 	return ret;
 }
 
-Array GeometryTools2D::clip_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::clip_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -66,7 +66,7 @@ Array GeometryTools2D::clip_polygons_array(Array p_polygons_a, Array p_polygons_
 	for (int i = 0; i < p_polygons_b.size(); ++i) {
 		polygons_b.push_back(p_polygons_b[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::clip_polygons_array(polygons_a, polygons_b, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::clip_multiple_polygons(polygons_a, polygons_b, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -74,7 +74,7 @@ Array GeometryTools2D::clip_polygons_array(Array p_polygons_a, Array p_polygons_
 	return ret;
 }
 
-Array GeometryTools2D::intersect_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::intersect_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -83,7 +83,7 @@ Array GeometryTools2D::intersect_polygons_array(Array p_polygons_a, Array p_poly
 	for (int i = 0; i < p_polygons_b.size(); ++i) {
 		polygons_b.push_back(p_polygons_b[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::intersect_polygons_array(polygons_a, polygons_b, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::intersect_multiple_polygons(polygons_a, polygons_b, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -91,7 +91,7 @@ Array GeometryTools2D::intersect_polygons_array(Array p_polygons_a, Array p_poly
 	return ret;
 }
 
-Array GeometryTools2D::exclude_polygons_array(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::exclude_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Vector2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); ++i) {
 		polygons_a.push_back(p_polygons_a[i]);
@@ -100,7 +100,7 @@ Array GeometryTools2D::exclude_polygons_array(Array p_polygons_a, Array p_polygo
 	for (int i = 0; i < p_polygons_b.size(); ++i) {
 		polygons_b.push_back(p_polygons_b[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::exclude_polygons_array(polygons_a, polygons_b, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::exclude_multiple_polygons(polygons_a, polygons_b, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -138,7 +138,7 @@ Array GeometryTools2D::intersect_polyline_with_polygon(const Vector<Point2> &p_p
 	return ret;
 }
 
-Array GeometryTools2D::clip_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::clip_multiple_polylines_with_polygons(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Point2> > polylines;
 	for (int i = 0; i < p_polylines.size(); i++) {
 		polylines.push_back(p_polylines[i]);
@@ -147,7 +147,7 @@ Array GeometryTools2D::clip_polylines_with_polygons_array(const Array &p_polylin
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::clip_polylines_with_polygons_array(polylines, polygons, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::clip_multiple_polylines_with_polygons(polylines, polygons, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -155,7 +155,7 @@ Array GeometryTools2D::clip_polylines_with_polygons_array(const Array &p_polylin
 	return ret;
 }
 
-Array GeometryTools2D::intersect_polylines_with_polygons_array(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const {
+Array GeometryTools2D::intersect_multiple_polylines_with_polygons(const Array &p_polylines, const Array &p_polygons, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Point2> > polylines;
 	for (int i = 0; i < p_polylines.size(); i++) {
 		polylines.push_back(p_polylines[i]);
@@ -164,7 +164,7 @@ Array GeometryTools2D::intersect_polylines_with_polygons_array(const Array &p_po
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::intersect_polylines_with_polygons_array(polylines, polygons, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::intersect_multiple_polylines_with_polygons(polylines, polygons, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -190,12 +190,12 @@ Array GeometryTools2D::deflate_polygon(const Vector<Point2> &p_polygon, real_t p
 	return ret;
 }
 
-Array GeometryTools2D::inflate_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
+Array GeometryTools2D::inflate_multiple_polygons(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons;
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::inflate_polygons_array(polygons, p_delta, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::inflate_multiple_polygons(polygons, p_delta, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -203,12 +203,12 @@ Array GeometryTools2D::inflate_polygons_array(const Array &p_polygons, real_t p_
 	return ret;
 }
 
-Array GeometryTools2D::deflate_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
+Array GeometryTools2D::deflate_multiple_polygons(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons;
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::deflate_polygons_array(polygons, p_delta, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::deflate_multiple_polygons(polygons, p_delta, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -225,12 +225,12 @@ Array GeometryTools2D::deflate_polyline(const Vector<Point2> &p_polyline, real_t
 	return ret;
 }
 
-Array GeometryTools2D::deflate_polylines_array(const Array &p_polylines, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
+Array GeometryTools2D::deflate_multiple_polylines(const Array &p_polylines, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
 	Vector<Vector<Point2> > polylines;
 	for (int i = 0; i < p_polylines.size(); i++) {
 		polylines.push_back(p_polylines[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::deflate_polylines_array(polylines, p_delta, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::deflate_multiple_polylines(polylines, p_delta, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -247,12 +247,12 @@ Array GeometryTools2D::offset_polygon(const Vector<Point2> &p_polygon, real_t p_
 	return ret;
 }
 
-Array GeometryTools2D::offset_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
+Array GeometryTools2D::offset_multiple_polygons(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons;
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	Vector<Vector<Vector2> > solution = ::GeometryTools2D::offset_polygons_array(polygons, p_delta, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::offset_multiple_polygons(polygons, p_delta, p_params);
 	Array ret;
 	for (int i = 0; i < solution.size(); ++i) {
 		ret.push_back(solution[i]);
@@ -351,26 +351,26 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("intersect_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::intersect_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("exclude_polygons", "polygon_a", "polygon_b", "params"), &GeometryTools2D::exclude_polygons, DEFVAL(Variant()));
 	
-	ClassDB::bind_method(D_METHOD("merge_polygons_array", "polygons_a", "polygons_b", "params"), &GeometryTools2D::merge_polygons_array, DEFVAL(Variant()), DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("clip_polygons_array", "polygons_a", "polygons_b", "params"), &GeometryTools2D::clip_polygons_array, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("intersect_polygons_array", "polygons_a", "polygons_b", "params"), &GeometryTools2D::intersect_polygons_array, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("exclude_polygons_array", "polygons_a", "polygons_b", "params"), &GeometryTools2D::exclude_polygons_array, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("merge_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::merge_multiple_polygons, DEFVAL(Variant()), DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("clip_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::clip_multiple_polygons, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("intersect_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::intersect_multiple_polygons, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("exclude_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::exclude_multiple_polygons, DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("polygons_boolean_tree", "operation", "polygons_a", "polygons_b", "params"), &GeometryTools2D::polygons_boolean_tree, DEFVAL(Variant()), DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("clip_polyline_with_polygon", "polyline", "polygon", "params"), &GeometryTools2D::clip_polyline_with_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("intersect_polyline_with_polygon", "polyline", "polygon", "params"), &GeometryTools2D::intersect_polyline_with_polygon, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("clip_polylines_with_polygons_array", "polylines", "polygons", "params"), &GeometryTools2D::clip_polylines_with_polygons_array, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("intersect_polylines_with_polygons_array", "polylines", "polygons", "params"), &GeometryTools2D::intersect_polylines_with_polygons_array, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("clip_multiple_polylines_with_polygons", "polylines", "polygons", "params"), &GeometryTools2D::clip_multiple_polylines_with_polygons, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("intersect_multiple_polylines_with_polygons", "polylines", "polygons", "params"), &GeometryTools2D::intersect_multiple_polylines_with_polygons, DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("inflate_polygon", "polygon", "delta", "params"), &GeometryTools2D::inflate_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("deflate_polygon", "polygon", "delta", "params"), &GeometryTools2D::deflate_polygon, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("inflate_polygons_array", "polygons", "delta", "params"), &GeometryTools2D::inflate_polygons_array, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("deflate_polygons_array", "polygons", "delta", "params"), &GeometryTools2D::deflate_polygons_array, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("inflate_multiple_polygons", "polygons", "delta", "params"), &GeometryTools2D::inflate_multiple_polygons, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("deflate_multiple_polygons", "polygons", "delta", "params"), &GeometryTools2D::deflate_multiple_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("deflate_polyline", "polyline", "delta", "params"), &GeometryTools2D::deflate_polyline, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("deflate_polylines_array", "polylines", "delta", "params"), &GeometryTools2D::deflate_polylines_array, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("deflate_multiple_polylines", "polylines", "delta", "params"), &GeometryTools2D::deflate_multiple_polylines, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("offset_polygon", "polygon", "delta", "params"), &GeometryTools2D::offset_polygon, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("offset_polygons_array", "polygons", "delta", "params"), &GeometryTools2D::offset_polygons_array, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("offset_multiple_polygons", "polygons", "delta", "params"), &GeometryTools2D::offset_multiple_polygons, DEFVAL(Variant()));
 
 	ClassDB::bind_method(D_METHOD("triangulate_polygon", "polygon", "params"), &GeometryTools2D::triangulate_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("triangulate_multiple_polygons", "polygon", "params"), &GeometryTools2D::triangulate_multiple_polygons, DEFVAL(Variant()));
