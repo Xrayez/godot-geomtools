@@ -17,8 +17,8 @@ def configure(env):
         elif name == "polyoffset_2d":
             opts.Add("geomtools_polyoffset_2d", "Library used for polygon offsetting. (%s)" % (choices), "clipper6")
         elif name == "polydecomp_2d":
-            opts.Add("geomtools_polydecomp_2d", "Library used for polygon decomposition. (%s)" % (choices), "builtin")
-            
+            opts.Add("geomtools_polydecomp_2d", "Library used for polygon decomposition. (%s)" % (choices), "clipper10")
+
     opts.Add("geomtools_scale_factor", 
         "The precision used for converting between integer and float coordinates throughout " +
         "poly backends implementations for computational robustness purposes.", "1e5")

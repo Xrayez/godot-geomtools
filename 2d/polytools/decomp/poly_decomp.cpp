@@ -115,7 +115,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::triangulate_mono(const Vector<Vector<P
     TriangulatorPartition tpart;
     List<TriangulatorPoly> out_poly;
     
-    // FIXME: This crashes for some reason.
+    // FIXME: This crashes for some reason!
     if (tpart.Triangulate_MONO(&in_poly, &out_poly) == 0) {
 		ERR_PRINT("Triangulation failed!");
 		return Vector<Vector<Point2> >();
