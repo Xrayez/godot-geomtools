@@ -15,7 +15,7 @@ public:
 		OPERATION_INTERSECTION,
 		OPERATION_XOR,
 	};
-	virtual Vector<Vector<Point2> > polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
+	virtual Vector<Vector<Point2> > polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
 	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
 
 public:

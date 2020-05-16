@@ -1,7 +1,7 @@
 #include "poly_boolean_clipper10.h"
 #include "modules/geomtools/2d/polytools/utils/godot_clipper10_path_convert.h"
 
-Vector<Vector<Point2> > PolyBoolean2DClipper10::polypaths_boolean_array(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
+Vector<Vector<Point2> > PolyBoolean2DClipper10::polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
 	clipperlib::Clipper clp = configure(p_op, params);
 	
 	clipperlib::Paths subject;

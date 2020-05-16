@@ -1,7 +1,7 @@
 #include "poly_offset_clipper10.h"
 #include "modules/geomtools/2d/polytools/utils/godot_clipper10_path_convert.h"
 
-Vector<Vector<Point2> > PolyOffset2DClipper10::offset_polypaths_array(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) {
+Vector<Vector<Point2> > PolyOffset2DClipper10::offset_polypaths(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) {
 	clipperlib::ClipperOffset clp = configure(params);
 	
 	clipperlib::Paths subject;
