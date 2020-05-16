@@ -51,6 +51,7 @@ public:
 	
 	/* Polygon decomposition */
 	static Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
+	static Vector<Point2> triangulate_multiple_polygons_vertices(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params = nullptr);
 	
 	/* Polygon/Polyline attributes */
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);

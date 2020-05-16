@@ -177,6 +177,11 @@ Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2
 	return poly_decomp->triangulate_polygon_vertices(p_polygon);
 }
 
+Vector<Point2> GeometryTools2D::triangulate_multiple_polygons_vertices(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
+	configure_decomp(p_params);
+	return poly_decomp->triangulate_multiple_polygons_vertices(p_polygons);
+}
+
 Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {
 	// Based on formulae from:
 	// "Calculating The Area And Centroid Of A Polygon" Written by Paul Bourke July 1988
