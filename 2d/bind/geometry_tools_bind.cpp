@@ -304,6 +304,19 @@ Array GeometryTools2D::decompose_multiple_polygons_into_convex(const Array &p_po
 	return ret;
 }
 
+Array GeometryTools2D::decompose_polygons(PolyDecompType p_type, const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const {
+	Vector<Vector<Point2> > polygons;
+	for (int i = 0; i < p_polygons.size(); i++) {
+		polygons.push_back(p_polygons[i]);
+	}
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::decompose_polygons(::GeometryTools2D::PolyDecompType(p_type), polygons, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
 Vector2 GeometryTools2D::polygon_centroid(const Vector<Vector2> &p_polygon) const {
 	return ::GeometryTools2D::polygon_centroid(p_polygon);
 }
@@ -363,6 +376,8 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("triangulate_multiple_polygons", "polygon", "params"), &GeometryTools2D::triangulate_multiple_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("decompose_polygon_into_convex", "polygon", "params"), &GeometryTools2D::decompose_polygon_into_convex, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("decompose_multiple_polygons_into_convex", "polygon", "params"), &GeometryTools2D::decompose_multiple_polygons_into_convex, DEFVAL(Variant()));
+	
+	ClassDB::bind_method(D_METHOD("decompose_polygons", "type", "polygons", "params"), &GeometryTools2D::decompose_polygons, DEFVAL(Variant()));
 
 	ClassDB::bind_method(D_METHOD("polygon_centroid", "polygon"), &GeometryTools2D::polygon_centroid);
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
@@ -379,6 +394,9 @@ void GeometryTools2D::_bind_methods() {
 	BIND_ENUM_CONSTANT(OPERATION_DIFFERENCE);
 	BIND_ENUM_CONSTANT(OPERATION_INTERSECTION);
 	BIND_ENUM_CONSTANT(OPERATION_XOR);
+	
+	BIND_ENUM_CONSTANT(DECOMP_TRIANGLES);
+	BIND_ENUM_CONSTANT(DECOMP_CONVEX);
 }
 
 GeometryTools2D::GeometryTools2D() {

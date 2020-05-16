@@ -196,6 +196,11 @@ Vector<Vector<Point2> > GeometryTools2D::decompose_multiple_polygons_into_convex
 	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX, p_polygons);
 }
 
+Vector<Vector<Point2> > GeometryTools2D::decompose_polygons(PolyDecompType p_type, const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
+	configure_decomp(p_params);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DecompType(p_type), p_polygons);
+}
+
 Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {
 	// Based on formulae from:
 	// "Calculating The Area And Centroid Of A Polygon" Written by Paul Bourke July 1988

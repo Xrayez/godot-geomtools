@@ -53,11 +53,17 @@ public:
 	Array offset_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	Array offset_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	
+	enum PolyDecompType {
+		DECOMP_TRIANGLES,
+		DECOMP_CONVEX,
+	};
 	Array triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const;
 	Array triangulate_multiple_polygons(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const;
 	Array decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const;
 	Array decompose_multiple_polygons_into_convex(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const;
-	
+
+	Array decompose_polygons(PolyDecompType p_type, const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const;
+
 	Vector2 polygon_centroid(const Vector<Vector2> &p_polygon) const;
 	real_t polygon_area(const Vector<Vector2> &p_polygon) const;
 	real_t polygon_perimeter(const Vector<Vector2> &p_polygon) const;
@@ -72,6 +78,7 @@ public:
 };
 
 VARIANT_ENUM_CAST(GeometryTools2D::PolyBooleanOperation);
+VARIANT_ENUM_CAST(GeometryTools2D::PolyDecompType);
 
 } // namespace module_bind
 
