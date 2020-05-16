@@ -260,16 +260,48 @@ Array GeometryTools2D::offset_polygons_array(const Array &p_polygons, real_t p_d
 	return ret;
 }
 
-Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const {
-	return ::GeometryTools2D::triangulate_polygon_vertices(p_polygon, p_params);
+Array GeometryTools2D::triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const {
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::triangulate_polygon(p_polygon, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
 }
 
-Vector<Point2> GeometryTools2D::triangulate_multiple_polygons_vertices(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const {
+Array GeometryTools2D::decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const {
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::decompose_polygon_into_convex(p_polygon, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
+Array GeometryTools2D::triangulate_multiple_polygons(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons;
 	for (int i = 0; i < p_polygons.size(); i++) {
 		polygons.push_back(p_polygons[i]);
 	}
-	return ::GeometryTools2D::triangulate_multiple_polygons_vertices(polygons, p_params);
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::triangulate_multiple_polygons(polygons, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
+Array GeometryTools2D::decompose_multiple_polygons_into_convex(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const {
+	Vector<Vector<Point2> > polygons;
+	for (int i = 0; i < p_polygons.size(); i++) {
+		polygons.push_back(p_polygons[i]);
+	}
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::decompose_multiple_polygons_into_convex(polygons, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
 }
 
 Vector2 GeometryTools2D::polygon_centroid(const Vector<Vector2> &p_polygon) const {
@@ -326,10 +358,12 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("deflate_polylines_array", "polylines", "delta", "params"), &GeometryTools2D::deflate_polylines_array, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("offset_polygon", "polygon", "delta", "params"), &GeometryTools2D::offset_polygon, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("offset_polygons_array", "polygons", "delta", "params"), &GeometryTools2D::offset_polygons_array, DEFVAL(Variant()));
-	
-	ClassDB::bind_method(D_METHOD("triangulate_polygon_vertices", "polygon", "params"), &GeometryTools2D::triangulate_polygon_vertices, DEFVAL(Variant()));
-	ClassDB::bind_method(D_METHOD("triangulate_multiple_polygons_vertices", "polygons", "params"), &GeometryTools2D::triangulate_multiple_polygons_vertices, DEFVAL(Variant()));
-	
+
+	ClassDB::bind_method(D_METHOD("triangulate_polygon", "polygon", "params"), &GeometryTools2D::triangulate_polygon, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("triangulate_multiple_polygons", "polygon", "params"), &GeometryTools2D::triangulate_multiple_polygons, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("decompose_polygon_into_convex", "polygon", "params"), &GeometryTools2D::decompose_polygon_into_convex, DEFVAL(Variant()));
+	ClassDB::bind_method(D_METHOD("decompose_multiple_polygons_into_convex", "polygon", "params"), &GeometryTools2D::decompose_multiple_polygons_into_convex, DEFVAL(Variant()));
+
 	ClassDB::bind_method(D_METHOD("polygon_centroid", "polygon"), &GeometryTools2D::polygon_centroid);
 	ClassDB::bind_method(D_METHOD("polygon_area", "polygon"), &GeometryTools2D::polygon_area);
 	ClassDB::bind_method(D_METHOD("polygon_perimeter", "polygon"), &GeometryTools2D::polygon_perimeter);

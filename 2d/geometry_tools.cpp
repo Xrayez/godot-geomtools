@@ -172,14 +172,28 @@ Vector<Vector<Point2> > GeometryTools2D::offset_polygons_array(const Vector<Vect
 	return poly_offset->offset_polypaths_array(p_polygons, p_delta);
 }
 
-Vector<Point2> GeometryTools2D::triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->triangulate_polygon_vertices(p_polygon);
+	Vector<Vector<Point2> > polygons;
+	polygons.push_back(p_polygon);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES, polygons);
 }
 
-Vector<Point2> GeometryTools2D::triangulate_multiple_polygons_vertices(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
+Vector<Vector<Point2> > GeometryTools2D::triangulate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->triangulate_multiple_polygons_vertices(p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES, p_polygons);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
+	configure_decomp(p_params);
+	Vector<Vector<Point2> > polygons;
+	polygons.push_back(p_polygon);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX, polygons);
+}
+
+Vector<Vector<Point2> > GeometryTools2D::decompose_multiple_polygons_into_convex(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
+	configure_decomp(p_params);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX, p_polygons);
 }
 
 Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {

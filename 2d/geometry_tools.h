@@ -50,8 +50,10 @@ public:
 	static Vector<Vector<Point2> > offset_polygons_array(const Vector<Vector<Point2> > &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params = nullptr);
 	
 	/* Polygon decomposition */
-	static Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
-	static Vector<Point2> triangulate_multiple_polygons_vertices(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params = nullptr);
+	static Vector<Vector<Point2> > triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
+	static Vector<Vector<Point2> > triangulate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params = nullptr);
+	static Vector<Vector<Point2> > decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
+	static Vector<Vector<Point2> > decompose_multiple_polygons_into_convex(const Vector<Vector<Point2> > &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
 	
 	/* Polygon/Polyline attributes */
 	static Point2 polygon_centroid(const Vector<Point2> &p_polygon);

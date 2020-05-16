@@ -7,11 +7,18 @@ class PolyDecompParameters2D;
 
 class PolyDecompBase2D {
 public:
-	virtual Vector<Point2> triangulate_polygon_vertices(const Vector<Point2> &p_polygon) = 0;
-	virtual Vector<Point2> triangulate_multiple_polygons_vertices(const Vector<Vector<Point2> > &p_polygons) = 0;
+	enum DecompType {
+		DECOMP_TRIANGLES,
+		DECOMP_CONVEX,
+	};
+	virtual Vector<Vector<Point2> > decompose_polygons(DecompType p_type, const Vector<Vector<Point2> > &p_polygons);
+	
+	virtual Vector<Vector<Point2> > triangulate_polygons(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > decompose_polygons_into_convex(const Vector<Vector<Point2> > &p_polygons);
 
 public:
 	void set_params(const Ref<PolyDecompParameters2D> &p_params) { params = p_params; }
+
 protected:
 	Ref<PolyDecompParameters2D> params;
 };
@@ -29,6 +36,8 @@ public:
 	
 public:
 	FillRule fill_rule = FILL_RULE_NON_ZERO;
+	// Steiner points...
+	// Inner polygons indices...
 	
 protected:
 	static void _bind_methods();
