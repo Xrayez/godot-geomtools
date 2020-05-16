@@ -3,9 +3,9 @@ import os
 
 def detect_backends():
     types = {}
-    types["polyboolean"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
-    types["polyoffset"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
-    types["polydecomp"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "decomp", "*"))
+    types["polyboolean_2d"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "boolean", "*"))
+    types["polyoffset_2d"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "offset", "*"))
+    types["polydecomp_2d"] = detect_backends_at_path(os.path.join(get_module_path(), "2d", "polytools", "decomp", "*"))
     return types
 
 

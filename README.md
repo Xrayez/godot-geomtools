@@ -48,9 +48,9 @@ There are a handful of back-ends to choose from:
 
 | Class         | Backends                | Default     |
 | ------------- | ----------------------- | ----------- |
-| `polyboolean` | `clipper6`, `clipper10` | `clipper6`  |
-| `polyoffset`  | `clipper6`, `clipper10` | `clipper6`  |
-| `polydecomp`  | `clipper10`, `builtin`  | `clipper10` |
+| `polyboolean_2d` | `clipper6`, `clipper10` | `clipper6`  |
+| `polyoffset_2d`  | `clipper6`, `clipper10` | `clipper6`  |
+| `polydecomp_2d`  | `clipper10`, `builtin`  | `clipper10` |
 
 #### Differences
 
@@ -72,15 +72,15 @@ to rely on the module's experimental implementations (such as `clipper10`).
 
 | Name                     | Description                                                              |
 | ------------------------ | ------------------------------------------------------------------------ |
-| `geomtools_polyboolean`  | The backend used for polygon and polyline clipping.                      |
-| `geomtools_polyoffset`   | The backend used for polygon and polyline deflating and inflating.       |
-| `geomtools_polydecomp`  | The backend used for polygon decomposition (triangulation).              |
+| `geomtools_polyboolean_2d`  | The backend used for polygon and polyline clipping.                      |
+| `geomtools_polyoffset_2d`   | The backend used for polygon and polyline deflating and inflating.       |
+| `geomtools_polydecomp_2d`  | The backend used for polygon decomposition (triangulation).              |
 | `geomtools_scale_factor` | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
 
 The default backends used can be overridden before a build. For instance, to use
 the latest Clipper backend for all methods:
 ```
-scons geomtools_polyboolean=clipper10 geomtools_polyoffset=clipper10 geomtools_polydecomp=clipper10
+scons geomtools_polyboolean_2d=clipper10 geomtools_polyoffset_2d=clipper10 geomtools_polydecomp_2d=clipper10
 ```
 
 ## Contributing

@@ -3,9 +3,9 @@ Import('env')
 Import('env_geomtools')
 import os
 
-boolean_backend = env_geomtools["geomtools_polyboolean"]
-offset_backend = env_geomtools["geomtools_polyoffset"]
-decomp_backend = env_geomtools["geomtools_polydecomp"]
+boolean_backend = env_geomtools["geomtools_polyboolean_2d"]
+offset_backend = env_geomtools["geomtools_polyoffset_2d"]
+decomp_backend = env_geomtools["geomtools_polydecomp_2d"]
 
 source_dirs = [
     "boolean",
