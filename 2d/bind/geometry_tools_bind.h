@@ -54,8 +54,11 @@ public:
 	Array offset_polygons_array(const Array &p_polygons, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) const;
 	
 	enum PolyDecompType {
-		DECOMP_TRIANGLES,
-		DECOMP_CONVEX,
+		DECOMP_TRIANGLES_EC, 
+		DECOMP_TRIANGLES_OPT, 
+		DECOMP_TRIANGLES_MONO,
+		DECOMP_CONVEX_HM,
+		DECOMP_CONVEX_OPT,
 	};
 	Array triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) const;
 	Array triangulate_multiple_polygons(const Array &p_polygons, Ref<PolyDecompParameters2D> p_params) const;

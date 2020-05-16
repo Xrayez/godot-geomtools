@@ -2,19 +2,26 @@
 #define GEOMETRY_POLY_DECOMP_H
 
 #include "core/reference.h"
+#include "thirdparty/misc/triangulator.h"
 
 class PolyDecompParameters2D;
 
 class PolyDecompBase2D {
 public:
 	enum DecompType {
-		DECOMP_TRIANGLES,
-		DECOMP_CONVEX,
+		DECOMP_TRIANGLES_EC, 
+		DECOMP_TRIANGLES_OPT, 
+		DECOMP_TRIANGLES_MONO,
+		DECOMP_CONVEX_HM,
+		DECOMP_CONVEX_OPT,
 	};
 	virtual Vector<Vector<Point2> > decompose_polygons(DecompType p_type, const Vector<Vector<Point2> > &p_polygons);
 	
-	virtual Vector<Vector<Point2> > triangulate_polygons(const Vector<Vector<Point2> > &p_polygons);
-	virtual Vector<Vector<Point2> > decompose_polygons_into_convex(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > triangulate_ec(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > triangulate_opt(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > triangulate_mono(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > decompose_convex_hm(const Vector<Vector<Point2> > &p_polygons);
+	virtual Vector<Vector<Point2> > decompose_convex_opt(const Vector<Vector<Point2> > &p_polygons);
 
 public:
 	void set_params(const Ref<PolyDecompParameters2D> &p_params) { params = p_params; }

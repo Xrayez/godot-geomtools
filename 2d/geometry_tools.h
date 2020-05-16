@@ -51,8 +51,11 @@ public:
 	
 	/* Polygon decomposition */
 	enum PolyDecompType {
-		DECOMP_TRIANGLES,
-		DECOMP_CONVEX,
+		DECOMP_TRIANGLES_EC, // Ear clipping algorithm.
+		DECOMP_TRIANGLES_OPT, // Minimal edge length.
+		DECOMP_TRIANGLES_MONO, // Mono polygon partitioning, then triangulate.
+		DECOMP_CONVEX_HM, // Hertel-Mehlhorn algorithm.
+		DECOMP_CONVEX_OPT, // Minimal number of convex polygons.
 	};
 	static Vector<Vector<Point2> > triangulate_polygon(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params = nullptr);
 	static Vector<Vector<Point2> > triangulate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params = nullptr);

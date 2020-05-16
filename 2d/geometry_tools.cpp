@@ -176,24 +176,24 @@ Vector<Vector<Point2> > GeometryTools2D::triangulate_polygon(const Vector<Point2
 	configure_decomp(p_params);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES, polygons);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES_EC, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::triangulate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES, p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES_EC, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX, polygons);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX_HM, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_multiple_polygons_into_convex(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX, p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX_HM, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_polygons(PolyDecompType p_type, const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
