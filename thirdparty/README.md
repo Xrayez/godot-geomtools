@@ -4,7 +4,7 @@
 
 - Upstream: https://sourceforge.net/projects/polyclipping/
 - Version: 10.0.0 r539 (sandbox)
-- License: Boost
+- License: Boost Software License - Version 1.0
 
 ### Changes
 
