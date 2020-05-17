@@ -108,6 +108,23 @@ Array GeometryTools2D::exclude_multiple_polygons(Array p_polygons_a, Array p_pol
 	return ret;
 }
 
+Array GeometryTools2D::polygons_boolean(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
+	Vector<Vector<Vector2> > polygons_a;
+	for (int i = 0; i < p_polygons_a.size(); ++i) {
+		polygons_a.push_back(p_polygons_a[i]);
+	}
+	Vector<Vector<Vector2> > polygons_b;
+	for (int i = 0; i < p_polygons_b.size(); ++i) {
+		polygons_b.push_back(p_polygons_b[i]);
+	}
+	Vector<Vector<Vector2> > solution = ::GeometryTools2D::polygons_boolean(::GeometryTools2D::PolyBooleanOperation(p_op), polygons_a, polygons_b, p_params);
+	Array ret;
+	for (int i = 0; i < solution.size(); ++i) {
+		ret.push_back(solution[i]);
+	}
+	return ret;
+}
+
 Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const {
 	Vector<Vector<Point2> > polygons_a;
 	for (int i = 0; i < p_polygons_a.size(); i++) {
@@ -356,6 +373,7 @@ void GeometryTools2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("intersect_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::intersect_multiple_polygons, DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("exclude_multiple_polygons", "polygons_a", "polygons_b", "params"), &GeometryTools2D::exclude_multiple_polygons, DEFVAL(Variant()));
 	
+	ClassDB::bind_method(D_METHOD("polygons_boolean", "operation", "polygons_a", "polygons_b", "params"), &GeometryTools2D::polygons_boolean, DEFVAL(Variant()), DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("polygons_boolean_tree", "operation", "polygons_a", "polygons_b", "params"), &GeometryTools2D::polygons_boolean_tree, DEFVAL(Variant()), DEFVAL(Variant()));
 	
 	ClassDB::bind_method(D_METHOD("clip_polyline_with_polygon", "polyline", "polygon", "params"), &GeometryTools2D::clip_polyline_with_polygon, DEFVAL(Variant()));

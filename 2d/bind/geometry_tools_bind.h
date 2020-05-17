@@ -35,6 +35,7 @@ public:
 	Array intersect_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	Array exclude_multiple_polygons(Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 
+	Array polygons_boolean(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanOperation p_op, Array p_polygons_a, Array p_polygons_b, Ref<PolyBooleanParameters2D> p_params) const;
 	
 	Array clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) const;

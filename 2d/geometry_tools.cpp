@@ -137,6 +137,11 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_multiple_polylines_with_polyg
 	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
 
+Vector<Vector<Point2> > GeometryTools2D::polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
+	configure_boolean(p_params)->subject_open = false;
+	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::Operation(p_op), p_polygons_a, p_polygons_b);
+}
+
 Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
 	return poly_boolean->polypaths_boolean_tree(PolyBooleanBase2D::Operation(p_op), p_polygons_a, p_polygons_b);

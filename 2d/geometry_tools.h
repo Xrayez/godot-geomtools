@@ -25,6 +25,8 @@ public:
 	static Vector<Vector<Point2> > exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params = nullptr);
 	
 	// General-purpose polygon boolean operations.
+	static Vector<Vector<Point2> > polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >(), Ref<PolyBooleanParameters2D> p_params = nullptr);
+	
 	// Returns a top-level root node which represents an hierarchy of polygons.
 	static Ref<PolyNode2D> polygons_boolean_tree(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b = Vector<Vector<Point2> >(), Ref<PolyBooleanParameters2D> p_params = nullptr);
 	
