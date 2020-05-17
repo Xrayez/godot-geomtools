@@ -22,6 +22,8 @@ public:
 	virtual Vector<Vector<Point2> > triangulate_mono(const Vector<Vector<Point2> > &p_polygons);
 	virtual Vector<Vector<Point2> > decompose_convex_hm(const Vector<Vector<Point2> > &p_polygons);
 	virtual Vector<Vector<Point2> > decompose_convex_opt(const Vector<Vector<Point2> > &p_polygons);
+	
+	virtual String get_name() const { return "builtin"; }
 
 public:
 	void set_params(const Ref<PolyDecompParameters2D> &p_params) { params = p_params; }

@@ -80,14 +80,17 @@ public:
 	static Vector<Point2> regular_polygon(int p_edge_count, real_t p_size);
 	static Vector<Point2> circle(real_t p_radius, real_t p_max_error = 0.25);
 	
+public:
+	static void initialize();
+	static void finalize();
+	
+	static String get_backend_name(const String &p_type);
+	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
 	static Ref<PolyOffsetParameters2D> configure_offset(const Ref<PolyOffsetParameters2D> &p_params);
 	static Ref<PolyDecompParameters2D> configure_decomp(const Ref<PolyDecompParameters2D> &p_params);
-
-public:
-	static void initialize();
-	static void finalize();
+	
 private:
 	static PolyBoolean2D *poly_boolean;
 	static PolyOffset2D *poly_offset;

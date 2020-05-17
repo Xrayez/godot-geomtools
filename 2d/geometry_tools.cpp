@@ -26,6 +26,18 @@ void GeometryTools2D::finalize() {
 	memdelete(poly_decomp);
 }
 
+String GeometryTools2D::get_backend_name(const String &p_type) {
+	String name;
+	if (p_type == "polyboolean") {
+		name = poly_boolean->get_name();
+	} else if (p_type == "polyoffset") {
+		name = poly_offset->get_name();
+	} else if (p_type == "polydecomp") {
+		name = poly_decomp->get_name();
+	}
+	return name;
+}
+
 Ref<PolyBooleanParameters2D> GeometryTools2D::configure_boolean(const Ref<PolyBooleanParameters2D> &p_params) {
 	if (p_params.is_valid()) {
 		poly_boolean->set_params(p_params);

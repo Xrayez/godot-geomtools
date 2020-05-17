@@ -359,7 +359,11 @@ Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size)
 }
 
 Vector<Point2> GeometryTools2D::circle(real_t p_radius, real_t p_max_error) const {
-	return ::GeometryTools2D::circle(p_radius, p_max_error);
+	return GeometryTools2D::circle(p_radius, p_max_error);
+}
+
+String GeometryTools2D::get_backend_name(const String &p_type) const {
+	return ::GeometryTools2D::get_backend_name(p_type);
 }
 
 void GeometryTools2D::_bind_methods() {
@@ -406,6 +410,8 @@ void GeometryTools2D::_bind_methods() {
 	
 	ClassDB::bind_method(D_METHOD("regular_polygon", "sides", "size"), &GeometryTools2D::regular_polygon, DEFVAL(64.0));
 	ClassDB::bind_method(D_METHOD("circle", "radius", "max_error"), &GeometryTools2D::circle, DEFVAL(0.25));
+	
+	ClassDB::bind_method(D_METHOD("get_backend_name", "type"), &GeometryTools2D::get_backend_name);
 	
 	BIND_ENUM_CONSTANT(OPERATION_NONE);
 	BIND_ENUM_CONSTANT(OPERATION_UNION);
