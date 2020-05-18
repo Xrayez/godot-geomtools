@@ -14,16 +14,16 @@ polygon clipping, offsetting (deflating/buffering) and decomposition
 such as polygon area, centroid of a polygon, point in polygon, and generating
 geometrical shapes at run-time.
 
-Each class of the methods are implemented by their respective back-ends and can
-be switched at compile-time. See below instructions on the various options on
-how to configure the build.
-
 The interface is similar to what you can see in the `Geometry` singleton
 regarding polygon clipping and offsetting first introduced in
 [Godot Engine 3.2](https://github.com/godotengine/godot/pull/28987), yet the
 module brings many other possibilities such as multiple polygon clipping,
 building polygon hierarchy, exposing other not-so-common parameters and of
 course QoL methods, if necessary.
+
+Each class of the methods are implemented by their respective back-ends and can
+be switched at compile-time. See below instructions on the various options on
+how to configure the build.
 
 ## Installation
 
@@ -46,8 +46,8 @@ scons platform=windows target=release_debug bits=64
 
 There are a handful of back-ends to choose from:
 
-| Class         | Backends                | Default     |
-| ------------- | ----------------------- | ----------- |
+| Class            | Backends                | Default     |
+| ---------------- | ----------------------- | ----------- |
 | `polyboolean_2d` | `clipper6`, `clipper10` | `clipper6`  |
 | `polyoffset_2d`  | `clipper6`, `clipper10` | `clipper6`  |
 | `polydecomp_2d`  | `clipper10`, `builtin`  | `clipper10` |
@@ -70,12 +70,12 @@ to rely on the module's experimental implementations (such as `clipper10`).
 
 #### Command line options
 
-| Name                     | Description                                                              |
-| ------------------------ | ------------------------------------------------------------------------ |
-| `geomtools_polyboolean_2d`  | The backend used for polygon and polyline clipping.                      |
-| `geomtools_polyoffset_2d`   | The backend used for polygon and polyline deflating and inflating.       |
-| `geomtools_polydecomp_2d`  | The backend used for polygon decomposition (triangulation).              |
-| `geomtools_scale_factor` | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
+| Name                       | Description                                                                                                                                                      |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `geomtools_polyboolean_2d` | The backend used for polygon and polyline clipping.                                                                                                              |
+| `geomtools_polyoffset_2d`  | The backend used for polygon and polyline deflating and inflating.                                                                                               |
+| `geomtools_polydecomp_2d`  | The backend used for polygon decomposition (triangulation).                                                                                                      |
+| `geomtools_scale_factor`   | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
 
 The default backends used can be overridden before a build. For instance, to use
 the latest Clipper backend for all methods:
