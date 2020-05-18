@@ -359,7 +359,7 @@ Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size)
 }
 
 Vector<Point2> GeometryTools2D::circle(real_t p_radius, real_t p_max_error) const {
-	return GeometryTools2D::circle(p_radius, p_max_error);
+	return ::GeometryTools2D::circle(p_radius, p_max_error);
 }
 
 String GeometryTools2D::get_backend_name(const String &p_type) const {
