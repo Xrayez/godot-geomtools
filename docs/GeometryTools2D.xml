@@ -492,7 +492,7 @@
 			Time/Space complexity: O(n^2)/O(n).
 		</constant>
 		<constant name="DECOMP_CONVEX_OPT" value="4" enum="PolyDecompType">
-		 	Optimal convex partition using dynamic programming algorithm by Keil and Snoeyink.
+			Optimal convex partition using dynamic programming algorithm by Keil and Snoeyink.
 			Time/Space complexity: O(n^3)/O(n^3).
 		</constant>
 	</constants>

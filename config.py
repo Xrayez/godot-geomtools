@@ -39,6 +39,10 @@ def configure(env):
 def get_doc_classes():
     return [
         "GeometryTools2D",
+        "PolyBooleanParameters2D",
+        "PolyOffsetParameters2D",
+        "PolyDecompParameters2D",
+        "PolyNode2D",
     ]
 
 
