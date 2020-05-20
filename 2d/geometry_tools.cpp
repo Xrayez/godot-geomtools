@@ -1,29 +1,55 @@
 #include "geometry_tools.h"
+#include "polytools/boolean/clipper6/poly_boolean_clipper6.h"
+#include "polytools/boolean/clipper10/poly_boolean_clipper10.h"
+#include "core/project_settings.h"
 
-PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
-PolyOffset2D *GeometryTools2D::poly_offset = nullptr;
-PolyDecomp2D *GeometryTools2D::poly_decomp = nullptr;
+PolyBooleanBase2D *GeometryTools2D::poly_boolean = nullptr;
+PolyOffsetBase2D *GeometryTools2D::poly_offset = nullptr;
+PolyDecompBase2D *GeometryTools2D::poly_decomp = nullptr;
 
 Ref<PolyBooleanParameters2D> GeometryTools2D::default_poly_boolean_params = nullptr;
 Ref<PolyOffsetParameters2D> GeometryTools2D::default_poly_offset_params = nullptr;
 Ref<PolyDecompParameters2D> GeometryTools2D::default_poly_decomp_params = nullptr;
 
+PolyBackend2DManager<PolyBooleanBase2D *> GeometryTools2DManager::poly_boolean = PolyBackend2DManager<PolyBooleanBase2D *>();
+
 void GeometryTools2D::initialize() {
+	GeometryTools2DManager::poly_boolean.setting_name = "modules/geometry_tools/poly_boolean_backend";
+	
 	default_poly_boolean_params.instance();
 	default_poly_offset_params.instance();
 	default_poly_decomp_params.instance();
-	poly_boolean = memnew(PolyBoolean2D);
-	poly_offset = memnew(PolyOffset2D);
-	poly_decomp = memnew(PolyDecomp2D);
+	
+	PolyBooleanBase2D* default_poly_boolean_backend = polytools::register_class<PolyBoolean2DClipper6>();
+	polytools::register_class<PolyBoolean2DClipper10>();
+
+	String backends_list;
+	const int backends_count = GeometryTools2DManager::poly_boolean.get_backends_count();
+	
+	for(int i = 0; i < backends_count; ++i) {
+		backends_list += GeometryTools2DManager::poly_boolean.get_backend_name(i);
+		if (i < backends_count - 1) {
+			backends_list += ",";
+		}
+	}
+	// Suggest restart because the singleton can also be used in tool mode.
+	GLOBAL_DEF_RST(GeometryTools2DManager::poly_boolean.setting_name, default_poly_boolean_backend->get_name());
+	ProjectSettings::get_singleton()->set_custom_property_info(
+		GeometryTools2DManager::poly_boolean.setting_name, 
+		PropertyInfo(Variant::STRING, GeometryTools2DManager::poly_boolean.setting_name, PROPERTY_HINT_ENUM, backends_list)
+	);
+	String selected_poly_boolean = GLOBAL_GET(GeometryTools2DManager::poly_boolean.setting_name);
+	
+	poly_boolean = GeometryTools2DManager::poly_boolean.get_backend_instance(selected_poly_boolean);
 }
 
 void GeometryTools2D::finalize() {
 	default_poly_boolean_params.unref();
 	default_poly_offset_params.unref();
 	default_poly_decomp_params.unref();
-	memdelete(poly_boolean);
-	memdelete(poly_offset);
-	memdelete(poly_decomp);
+	// memdelete(poly_boolean);
+	// memdelete(poly_offset);
+	// memdelete(poly_decomp);
 }
 
 String GeometryTools2D::get_backend_name(const String &p_type) {

@@ -1,31 +1,14 @@
 #!/usr/bin/env python
-Import('env')
 Import('env_geomtools')
 import os
 
-boolean_backend = env_geomtools["geomtools_polyboolean_2d"]
-offset_backend = env_geomtools["geomtools_polyoffset_2d"]
-decomp_backend = env_geomtools["geomtools_polydecomp_2d"]
-
 source_dirs = [
     "boolean",
-    "boolean/%s" % (boolean_backend),
+    "boolean/clipper6",
+    "boolean/clipper10",
     "offset",
-    "offset/%s" % (offset_backend),
     "decomp",
-    "decomp/%s" % (decomp_backend),
     "utils",
 ]
-backends_enabled = [
-    "// THIS FILE IS GENERATED, DO NOT EDIT!",
-    "#ifndef GEOMETRY_POLY_BACKENDS_H",
-    "#define GEOMETRY_POLY_BACKENDS_H",
-    "#include \"polytools/boolean/%s/poly_boolean_%s.h\"" % (boolean_backend, boolean_backend),
-    "#include \"polytools/offset/%s/poly_offset_%s.h\"" % (offset_backend, offset_backend),
-    "#include \"polytools/decomp/%s/poly_decomp_%s.h\"" % (decomp_backend, decomp_backend),
-    "#endif // GEOMETRY_POLY_BACKENDS_H"
-]
-env_geomtools.Textfile(target="poly_backends.gen.h", source=backends_enabled)
-
 sources = [Glob(d + "/" + "*.cpp") for d in source_dirs]
 env_geomtools.add_source_files(env_geomtools.modules_sources, sources)

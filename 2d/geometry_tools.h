@@ -2,7 +2,9 @@
 #define GODOT_GEOMETRY_TOOLS_H
 
 #include "core/object.h"
-#include "polytools/poly_backends.gen.h"
+#include "polytools/boolean/poly_boolean.h"
+#include "polytools/offset/poly_offset.h"
+#include "polytools/decomp/poly_decomp.h"
 
 class GeometryTools2D {
 public:
@@ -92,13 +94,83 @@ protected:
 	static Ref<PolyDecompParameters2D> configure_decomp(const Ref<PolyDecompParameters2D> &p_params);
 	
 private:
-	static PolyBoolean2D *poly_boolean;
-	static PolyOffset2D *poly_offset;
-	static PolyDecomp2D *poly_decomp;
+	static PolyBooleanBase2D *poly_boolean;
+	static PolyOffsetBase2D *poly_offset;
+	static PolyDecompBase2D *poly_decomp;
 	
 	static Ref<PolyBooleanParameters2D> default_poly_boolean_params;
 	static Ref<PolyOffsetParameters2D> default_poly_offset_params;
 	static Ref<PolyDecompParameters2D> default_poly_decomp_params;
+};
+
+// typedef PolyBackend *(*CreatePolyBackendCallback)();
+
+template <class T>
+class PolyBackend2DManager {
+	struct Backend {
+		String name;
+		T instance;
+
+		Backend() :
+				name(""),
+				instance(nullptr) {}
+
+		Backend(String p_name, T p_instance) :
+				name(p_name),
+				instance(p_instance) {}
+
+		// Backend(const Backend &p_ci) :
+		// 		name(p_ci.name),
+		// 		instance(p_ci.instance) {}
+
+		// Backend operator=(const Backend &p_ci) {
+		// 	name = p_ci.name;
+		// 	instance = p_ci.instance;
+		// 	return *this;
+	};
+
+	Vector<Backend> backends;
+// 	static int default_backend_id;
+// 	static int default_backend_priority;
+
+public:
+	String setting_name;
+
+// private:
+// 	static void on_backends_changed();
+
+public:
+	void register_backend(const String &p_name, T p_instance) {
+		backends.push_back(Backend(p_name, p_instance));
+	}
+	// void set_default_backend(const String &p_name, int p_priority = 0);
+	
+	int find_backend_id(const String &p_name) const {
+		for (int i = 0; i < backends.size(); ++i) {
+			if (p_name == backends[i].name) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	T get_backend_instance(const String &p_name) const {
+		return backends[find_backend_id(p_name)].instance;
+	}
+	
+	int get_backends_count() const { return backends.size(); }
+	
+	String get_backend_name(int p_id) const { 
+		CRASH_BAD_INDEX(p_id, backends.size());
+		return backends[p_id].name;
+	}
+	// T new_default_backend();
+	// T new_backend(const String &p_name);
+};
+
+class GeometryTools2DManager {
+public:
+	static PolyBackend2DManager<PolyBooleanBase2D *> poly_boolean;
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

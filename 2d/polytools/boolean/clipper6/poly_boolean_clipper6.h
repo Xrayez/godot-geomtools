@@ -4,12 +4,14 @@
 #include "modules/geomtools/2d/polytools/boolean/poly_boolean.h"
 #include "thirdparty/misc/clipper.hpp"
 
-class PolyBoolean2DClipper6 : public PolyBooleanBase2D {
+class PolyBoolean2DClipper6 : public PolyBooleanBase2D, public polytools::Instantiable<PolyBoolean2DClipper6> {
 public:
 	virtual Vector<Vector<Point2> > polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;
 	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;
 	
 	virtual String get_name() const override { return "clipper6"; }
+	
+	PolyBoolean2DClipper6();
 
 protected:
 	ClipperLib::Clipper configure(Operation p_op, const Ref<PolyBooleanParameters2D> &p_params);
@@ -20,7 +22,5 @@ private:
 	ClipperLib::PolyFillType clip_fill_type;
 	bool subject_open;
 };
-
-using PolyBoolean2D = PolyBoolean2DClipper6; // 6.4.2 (stable)
 
 #endif // GODOT_GEOMETRY_TOOLS_CLIPPER6

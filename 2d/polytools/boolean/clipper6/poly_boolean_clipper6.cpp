@@ -1,5 +1,6 @@
-#include "poly_boolean_clipper6.h"
+#include "modules/geomtools/2d/geometry_tools.h"
 #include "modules/geomtools/2d/polytools/utils/godot_clipper6_path_convert.h"
+#include "poly_boolean_clipper6.h"
 
 Vector<Vector<Point2> > PolyBoolean2DClipper6::polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) {
 	ClipperLib::Clipper clp = configure(p_op, params);
@@ -94,4 +95,8 @@ ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<P
 	subject_open = p_params->subject_open;
 		
 	return Clipper(init_options);
+}
+
+PolyBoolean2DClipper6::PolyBoolean2DClipper6() {
+	GeometryTools2DManager::poly_boolean.register_backend(get_name(), this);
 }
