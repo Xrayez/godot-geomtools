@@ -4,7 +4,7 @@
 #include "polytools/boolean/clipper10/poly_boolean_clipper10.h"
 #include "polytools/offset/clipper6/poly_offset_clipper6.h"
 #include "polytools/offset/clipper10/poly_offset_clipper10.h"
-#include "polytools/decomp/poly_decomp.h"
+#include "polytools/decomp/polypartition/poly_decomp_polypartition.h"
 #include "polytools/decomp/clipper10/poly_decomp_clipper10.h"
 
 PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
@@ -35,7 +35,7 @@ void GeometryTools2D::initialize() {
 	GeometryTools2DManager::poly_offset.register_backend("clipper6", memnew(PolyOffset2DClipper6), true);
 	GeometryTools2DManager::poly_offset.register_backend("clipper10", memnew(PolyOffset2DClipper10));
 	
-	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2D), true);
+	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2DPolyPartition), true);
 	GeometryTools2DManager::poly_decomp.register_backend("clipper10", memnew(PolyDecomp2DClipper10));
 	
 	GeometryTools2DManager::initialize();
