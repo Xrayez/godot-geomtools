@@ -75,6 +75,7 @@ public:
     Ref<PolyNode2D> new_child(const Vector<Point2> &p_path);
 	Ref<PolyNode2D> get_child(int p_idx);
     int get_child_count() const { return children.size(); }
+	Array get_children() const;
     Ref<PolyNode2D> get_parent() const { return parent; }
 	void set_path(const Vector<Point2> &p_path) { path = p_path; }
 	Vector<Point2> get_path() const { return path; }

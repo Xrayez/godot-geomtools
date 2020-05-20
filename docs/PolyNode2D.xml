@@ -32,6 +32,13 @@
 				Returns the number of child nodes.
 			</description>
 		</method>
+		<method name="get_children" qualifiers="const">
+			<return type="Array">
+			</return>
+			<description>
+				Returns an array of references to node's children.
+			</description>
+		</method>
 		<method name="get_parent" qualifiers="const">
 			<return type="PolyNode2D">
 			</return>

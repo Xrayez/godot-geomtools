@@ -40,6 +40,14 @@ Ref<PolyNode2D> PolyNode2D::get_child(int p_idx) {
     return children[p_idx];
 }
 
+Array PolyNode2D::get_children() const {
+    Array ret;
+    for (int i = 0; i < children.size(); ++i) {
+        ret.push_back(children[i]);
+    }
+    return ret;
+}
+
 bool PolyNode2D::is_hole() const {
     bool hole = true;
     Ref<PolyNode2D> n = parent;
@@ -57,6 +65,7 @@ void PolyNode2D::clear() {
 void PolyNode2D::_bind_methods() {
     ClassDB::bind_method(D_METHOD("new_child", "path"), &PolyNode2D::new_child);
     ClassDB::bind_method(D_METHOD("get_child", "index"), &PolyNode2D::get_child);
+    ClassDB::bind_method(D_METHOD("get_children"), &PolyNode2D::get_children);
     ClassDB::bind_method(D_METHOD("get_child_count"), &PolyNode2D::get_child_count);
     ClassDB::bind_method(D_METHOD("get_parent"), &PolyNode2D::get_parent);
     ClassDB::bind_method(D_METHOD("set_path", "path"), &PolyNode2D::set_path);
