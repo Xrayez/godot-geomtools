@@ -197,7 +197,7 @@
 			<argument index="0" name="type" type="String">
 			</argument>
 			<description>
-				The current backend used for polygon clipping, offsetting, and decomposition. Available types: "polyboolean", "polyoffset", "polydecomp". The method is present in both debug and release builds of the engine.
+				The current backend used for polygon clipping, offsetting, and decomposition. Available types: "poly_boolean", "poly_offset", "poly_decomp". The method is present in both debug and release builds of the engine.
 			</description>
 		</method>
 		<method name="inflate_multiple_polygons" qualifiers="const">
@@ -461,7 +461,7 @@
 	</methods>
 	<constants>
 		<constant name="OPERATION_NONE" value="0" enum="PolyBooleanOperation">
-			No-op, but may perform polygons fixup, build hierarchy, depending on the polyboolean implementation.
+			No-op, but may perform polygons fixup, build hierarchy, depending on the poly_boolean implementation.
 		</constant>
 		<constant name="OPERATION_UNION" value="1" enum="PolyBooleanOperation">
 			Merge (combine) polygons.

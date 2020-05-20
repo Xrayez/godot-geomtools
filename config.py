@@ -12,12 +12,12 @@ def configure(env):
     types = detect_backends()
     for name, backends in types.items():
         choices = "|".join(backends.keys())
-        if name == "polyboolean_2d":
-            opts.Add("geomtools_polyboolean_2d", "Library used for polygon boolean operations. (%s)" % (choices), "clipper6")
-        elif name == "polyoffset_2d":
-            opts.Add("geomtools_polyoffset_2d", "Library used for polygon offsetting. (%s)" % (choices), "clipper6")
-        elif name == "polydecomp_2d":
-            opts.Add("geomtools_polydecomp_2d", "Library used for polygon decomposition. (%s)" % (choices), "clipper10")
+        if name == "poly_boolean_2d":
+            opts.Add("geomtools_poly_boolean_2d", "Library used for polygon boolean operations. (%s)" % (choices), "clipper6")
+        elif name == "poly_offset_2d":
+            opts.Add("geomtools_poly_offset_2d", "Library used for polygon offsetting. (%s)" % (choices), "clipper6")
+        elif name == "poly_decomp_2d":
+            opts.Add("geomtools_poly_decomp_2d", "Library used for polygon decomposition. (%s)" % (choices), "clipper10")
 
     opts.Add("geomtools_scale_factor", 
         "The precision used for converting between integer and float coordinates throughout " +

@@ -46,11 +46,11 @@ scons platform=windows target=release_debug bits=64
 
 There are a handful of back-ends to choose from:
 
-| Class            | Backends                | Default     |
-| ---------------- | ----------------------- | ----------- |
-| `polyboolean_2d` | `clipper6`, `clipper10` | `clipper6`  |
-| `polyoffset_2d`  | `clipper6`, `clipper10` | `clipper6`  |
-| `polydecomp_2d`  | `clipper10`, `builtin`  | `clipper10` |
+| Class             | Backends                | Default     |
+| ----------------- | ----------------------- | ----------- |
+| `poly_boolean_2d` | `clipper6`, `clipper10` | `clipper6`  |
+| `poly_offset_2d`  | `clipper6`, `clipper10` | `clipper6`  |
+| `poly_decomp_2d`  | `clipper10`, `builtin`  | `clipper10` |
 
 #### Differences
 
@@ -70,17 +70,17 @@ to rely on the module's experimental implementations (such as `clipper10`).
 
 #### Command line options
 
-| Name                       | Description                                                                                                                                                      |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `geomtools_polyboolean_2d` | The backend used for polygon and polyline clipping.                                                                                                              |
-| `geomtools_polyoffset_2d`  | The backend used for polygon and polyline deflating and inflating.                                                                                               |
-| `geomtools_polydecomp_2d`  | The backend used for polygon decomposition (triangulation).                                                                                                      |
-| `geomtools_scale_factor`   | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
+| Name                        | Description                                                                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `geomtools_poly_boolean_2d` | The backend used for polygon and polyline clipping.                                                                                                              |
+| `geomtools_poly_offset_2d`  | The backend used for polygon and polyline deflating and inflating.                                                                                               |
+| `geomtools_poly_decomp_2d`  | The backend used for polygon decomposition (triangulation).                                                                                                      |
+| `geomtools_scale_factor`    | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
 
 The default backends used can be overridden before a build. For instance, to use
 the latest Clipper backend for all methods:
 ```
-scons geomtools_polyboolean_2d=clipper10 geomtools_polyoffset_2d=clipper10 geomtools_polydecomp_2d=clipper10
+scons geomtools_poly_boolean_2d=clipper10 geomtools_poly_offset_2d=clipper10 geomtools_poly_decomp_2d=clipper10
 ```
 
 ## Contributing

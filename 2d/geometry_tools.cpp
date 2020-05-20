@@ -40,11 +40,11 @@ void GeometryTools2D::finalize() {
 
 String GeometryTools2D::get_backend_name(const String &p_type) {
 	String name;
-	if (p_type == "polyboolean") {
+	if (p_type == "poly_boolean") {
 		name = poly_boolean->get_name();
-	} else if (p_type == "polyoffset") {
+	} else if (p_type == "poly_offset") {
 		name = poly_offset->get_name();
-	} else if (p_type == "polydecomp") {
+	} else if (p_type == "poly_decomp") {
 		name = poly_decomp->get_name();
 	}
 	return name;
