@@ -2,13 +2,13 @@
 #include "polytools/boolean/clipper6/poly_boolean_clipper6.h"
 #include "polytools/boolean/clipper10/poly_boolean_clipper10.h"
 
-PolyBooleanBase2D *GeometryTools2D::poly_boolean = nullptr;
-PolyOffsetBase2D *GeometryTools2D::poly_offset = nullptr;
-PolyDecompBase2D *GeometryTools2D::poly_decomp = nullptr;
+PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
+PolyOffset2D *GeometryTools2D::poly_offset = nullptr;
+PolyDecomp2D *GeometryTools2D::poly_decomp = nullptr;
 
-PolyBackend2DManager<PolyBooleanBase2D *> GeometryTools2DManager::poly_boolean = PolyBackend2DManager<PolyBooleanBase2D *>();
-PolyBackend2DManager<PolyOffsetBase2D *> GeometryTools2DManager::poly_offset = PolyBackend2DManager<PolyOffsetBase2D *>();
-PolyBackend2DManager<PolyDecompBase2D *> GeometryTools2DManager::poly_decomp = PolyBackend2DManager<PolyDecompBase2D *>();
+PolyBackend2DManager<PolyBoolean2D *> GeometryTools2DManager::poly_boolean = PolyBackend2DManager<PolyBoolean2D *>();
+PolyBackend2DManager<PolyOffset2D *> GeometryTools2DManager::poly_offset = PolyBackend2DManager<PolyOffset2D *>();
+PolyBackend2DManager<PolyDecomp2D *> GeometryTools2DManager::poly_decomp = PolyBackend2DManager<PolyDecomp2D *>();
 
 Ref<PolyBooleanParameters2D> GeometryTools2D::default_poly_boolean_params = nullptr;
 Ref<PolyOffsetParameters2D> GeometryTools2D::default_poly_offset_params = nullptr;
@@ -83,7 +83,7 @@ Vector<Vector<Point2> > GeometryTools2D::merge_polygons(const Vector<Point2> &p_
 	polygons_a.push_back(p_polygon_a);
 	Vector<Vector<Point2> > polygons_b;
 	polygons_b.push_back(p_polygon_b);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_UNION, polygons_a, polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_UNION, polygons_a, polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::clip_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) {
@@ -92,7 +92,7 @@ Vector<Vector<Point2> > GeometryTools2D::clip_polygons(const Vector<Point2> &p_p
 	polygons_a.push_back(p_polygon_a);
 	Vector<Vector<Point2> > polygons_b;
 	polygons_b.push_back(p_polygon_b);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_DIFFERENCE, polygons_a, polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_DIFFERENCE, polygons_a, polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::intersect_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) {
@@ -101,7 +101,7 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_polygons(const Vector<Point2>
 	polygons_a.push_back(p_polygon_a);
 	Vector<Vector<Point2> > polygons_b;
 	polygons_b.push_back(p_polygon_b);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, polygons_a, polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_INTERSECTION, polygons_a, polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::exclude_polygons(const Vector<Point2> &p_polygon_a, const Vector<Point2> &p_polygon_b, Ref<PolyBooleanParameters2D> p_params) {
@@ -110,27 +110,27 @@ Vector<Vector<Point2> > GeometryTools2D::exclude_polygons(const Vector<Point2> &
 	polygons_a.push_back(p_polygon_a);
 	Vector<Vector<Point2> > polygons_b;
 	polygons_b.push_back(p_polygon_b);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_XOR, polygons_a, polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_XOR, polygons_a, polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::merge_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_UNION, p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_UNION, p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::clip_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_DIFFERENCE, p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::intersect_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_INTERSECTION, p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::exclude_multiple_polygons(const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_XOR, p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_XOR, p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::clip_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) {
@@ -139,7 +139,7 @@ Vector<Vector<Point2> > GeometryTools2D::clip_polyline_with_polygon(const Vector
 	polylines.push_back(p_polyline);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_DIFFERENCE, polylines, polygons);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_DIFFERENCE, polylines, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::intersect_polyline_with_polygon(const Vector<Point2> &p_polyline, const Vector<Point2> &p_polygon, Ref<PolyBooleanParameters2D> p_params) {
@@ -148,27 +148,27 @@ Vector<Vector<Point2> > GeometryTools2D::intersect_polyline_with_polygon(const V
 	polylines.push_back(p_polyline);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, polylines, polygons);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_INTERSECTION, polylines, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::clip_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = true;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_DIFFERENCE, p_polylines, p_polygons);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_DIFFERENCE, p_polylines, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::intersect_multiple_polylines_with_polygons(const Vector<Vector<Point2> > &p_polylines, const Vector<Vector<Point2> > &p_polygons, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = true;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::OPERATION_INTERSECTION, p_polylines, p_polygons);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::OPERATION_INTERSECTION, p_polylines, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::polygons_boolean(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean(PolyBooleanBase2D::Operation(p_op), p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean(PolyBoolean2D::Operation(p_op), p_polygons_a, p_polygons_b);
 }
 
 Ref<PolyNode2D> GeometryTools2D::polygons_boolean_tree(PolyBooleanOperation p_op, const Vector<Vector<Point2> > &p_polygons_a, const Vector<Vector<Point2> > &p_polygons_b, Ref<PolyBooleanParameters2D> p_params) {
 	configure_boolean(p_params)->subject_open = false;
-	return poly_boolean->polypaths_boolean_tree(PolyBooleanBase2D::Operation(p_op), p_polygons_a, p_polygons_b);
+	return poly_boolean->polypaths_boolean_tree(PolyBoolean2D::Operation(p_op), p_polygons_a, p_polygons_b);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::inflate_polygon(const Vector<Point2> &p_polygon, real_t p_delta, Ref<PolyOffsetParameters2D> p_params) {
@@ -237,29 +237,29 @@ Vector<Vector<Point2> > GeometryTools2D::triangulate_polygon(const Vector<Point2
 	configure_decomp(p_params);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES_EC, polygons);
+	return poly_decomp->decompose_polygons(PolyDecomp2D::DECOMP_TRIANGLES_EC, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::triangulate_multiple_polygons(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_TRIANGLES_EC, p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecomp2D::DECOMP_TRIANGLES_EC, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_polygon_into_convex(const Vector<Point2> &p_polygon, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
 	Vector<Vector<Point2> > polygons;
 	polygons.push_back(p_polygon);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX_HM, polygons);
+	return poly_decomp->decompose_polygons(PolyDecomp2D::DECOMP_CONVEX_HM, polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_multiple_polygons_into_convex(const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DECOMP_CONVEX_HM, p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecomp2D::DECOMP_CONVEX_HM, p_polygons);
 }
 
 Vector<Vector<Point2> > GeometryTools2D::decompose_polygons(PolyDecompType p_type, const Vector<Vector<Point2> > &p_polygons, Ref<PolyDecompParameters2D> p_params) {
 	configure_decomp(p_params);
-	return poly_decomp->decompose_polygons(PolyDecompBase2D::DecompType(p_type), p_polygons);
+	return poly_decomp->decompose_polygons(PolyDecomp2D::DecompType(p_type), p_polygons);
 }
 
 Point2 GeometryTools2D::polygon_centroid(const Vector<Point2> &p_polygon) {

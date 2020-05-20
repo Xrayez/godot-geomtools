@@ -5,7 +5,7 @@
 
 class PolyOffsetParameters2D;
 
-class PolyOffsetBase2D {
+class PolyOffset2D {
 public:
 	// Combines both polygon and polyline offseting.
 	virtual Vector<Vector<Point2> > offset_polypaths(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) = 0;

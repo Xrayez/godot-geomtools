@@ -4,7 +4,7 @@
 #include "modules/geomtools/2d/polytools/boolean/poly_boolean.h"
 #include "modules/geomtools/thirdparty/clipper/clipper.h"
 
-class PolyBoolean2DClipper10 : public PolyBooleanBase2D, public polytools::Instantiable<PolyBoolean2DClipper10> {
+class PolyBoolean2DClipper10 : public PolyBoolean2D, public polytools::Instantiable<PolyBoolean2DClipper10> {
 public:
 	virtual Vector<Vector<Point2> > polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;
 	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) override;

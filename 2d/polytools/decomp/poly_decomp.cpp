@@ -3,7 +3,7 @@
 #include "core/math/triangulate.h"
 #include "thirdparty/misc/triangulator.h"
 
-List<TriangulatorPoly> configure(PolyDecompBase2D::DecompType p_type, const Vector<Vector<Point2> > &p_polygons) {
+List<TriangulatorPoly> configure(PolyDecomp2D::DecompType p_type, const Vector<Vector<Point2> > &p_polygons) {
 	List<TriangulatorPoly> in_poly;
     
     // Split between inner and outer polygons first.
@@ -12,7 +12,7 @@ List<TriangulatorPoly> configure(PolyDecompBase2D::DecompType p_type, const Vect
         if (GeometryTools2D::polygon_area(p_polygons[i]) >= 0.0) {
             outer_indices.push_back(i);
         } else {
-            if (p_type == PolyDecompBase2D::DECOMP_TRIANGLES_OPT || p_type == PolyDecompBase2D::DECOMP_CONVEX_OPT) {
+            if (p_type == PolyDecomp2D::DECOMP_TRIANGLES_OPT || p_type == PolyDecomp2D::DECOMP_CONVEX_OPT) {
                 // The solution would no longer be optimal with the inner holes, skip.
                 continue;
             }
@@ -60,7 +60,7 @@ Vector<Vector<Point2> > partition(List<TriangulatorPoly> &p_out_poly) {
     return polys;
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::decompose_polygons(DecompType p_type, const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::decompose_polygons(DecompType p_type, const Vector<Vector<Point2> > &p_polygons) {
     Vector<Vector<Point2> > polys;
 
     switch (p_type) {
@@ -83,7 +83,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::decompose_polygons(DecompType p_type, 
     return polys;
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::triangulate_ec(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::triangulate_ec(const Vector<Vector<Point2> > &p_polygons) {
     List<TriangulatorPoly> in_poly = configure(DECOMP_TRIANGLES_EC, p_polygons);
     
     TriangulatorPartition tpart;
@@ -96,7 +96,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::triangulate_ec(const Vector<Vector<Poi
 	return partition(out_poly);
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::triangulate_opt(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::triangulate_opt(const Vector<Vector<Point2> > &p_polygons) {
     List<TriangulatorPoly> in_poly = configure(DECOMP_TRIANGLES_OPT, p_polygons);
     
     TriangulatorPartition tpart;
@@ -109,7 +109,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::triangulate_opt(const Vector<Vector<Po
 	return partition(out_poly);
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::triangulate_mono(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::triangulate_mono(const Vector<Vector<Point2> > &p_polygons) {
     List<TriangulatorPoly> in_poly = configure(DECOMP_TRIANGLES_MONO, p_polygons);
     
     TriangulatorPartition tpart;
@@ -123,7 +123,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::triangulate_mono(const Vector<Vector<P
 	return partition(out_poly);
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::decompose_convex_hm(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::decompose_convex_hm(const Vector<Vector<Point2> > &p_polygons) {
     List<TriangulatorPoly> in_poly = configure(DECOMP_CONVEX_HM, p_polygons);
     
     TriangulatorPartition tpart;
@@ -136,7 +136,7 @@ Vector<Vector<Point2> > PolyDecompBase2D::decompose_convex_hm(const Vector<Vecto
 	return partition(out_poly);
 }
 
-Vector<Vector<Point2> > PolyDecompBase2D::decompose_convex_opt(const Vector<Vector<Point2> > &p_polygons) {
+Vector<Vector<Point2> > PolyDecomp2D::decompose_convex_opt(const Vector<Vector<Point2> > &p_polygons) {
     List<TriangulatorPoly> in_poly = configure(DECOMP_CONVEX_OPT, p_polygons);
     
     TriangulatorPartition tpart;

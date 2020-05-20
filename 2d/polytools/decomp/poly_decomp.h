@@ -6,7 +6,7 @@
 
 class PolyDecompParameters2D;
 
-class PolyDecompBase2D {
+class PolyDecomp2D {
 public:
 	enum DecompType {
 		DECOMP_TRIANGLES_EC, 

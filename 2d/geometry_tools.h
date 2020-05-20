@@ -90,9 +90,9 @@ public:
 	
 	static String get_backend_name(const String &p_type);
 	
-	static void set_poly_boolean_instance(PolyBooleanBase2D *p_instance) { poly_boolean = p_instance; }
-	static void set_poly_offset_instance(PolyOffsetBase2D *p_instance) { poly_offset = p_instance; }
-	static void set_poly_decomp_instance(PolyDecompBase2D *p_instance) { poly_decomp = p_instance; }
+	static void set_poly_boolean_instance(PolyBoolean2D *p_instance) { poly_boolean = p_instance; }
+	static void set_poly_offset_instance(PolyOffset2D *p_instance) { poly_offset = p_instance; }
+	static void set_poly_decomp_instance(PolyDecomp2D *p_instance) { poly_decomp = p_instance; }
 	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
@@ -100,9 +100,9 @@ protected:
 	static Ref<PolyDecompParameters2D> configure_decomp(const Ref<PolyDecompParameters2D> &p_params);
 	
 private:
-	static PolyBooleanBase2D *poly_boolean;
-	static PolyOffsetBase2D *poly_offset;
-	static PolyDecompBase2D *poly_decomp;
+	static PolyBoolean2D *poly_boolean;
+	static PolyOffset2D *poly_offset;
+	static PolyDecomp2D *poly_decomp;
 	
 	static Ref<PolyBooleanParameters2D> default_poly_boolean_params;
 	static Ref<PolyOffsetParameters2D> default_poly_offset_params;
@@ -220,9 +220,9 @@ public:
 
 class GeometryTools2DManager {
 public:
-	static PolyBackend2DManager<PolyBooleanBase2D *> poly_boolean;
-	static PolyBackend2DManager<PolyOffsetBase2D *> poly_offset;
-	static PolyBackend2DManager<PolyDecompBase2D *> poly_decomp;
+	static PolyBackend2DManager<PolyBoolean2D *> poly_boolean;
+	static PolyBackend2DManager<PolyOffset2D *> poly_offset;
+	static PolyBackend2DManager<PolyDecomp2D *> poly_decomp;
 
 	static void initialize() {
 		String selected;

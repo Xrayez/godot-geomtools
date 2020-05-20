@@ -7,7 +7,7 @@
 class PolyNode2D;
 class PolyBooleanParameters2D;
 
-class PolyBooleanBase2D {
+class PolyBoolean2D {
 public:
 	enum Operation {
 		OPERATION_NONE,
