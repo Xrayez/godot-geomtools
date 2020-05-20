@@ -172,7 +172,7 @@ public:
 		return backends[p_id].name;
 	}
 	
-	String initialize() {
+	String update() {
 		String backends_list;
 		
 		for(int i = 0; i < get_backends_count(); ++i) {
@@ -210,13 +210,13 @@ public:
 	static PolyBackend2DManager<PolyOffset2D *> poly_offset;
 	static PolyBackend2DManager<PolyDecomp2D *> poly_decomp;
 
-	static void initialize() {
+	static void poly_backends_changed_update() {
 		String selected;
-		selected = poly_boolean.initialize();
+		selected = poly_boolean.update();
 		GeometryTools2D::set_poly_boolean_instance(poly_boolean.get_backend_instance(selected));
-		selected = poly_offset.initialize();
+		selected = poly_offset.update();
 		GeometryTools2D::set_poly_offset_instance(poly_offset.get_backend_instance(selected));
-		selected = poly_decomp.initialize();
+		selected = poly_decomp.update();
 		GeometryTools2D::set_poly_decomp_instance(poly_decomp.get_backend_instance(selected));
 	}
 	static void finalize() {

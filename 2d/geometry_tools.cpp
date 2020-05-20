@@ -38,7 +38,7 @@ void GeometryTools2D::initialize() {
 	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2DPolyPartition), true);
 	GeometryTools2DManager::poly_decomp.register_backend("clipper10", memnew(PolyDecomp2DClipper10));
 	
-	GeometryTools2DManager::initialize();
+	GeometryTools2DManager::poly_backends_changed_update();
 }
 
 void GeometryTools2D::finalize() {
