@@ -21,13 +21,13 @@ Ref<PolyDecompParameters2D> GeometryTools2D::default_poly_decomp_params = nullpt
 
 
 void GeometryTools2D::initialize() {
-	GeometryTools2DManager::poly_boolean.setting_name = "modules/geometry_tools/poly_boolean_backend";
-	GeometryTools2DManager::poly_offset.setting_name = "modules/geometry_tools/poly_offset_backend";
-	GeometryTools2DManager::poly_decomp.setting_name = "modules/geometry_tools/poly_decomp_backend";
-	
 	default_poly_boolean_params.instance();
 	default_poly_offset_params.instance();
 	default_poly_decomp_params.instance();
+	
+	GeometryTools2DManager::poly_boolean.setting_name = "modules/geometry_tools/backends/poly_boolean";
+	GeometryTools2DManager::poly_offset.setting_name = "modules/geometry_tools/backends/poly_offset";
+	GeometryTools2DManager::poly_decomp.setting_name = "modules/geometry_tools/backends/poly_decomp";
 	
 	GeometryTools2DManager::poly_boolean.register_backend("clipper6", memnew(PolyBoolean2DClipper6), true);
 	GeometryTools2DManager::poly_boolean.register_backend("clipper10", memnew(PolyBoolean2DClipper10));
@@ -35,8 +35,8 @@ void GeometryTools2D::initialize() {
 	GeometryTools2DManager::poly_offset.register_backend("clipper6", memnew(PolyOffset2DClipper6), true);
 	GeometryTools2DManager::poly_offset.register_backend("clipper10", memnew(PolyOffset2DClipper10));
 	
-	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2DPolyPartition), true);
-	GeometryTools2DManager::poly_decomp.register_backend("clipper10", memnew(PolyDecomp2DClipper10));
+	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2DPolyPartition));
+	GeometryTools2DManager::poly_decomp.register_backend("clipper10:polypartition", memnew(PolyDecomp2DClipper10), true);
 	
 	GeometryTools2DManager::poly_backends_changed_update();
 }
