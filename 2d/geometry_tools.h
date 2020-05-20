@@ -88,8 +88,6 @@ public:
 	static void initialize();
 	static void finalize();
 	
-	static String get_backend_name(const String &p_type);
-	
 	static void set_poly_boolean_instance(PolyBoolean2D *p_instance) { poly_boolean = p_instance; }
 	static void set_poly_offset_instance(PolyOffset2D *p_instance) { poly_offset = p_instance; }
 	static void set_poly_decomp_instance(PolyDecomp2D *p_instance) { poly_decomp = p_instance; }
@@ -109,8 +107,6 @@ private:
 	static Ref<PolyDecompParameters2D> default_poly_decomp_params;
 };
 
-// typedef PolyBackend *(*CreatePolyBackendCallback)();
-
 template <class T>
 class PolyBackend2DManager {
 	struct Backend {
@@ -124,25 +120,14 @@ class PolyBackend2DManager {
 		Backend(String p_name, T p_instance) :
 				name(p_name),
 				instance(p_instance) {}
-
-		// Backend(const Backend &p_ci) :
-		// 		name(p_ci.name),
-		// 		instance(p_ci.instance) {}
-
-		// Backend operator=(const Backend &p_ci) {
-		// 	name = p_ci.name;
-		// 	instance = p_ci.instance;
-		// 	return *this;
 	};
 
 	Vector<Backend> backends;
 	int default_backend_id = -1;
+	String default_backend_name;
 
 public:
 	String setting_name;
-
-// private:
-// 	static void on_backends_changed();
 
 public:
 	void register_backend(const String &p_name, T p_instance, bool p_default = false) {
@@ -152,6 +137,7 @@ public:
 		}
 	}
 	void set_default_backend(const String &p_name) {
+		default_backend_name = p_name;
 		default_backend_id = find_backend_id(p_name);
 	}
 	
@@ -198,7 +184,7 @@ public:
 		// Suggest restart because the singleton can also be used in tool mode.
 		T default_backend = get_default_backend_instance();
 		if (default_backend) {
-			GLOBAL_DEF_RST(setting_name, default_backend->get_name());
+			GLOBAL_DEF_RST(setting_name, default_backend_name);
 		}
 		if (!backends_list.empty()) {
 			ProjectSettings::get_singleton()->set_custom_property_info(

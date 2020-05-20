@@ -9,8 +9,6 @@ public:
 	// Seems like Clipper 10.0.0 uses monotone partitioning (?)
 	virtual Vector<Vector<Point2> > triangulate_mono(const Vector<Vector<Point2> > &p_polygons) override;
 	
-	virtual String get_name() const override { return "clipper10:builtin"; }
-	
 protected:
 	clipperlib::ClipperTri configure(const Ref<PolyDecompParameters2D> &p_params);
 

@@ -191,15 +191,6 @@
 				Similar to [method polygons_boolean], but performs [constant OPERATION_XOR] between the polygons specifically, and accepts individual polygons only.
 			</description>
 		</method>
-		<method name="get_backend_name" qualifiers="const">
-			<return type="String">
-			</return>
-			<argument index="0" name="type" type="String">
-			</argument>
-			<description>
-				The current backend used for polygon clipping, offsetting, and decomposition. Available types: "poly_boolean", "poly_offset", "poly_decomp". The method is present in both debug and release builds of the engine.
-			</description>
-		</method>
 		<method name="inflate_multiple_polygons" qualifiers="const">
 			<return type="Array">
 			</return>
