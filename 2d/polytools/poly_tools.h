@@ -12,7 +12,7 @@ public:
 };
 
 template <typename T>
-T* register_class() {
+T* create_instance() {
 	return T::Instantiable<T>::create();
 }
 

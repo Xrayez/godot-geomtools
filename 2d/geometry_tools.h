@@ -2,6 +2,8 @@
 #define GODOT_GEOMETRY_TOOLS_H
 
 #include "core/object.h"
+#include "core/project_settings.h"
+
 #include "polytools/boolean/poly_boolean.h"
 #include "polytools/offset/poly_offset.h"
 #include "polytools/decomp/poly_decomp.h"
@@ -88,6 +90,10 @@ public:
 	
 	static String get_backend_name(const String &p_type);
 	
+	static void set_poly_boolean_instance(PolyBooleanBase2D *p_instance) { poly_boolean = p_instance; }
+	static void set_poly_offset_instance(PolyOffsetBase2D *p_instance) { poly_offset = p_instance; }
+	static void set_poly_decomp_instance(PolyDecompBase2D *p_instance) { poly_decomp = p_instance; }
+	
 protected:
 	static Ref<PolyBooleanParameters2D> configure_boolean(const Ref<PolyBooleanParameters2D> &p_params);
 	static Ref<PolyOffsetParameters2D> configure_offset(const Ref<PolyOffsetParameters2D> &p_params);
@@ -108,8 +114,8 @@ private:
 template <class T>
 class PolyBackend2DManager {
 	struct Backend {
-		String name;
-		T instance;
+		String name = "";
+		T instance = nullptr;
 
 		Backend() :
 				name(""),
@@ -130,8 +136,7 @@ class PolyBackend2DManager {
 	};
 
 	Vector<Backend> backends;
-// 	static int default_backend_id;
-// 	static int default_backend_priority;
+	int default_backend_id = -1;
 
 public:
 	String setting_name;
@@ -140,10 +145,22 @@ public:
 // 	static void on_backends_changed();
 
 public:
-	void register_backend(const String &p_name, T p_instance) {
+	void register_backend(const String &p_name, T p_instance, bool p_default = false) {
 		backends.push_back(Backend(p_name, p_instance));
+		if (p_default) {
+			set_default_backend(p_name);
+		}
 	}
-	// void set_default_backend(const String &p_name, int p_priority = 0);
+	void set_default_backend(const String &p_name) {
+		default_backend_id = find_backend_id(p_name);
+	}
+	
+	T get_default_backend_instance() const {
+		if (default_backend_id != -1) {
+			return backends[default_backend_id].instance;
+		}
+		return nullptr;
+	}
 	
 	int find_backend_id(const String &p_name) const {
 		for (int i = 0; i < backends.size(); ++i) {
@@ -155,7 +172,11 @@ public:
 	}
 	
 	T get_backend_instance(const String &p_name) const {
-		return backends[find_backend_id(p_name)].instance;
+		int id = find_backend_id(p_name);
+		if (id != -1) {
+			return backends[id].instance;
+		}
+		return nullptr;
 	}
 	
 	int get_backends_count() const { return backends.size(); }
@@ -164,13 +185,59 @@ public:
 		CRASH_BAD_INDEX(p_id, backends.size());
 		return backends[p_id].name;
 	}
-	// T new_default_backend();
-	// T new_backend(const String &p_name);
+	
+	String initialize() {
+		String backends_list;
+		
+		for(int i = 0; i < get_backends_count(); ++i) {
+			backends_list += get_backend_name(i);
+			if (i < get_backends_count() - 1) {
+				backends_list += ",";
+			}
+		}
+		// Suggest restart because the singleton can also be used in tool mode.
+		T default_backend = get_default_backend_instance();
+		if (default_backend) {
+			GLOBAL_DEF_RST(setting_name, default_backend->get_name());
+		}
+		if (!backends_list.empty()) {
+			ProjectSettings::get_singleton()->set_custom_property_info(
+				setting_name, 
+				PropertyInfo(Variant::STRING, setting_name, PROPERTY_HINT_ENUM, backends_list)
+			);
+		}
+		return ProjectSettings::get_singleton()->has_setting(setting_name) ? GLOBAL_GET(setting_name) : "";
+	}
+	
+	void finalize() {
+		for (int i = 0; i < backends.size(); ++i) {
+			if (backends[i].instance) {
+				memdelete(backends[i].instance);
+			}
+		}
+	}
 };
 
 class GeometryTools2DManager {
 public:
 	static PolyBackend2DManager<PolyBooleanBase2D *> poly_boolean;
+	static PolyBackend2DManager<PolyOffsetBase2D *> poly_offset;
+	static PolyBackend2DManager<PolyDecompBase2D *> poly_decomp;
+
+	static void initialize() {
+		String selected;
+		selected = poly_boolean.initialize();
+		GeometryTools2D::set_poly_boolean_instance(poly_boolean.get_backend_instance(selected));
+		selected = poly_offset.initialize();
+		GeometryTools2D::set_poly_offset_instance(poly_offset.get_backend_instance(selected));
+		selected = poly_decomp.initialize();
+		GeometryTools2D::set_poly_decomp_instance(poly_decomp.get_backend_instance(selected));
+	}
+	static void finalize() {
+		poly_boolean.finalize();
+		poly_offset.finalize();
+		poly_decomp.finalize();
+	}
 };
 
 #endif // GODOT_GEOMETRY_TOOLS_H

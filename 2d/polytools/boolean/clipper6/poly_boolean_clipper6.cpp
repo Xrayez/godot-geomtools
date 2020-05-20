@@ -98,5 +98,5 @@ ClipperLib::Clipper PolyBoolean2DClipper6::configure(Operation p_op, const Ref<P
 }
 
 PolyBoolean2DClipper6::PolyBoolean2DClipper6() {
-	GeometryTools2DManager::poly_boolean.register_backend(get_name(), this);
+	GeometryTools2DManager::poly_boolean.register_backend(get_name(), this, true);
 }
