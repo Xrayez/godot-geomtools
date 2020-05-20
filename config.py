@@ -5,19 +5,8 @@ def can_build(env, platform):
 
 def configure(env):
     from SCons.Script import Variables, Help
-    from utils import detect_backends
 
     opts = Variables()
-    
-    types = detect_backends()
-    for name, backends in types.items():
-        choices = "|".join(backends.keys())
-        if name == "poly_boolean_2d":
-            opts.Add("geomtools_poly_boolean_2d", "Library used for polygon boolean operations. (%s)" % (choices), "clipper6")
-        elif name == "poly_offset_2d":
-            opts.Add("geomtools_poly_offset_2d", "Library used for polygon offsetting. (%s)" % (choices), "clipper6")
-        elif name == "poly_decomp_2d":
-            opts.Add("geomtools_poly_decomp_2d", "Library used for polygon decomposition. (%s)" % (choices), "clipper10")
 
     opts.Add("geomtools_scale_factor", 
         "The precision used for converting between integer and float coordinates throughout " +

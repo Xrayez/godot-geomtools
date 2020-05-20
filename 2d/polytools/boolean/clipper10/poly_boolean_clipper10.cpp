@@ -82,7 +82,3 @@ clipperlib::Clipper PolyBoolean2DClipper10::configure(Operation p_op, const Ref<
 
 	return Clipper();
 }
-
-PolyBoolean2DClipper10::PolyBoolean2DClipper10() {
-	GeometryTools2DManager::poly_boolean.register_backend(get_name(), this);
-}

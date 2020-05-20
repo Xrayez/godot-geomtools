@@ -2,7 +2,6 @@
 #define GEOMETRY_POLY_TOOLS_H
 
 #include "core/reference.h"
-#include "modules/geomtools/2d/polytools/poly_tools.h"
 
 class PolyNode2D;
 class PolyBooleanParameters2D;

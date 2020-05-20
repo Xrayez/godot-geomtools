@@ -1,6 +1,11 @@
 #include "geometry_tools.h"
+
 #include "polytools/boolean/clipper6/poly_boolean_clipper6.h"
 #include "polytools/boolean/clipper10/poly_boolean_clipper10.h"
+#include "polytools/offset/clipper6/poly_offset_clipper6.h"
+#include "polytools/offset/clipper10/poly_offset_clipper10.h"
+#include "polytools/decomp/poly_decomp.h"
+#include "polytools/decomp/clipper10/poly_decomp_clipper10.h"
 
 PolyBoolean2D *GeometryTools2D::poly_boolean = nullptr;
 PolyOffset2D *GeometryTools2D::poly_offset = nullptr;
@@ -24,8 +29,14 @@ void GeometryTools2D::initialize() {
 	default_poly_offset_params.instance();
 	default_poly_decomp_params.instance();
 	
-	polytools::create_instance<PolyBoolean2DClipper6>();
-	polytools::create_instance<PolyBoolean2DClipper10>();
+	GeometryTools2DManager::poly_boolean.register_backend("clipper6", memnew(PolyBoolean2DClipper6), true);
+	GeometryTools2DManager::poly_boolean.register_backend("clipper10", memnew(PolyBoolean2DClipper10));
+	
+	GeometryTools2DManager::poly_offset.register_backend("clipper6", memnew(PolyOffset2DClipper6), true);
+	GeometryTools2DManager::poly_offset.register_backend("clipper10", memnew(PolyOffset2DClipper10));
+	
+	GeometryTools2DManager::poly_decomp.register_backend("polypartition", memnew(PolyDecomp2D), true);
+	GeometryTools2DManager::poly_decomp.register_backend("clipper10", memnew(PolyDecomp2DClipper10));
 	
 	GeometryTools2DManager::initialize();
 }

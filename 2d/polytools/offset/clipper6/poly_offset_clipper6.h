@@ -9,7 +9,7 @@ public:
 	virtual Vector<Vector<Point2> > offset_polypaths(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) override;
 	
 	virtual String get_name() const override { return "clipper6"; }
-
+	
 protected:
 	ClipperLib::ClipperOffset configure(const Ref<PolyOffsetParameters2D> &p_params);
 	
@@ -17,7 +17,5 @@ private:
 	ClipperLib::JoinType join_type;
 	ClipperLib::EndType end_type;
 };
-
-using PolyOffset2D = PolyOffset2DClipper6; // 6.4.2 (stable)
 
 #endif // GODOT_GEOMETRY_TOOLS_POLY_OFFSET_CLIPPER6
