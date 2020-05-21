@@ -51,6 +51,10 @@ protected:
 public:
 	void set_fill_rule(FillRule p_fill_rule) { fill_rule = p_fill_rule; }
 	FillRule get_fill_rule() const { return fill_rule; }
+	
+	void reset() {
+		fill_rule = FILL_RULE_NON_ZERO;
+	}
 };
 
 VARIANT_ENUM_CAST(PolyDecompParameters2D::FillRule);

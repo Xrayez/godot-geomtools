@@ -55,6 +55,13 @@ public:
 	
 	void set_miter_limit(real_t p_miter_limit) { miter_limit = p_miter_limit; }
 	real_t get_miter_limit() const { return miter_limit; }
+
+	void reset() {
+		join_type = JOIN_SQUARE;
+		end_type = END_SQUARE;
+		arc_tolerance = 0.25;
+		miter_limit = 2.0;
+	}
 };
 
 VARIANT_ENUM_CAST(PolyOffsetParameters2D::JoinType);

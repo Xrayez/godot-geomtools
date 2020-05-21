@@ -59,7 +59,7 @@ public:
 	enum PolyDecompType {
 		DECOMP_TRIANGLES_EC, // Ear clipping algorithm.
 		DECOMP_TRIANGLES_OPT, // Minimal edge length.
-		DECOMP_TRIANGLES_MONO, // Mono polygon partitioning, then triangulate.
+		DECOMP_TRIANGLES_MONO, // Monotone polygon partitioning, then triangulate.
 		DECOMP_CONVEX_HM, // Hertel-Mehlhorn algorithm.
 		DECOMP_CONVEX_OPT, // Minimal number of convex polygons.
 	};

@@ -64,6 +64,15 @@ public:
 	
 	void set_preserve_collinear(bool p_preserve_collinear) { preserve_collinear = p_preserve_collinear; }
 	bool is_preserve_collinear() const { return preserve_collinear; }
+	
+	void reset() {
+		subject_fill_rule = FILL_RULE_NON_ZERO;
+		clip_fill_rule = FILL_RULE_NON_ZERO;
+		subject_open = false;
+		reverse_solution = false;
+		strictly_simple = false;
+		preserve_collinear = false;
+	}
 };
 
 VARIANT_ENUM_CAST(PolyBooleanParameters2D::FillRule);

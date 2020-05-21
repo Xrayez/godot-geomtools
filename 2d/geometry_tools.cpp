@@ -50,6 +50,7 @@ void GeometryTools2D::finalize() {
 }
 
 Ref<PolyBooleanParameters2D> GeometryTools2D::configure_boolean(const Ref<PolyBooleanParameters2D> &p_params) {
+	default_poly_boolean_params->reset();
 	if (p_params.is_valid()) {
 		poly_boolean->set_params(p_params);
 		return p_params;
@@ -59,6 +60,7 @@ Ref<PolyBooleanParameters2D> GeometryTools2D::configure_boolean(const Ref<PolyBo
 }
 
 Ref<PolyOffsetParameters2D> GeometryTools2D::configure_offset(const Ref<PolyOffsetParameters2D> &p_params) {
+	default_poly_offset_params->reset();
 	if (p_params.is_valid()) {
 		poly_offset->set_params(p_params);
 		return p_params;
@@ -68,6 +70,7 @@ Ref<PolyOffsetParameters2D> GeometryTools2D::configure_offset(const Ref<PolyOffs
 }
 
 Ref<PolyDecompParameters2D> GeometryTools2D::configure_decomp(const Ref<PolyDecompParameters2D> &p_params) {
+	default_poly_decomp_params->reset();
 	if (p_params.is_valid()) {
 		poly_decomp->set_params(p_params);
 		return p_params;
