@@ -281,7 +281,7 @@ func test_decompose_polygons_triangles_opt():
 
 
 func test_decompose_polygons_triangles_mono():
-	if ProjectSettings.get_setting("modules/geometry_tools/backends/poly_decomp") == "polypartition":
+	if ProjectSettings.get_setting("modules/geometry_tools/2d/backends/poly_decomp") == "polypartition":
 		push_error("Skip, internal bug in PolyPartition.Triangulate_MONO...")
 		return true
 

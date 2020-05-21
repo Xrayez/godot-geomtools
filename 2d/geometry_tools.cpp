@@ -25,9 +25,9 @@ void GeometryTools2D::initialize() {
 	default_poly_offset_params.instance();
 	default_poly_decomp_params.instance();
 	
-	GeometryTools2DManager::poly_boolean.setting_name = "modules/geometry_tools/backends/poly_boolean";
-	GeometryTools2DManager::poly_offset.setting_name = "modules/geometry_tools/backends/poly_offset";
-	GeometryTools2DManager::poly_decomp.setting_name = "modules/geometry_tools/backends/poly_decomp";
+	GeometryTools2DManager::poly_boolean.setting_name = "modules/geometry_tools/2d/backends/poly_boolean";
+	GeometryTools2DManager::poly_offset.setting_name = "modules/geometry_tools/2d/backends/poly_offset";
+	GeometryTools2DManager::poly_decomp.setting_name = "modules/geometry_tools/2d/backends/poly_decomp";
 	
 	GeometryTools2DManager::poly_boolean.register_backend("clipper6", memnew(PolyBoolean2DClipper6), true);
 	GeometryTools2DManager::poly_boolean.register_backend("clipper10", memnew(PolyBoolean2DClipper10));
