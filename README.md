@@ -4,7 +4,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tbtra8e221si05bq/branch/master-gd3?svg=true)](https://ci.appveyor.com/project/Xrayez/godot-geomtools/branch/master-gd3)
 
 This is a [Godot](https://github.com/godotengine/godot) module which provides
-various geometry methods and aims to build upon the builtin `Geometry` singleton.
+various geometry methods and aims to build upon the polypartition `Geometry` singleton.
+
+![GeometryTools Polygon Decomposition](misc/images/decomp_triangles.png)
+![GeometryTools Polygon Decomposition Hole](misc/images/decomp_hole.gif)
 
 ## Overview
 
@@ -17,13 +20,11 @@ geometrical shapes at run-time.
 The interface is similar to what you can see in the `Geometry` singleton
 regarding polygon clipping and offsetting first introduced in
 [Godot Engine 3.2](https://github.com/godotengine/godot/pull/28987), yet the
-module brings many other possibilities such as multiple polygon clipping,
-building polygon hierarchy, exposing other not-so-common parameters and of
-course QoL methods, if necessary.
+module brings many other possibilities such as multiple polygon clipping (with
+holes), building polygon hierarchies, and other specific and hidden features.
 
 Each class of the methods are implemented by their respective back-ends and can
-be switched at compile-time. See below instructions on the various options on
-how to configure the build.
+be switched at run-time via the `ProjectSettings`, see below instructions.
 
 ## Installation
 
@@ -40,47 +41,55 @@ git clone https://github.com/Xrayez/godot-geomtools.git geomtools && cd ..
 scons platform=windows target=release_debug bits=64
 ```
 
-## Configuring the build
+## Configuring at run-time
 
 ### Switching backends
 
 There are a handful of back-ends to choose from:
 
-| Class             | Backends                | Default     |
-| ----------------- | ----------------------- | ----------- |
-| `poly_boolean_2d` | `clipper6`, `clipper10` | `clipper6`  |
-| `poly_offset_2d`  | `clipper6`, `clipper10` | `clipper6`  |
-| `poly_decomp_2d`  | `clipper10`, `builtin`  | `clipper10` |
+| Class             | Backends                                   | Default                   |
+| ----------------- | ------------------------------------------ | ------------------------- |
+| `poly_boolean_2d` | `clipper6`, `clipper10`                    | `clipper6`                |
+| `poly_offset_2d`  | `clipper6`, `clipper10`                    | `clipper6`                |
+| `poly_decomp_2d`  | `clipper10:polypartition`, `polypartition` | `clipper10:polypartition` |
 
 #### Differences
 
 `clipper6` backend implements both polygon clipping and offsetting. Uses
 [Clipper 6.4.2
 stable](https://sourceforge.net/p/polyclipping/code/HEAD/tree/trunk/) version
-which is bundled with Godot Engine since 3.2.
+which is bundled with Godot Engine since 3.2 out-of-the-box.
 
 Experimental `clipper10` backend implements most major features which `clipper6`
 provides, with an additional ability to triangulate the clipping output. Uses
 [Clipper 10.0.0 sandbox](https://sourceforge.net/p/polyclipping/code/HEAD/tree/sandbox/Clipper2/)
 version which is still under development.
 
-`builtin` backend aims to take advantage of the existing code bundled with Godot
-Engine by default if you need stability and/or consistency, or if you don't want
-to rely on the module's experimental implementations (such as `clipper10`).
+`polypartition` backend takes advantage of the existing
+[PolyPartition](https://github.com/ivanfratric/polypartition) library bundled
+with Godot Engine by default.
 
-#### Command line options
+`clipper10:polypartition` is an extension to `polypartition` backend which
+provides a more robust triangulation method (handles degenerate polygons), and
+shadows an internal bug present in `polypartition`'s `Triangulate_MONO` method.
+
+All of these can be set via the `modules/geometry_tools` options present in the
+`ProjectSettings` (once you open Godot editor the default settings will be set
+automatically):
+
+![GeometryTools settings](misc/images/settings.png)
+
+## Configuring at compile-time
+
+### Command line options
 
 | Name                        | Description                                                                                                                                                      |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `geomtools_poly_boolean_2d` | The backend used for polygon and polyline clipping.                                                                                                              |
-| `geomtools_poly_offset_2d`  | The backend used for polygon and polyline deflating and inflating.                                                                                               |
-| `geomtools_poly_decomp_2d`  | The backend used for polygon decomposition (triangulation).                                                                                                      |
 | `geomtools_scale_factor`    | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
 
-The default backends used can be overridden before a build. For instance, to use
-the latest Clipper backend for all methods:
+For instance:
 ```
-scons geomtools_poly_boolean_2d=clipper10 geomtools_poly_offset_2d=clipper10 geomtools_poly_decomp_2d=clipper10
+scons geomtools_scale_factor=10e3
 ```
 
 ## Contributing
