@@ -26,6 +26,64 @@ holes), building polygon hierarchies, and other specific and hidden features.
 Each class of the methods are implemented by their respective back-ends and can
 be switched at run-time via the `ProjectSettings`, see below instructions.
 
+Here's a quick overview of the currently implemented methods:
+
+## 2D
+
+### Polygon boolean operations
+| Method                                       | Short description                                                                      |
+| -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `merge_polygons`                             | Merges individual polygons into one.                                                   |
+| `clip_polygons`                              | Clips a subject polygon with another one.                                              |
+| `intersect_polygons`                         | Returns a polygon where both polygons overlap.                                         |
+| `exclude_polygons`                           | Mutually excludes common area defined by polygons.                                     |
+| `merge_multiple_polygons`                    | Similar to `merge_polygons`, but accepts an array of polygons.                         |
+| `clip_multiple_polygons`                     | Similar to `clip_polygons`, but accepts an array of polygons.                          |
+| `intersect_multiple_polygons`                | Similar to `intersect_polygons`, but accepts an array of polygons.                     |
+| `exclude_multiple_polygons`                  | Similar to `exclude_polygons`, but accepts an array of polygons.                       |
+| `polygons_boolean`                           | Performs a polygon boolean operation from `PolyBooleanOperation` on multiple polygons. |
+| `polygons_boolean_tree`                      | Similar to `polygons_boolean`, but returns an hierarchy of nested polygons.            |
+| `clip_polyline_with_polygon`                 | Cuts a polyline with a polygon.                                                        |
+| `intersect_polyline_with_polygon`            | Chops a polyline with a polygon.                                                       |
+| `clip_multiple_polylines_with_polygons`      | Similar to `clip_polyline_with_polygon`, but accepts an array of polypaths.            |
+| `intersect_multiple_polylines_with_polygons` | Similar to `intersect_polyline_with_polygon`, but accepts an array of polypaths.       |
+
+### Polygon offsetting
+| Method                       | Short description                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `inflate_polygon`            | Shrinks a polygon inward.                                                             |
+| `deflate_polygon`            | Grows a polygon outwards.                                                             |
+| `inflate_multiple_polygons`  | Similar to `inflate_polygon`, but accepts an array of polygons which may be joined.   |
+| `deflate_multiple_polygons`  | Similar to `deflate_polygon`, but accepts an array of polygons which may be joined.   |
+| `deflate_polyline`           | Grows a polyline into a polygon outwards.                                             |
+| `deflate_multiple_polylines` | Similar to `deflate_polyline`, but accepts an array of polylines which may be joined. |
+| `offset_polygon`             | Either shrinks or grows a polygon by `delta` pixels.                                  |
+| `offset_multiple_polygons`   | Similar to `offset_polygon`, but accepts an array of polygons which may be joined.    |
+
+### Polygon decomposition
+| Method                                    | Short description                                                                                  |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `triangulate_polygon`                     | Triangulates a polygon using ear clipping algorithm (default).                                     |
+| `triangulate_multiple_polygons`           | Similar to `triangulate_polygon`, but accepts an array of both outer and inner polygons.           |
+| `decompose_polygon_into_convex`           | Decomposes a polygon into smaller convex polygons using Hertel-Mehlhorn algorithm (default).       |
+| `decompose_multiple_polygons_into_convex` | Similar to `decompose_polygon_into_convex`, but accepts an array of both outer and inner polygons. |
+| `decompose_polygons`                      | Decomposes polygons using any of the available algorithms from `PolyDecompType`.                   |
+
+### Polygon and polyline queries
+| Method              | Short description                                                               |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `polygon_centroid`  | Returns the center of mass of a polygon.                                        |
+| `polygon_area`      | Returns the signed area of a polygon.                                           |
+| `polygon_perimeter` | Returns the perimeter of a polygon.                                             |
+| `polyline_length`   | Returns the total length of a polyline.                                         |
+| `point_in_polygon`  | Tells whether a point lies inside, outside, or exactly on a polygon's boundary. |
+
+### Polygon and shapes generation
+| Method            | Short description                                                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| `regular_polygon` | Returns a regular polygon with all equal sides and angles (triangle, rectangle, pentagon, hexagon etc.) |
+| `circle`          | Returns vertices approximating a circle given the maximum error.                                        |
+
 ## Installation
 
 Before installing, you must be able to 
@@ -83,9 +141,9 @@ automatically):
 
 ### Command line options
 
-| Name                        | Description                                                                                                                                                      |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `geomtools_scale_factor`    | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
+| Name                     | Description                                                                                                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `geomtools_scale_factor` | The precision used for converting between the integer and the float coordinates. Beware of the too high scale factors as it may lead to integer overflow issues. |
 
 For instance:
 ```
