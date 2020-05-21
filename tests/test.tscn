@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://test.gd" type="Script" id=1]
+
+[node name="test" type="Node2D"]
+script = ExtResource( 1 )
+tests_delay = 0.25
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="test" type="Label" parent="ui"]
+margin_right = 40.0
+margin_bottom = 25.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
