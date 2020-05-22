@@ -11,6 +11,8 @@ public:
 	virtual Vector<Vector<Point2> > offset_polypaths(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) = 0;
 	// virtual Ref<PolyNode2D> offset_polypaths_tree(const Vector<Vector<Point2> > &p_polypaths, real_t p_delta) = 0;
 	
+	virtual ~PolyOffset2D() {}
+	
 public:
 	void set_params(const Ref<PolyOffsetParameters2D> &p_params) { params = p_params; }
 protected:

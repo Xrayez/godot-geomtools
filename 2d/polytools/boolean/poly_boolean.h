@@ -18,6 +18,8 @@ public:
 	virtual Vector<Vector<Point2> > polypaths_boolean(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
 	virtual Ref<PolyNode2D> polypaths_boolean_tree(Operation p_op, const Vector<Vector<Point2> > &p_polypaths_a, const Vector<Vector<Point2> > &p_polypaths_b) = 0;
 	
+	virtual ~PolyBoolean2D() {}
+	
 public:
 	void set_params(const Ref<PolyBooleanParameters2D> &p_params) { params = p_params; }
 protected:
