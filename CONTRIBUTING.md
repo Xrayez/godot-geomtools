@@ -33,14 +33,6 @@ implemented independently by extending various `Poly*[2D,3D]` base classes:
 * [2d\polytools\offset\poly_offset.h](2d\polytools\offset\poly_offset.h)
 * [2d\polytools\decomp\poly_decomp.h](2d\polytools\decomp\poly_decomp.h)
 
-The exact implementation must reside in either of those base folders under the
-dedicated folder. The rest is handled by the build system by detecting the newly
-implemented back-ends. The implemented back-end's name (matching the folder
-name) can be passed as an option to `scons` while building.
-
-Don't forget to add `using Poly*[2D,3D] = Poly*[2D,3D]YourClass` typedef statement to
-actually override the implementation at compile-time.
-
 ## 3D realms
 
 If you're a person interested in 3D development, feel free to dive into the
@@ -51,7 +43,7 @@ If you're a person interested in 3D development, feel free to dive into the
 
 ## Third-party
 
-Binding to thirdparty libraries is acceptable but they must be compatible with
+Binding to thirdparty libraries is acceptable and they must be compatible with
 the MIT license. It might be OK linking other not-so-permissive libraries as
 long as they can be implemented as back-ends which can be disabled and not to be
 provided by default.
