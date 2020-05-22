@@ -15,6 +15,7 @@ env:
     - MODULES_DISABLED=$(cat misc/ci/modules_disabled.txt)
     - GODOT_REPO_URL="https://github.com/godotengine/godot"
     - GODOT_DIR="godot"
+    - GODOT_BINARY_DIR="$HOME/godot/bin/"
 cache:
   directories:
     - $SCONS_CACHE
@@ -38,7 +39,7 @@ jobs:
       os: osx
       osx_image: xcode9.3
       compiler: clang
-    - env: GODOT_TARGET=server TOOLS=no CACHE_NAME=${GODOT_TARGET}-clang
+    - env: GODOT_TARGET=server TOOLS=no GODOT_BINARY="godot_server.x11.tools.64.llvm" CACHE_NAME=${GODOT_TARGET}-clang
       os: linux
       compiler: clang
 
@@ -84,4 +85,7 @@ before_script:
   - ln -s $TRAVIS_BUILD_DIR "modules/geomtools"
 
 script:
-  - scons -j3 CC=$CC CXX=$CXX platform=$GODOT_TARGET TOOLS=$TOOLS $OPTIONS $MODULES_DISABLED;
+  - scons -j3 CC=$CC CXX=$CXX platform=$GODOT_TARGET TOOLS=$TOOLS $OPTIONS $MODULES_DISABLED &&
+    if [ "$GODOT_TARGET" = "server" ]; then
+        $TRAVIS_BUILD_DIR/tests/run.sh "$GODOT_BINARY_DIR""$GODOT_BINARY";
+    fi
