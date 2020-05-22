@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <cfloat>
+#include <cmath>
 
 namespace clipperlib {
 
