@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tbtra8e221si05bq/branch/master-gd3?svg=true)](https://ci.appveyor.com/project/Xrayez/godot-geomtools/branch/master-gd3)
 
 This is a [Godot](https://github.com/godotengine/godot) module which provides
-various geometry methods and aims to build upon the polypartition `Geometry` singleton.
+various geometry methods and aims to build upon the existing `Geometry` singleton.
 
 ![GeometryTools Polygon Decomposition](misc/images/decomp_triangles.png)
 ![GeometryTools Polygon Decomposition Hole](misc/images/decomp_hole.gif)
@@ -31,7 +31,7 @@ Here's a quick overview of the currently implemented methods:
 ## 2D
 
 ### Polygon boolean operations
-| Method                                       | Short description                                                                      |
+| Method                                       | Description                                                                      |
 | -------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `merge_polygons`                             | Merges individual polygons into one.                                                   |
 | `clip_polygons`                              | Clips a subject polygon with another one.                                              |
@@ -49,28 +49,28 @@ Here's a quick overview of the currently implemented methods:
 | `intersect_multiple_polylines_with_polygons` | Similar to `intersect_polyline_with_polygon`, but accepts an array of polypaths.       |
 
 ### Polygon offsetting
-| Method                       | Short description                                                                     |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `inflate_polygon`            | Shrinks a polygon inward.                                                             |
-| `deflate_polygon`            | Grows a polygon outwards.                                                             |
-| `inflate_multiple_polygons`  | Similar to `inflate_polygon`, but accepts an array of polygons which may be joined.   |
-| `deflate_multiple_polygons`  | Similar to `deflate_polygon`, but accepts an array of polygons which may be joined.   |
-| `deflate_polyline`           | Grows a polyline into a polygon outwards.                                             |
-| `deflate_multiple_polylines` | Similar to `deflate_polyline`, but accepts an array of polylines which may be joined. |
-| `offset_polygon`             | Either shrinks or grows a polygon by `delta` pixels.                                  |
-| `offset_multiple_polygons`   | Similar to `offset_polygon`, but accepts an array of polygons which may be joined.    |
+| Method                       | Description                                                                              |
+| ---------------------------- | ---------------------------------------------------------------------------------------------- |
+| `inflate_polygon`            | Shrinks a polygon inward.                                                                      |
+| `deflate_polygon`            | Grows a polygon outward.                                                                       |
+| `inflate_multiple_polygons`  | Similar to `inflate_polygon`, but accepts an array of polygons which may be joined together.   |
+| `deflate_multiple_polygons`  | Similar to `deflate_polygon`, but accepts an array of polygons which may be joined together.   |
+| `deflate_polyline`           | Grows a polyline into a polygon outward.                                                       |
+| `deflate_multiple_polylines` | Similar to `deflate_polyline`, but accepts an array of polylines which may be joined together. |
+| `offset_polygon`             | Either shrinks or grows a polygon by `delta` pixels.                                           |
+| `offset_multiple_polygons`   | Similar to `offset_polygon`, but accepts an array of polygons which may be joined together.    |
 
 ### Polygon decomposition
-| Method                                    | Short description                                                                                  |
+| Method                                    | Description                                                                                  |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `triangulate_polygon`                     | Triangulates a polygon using ear clipping algorithm (default).                                     |
+| `triangulate_polygon`                     | Triangulates a polygon using the ear clipping algorithm (default).                                     |
 | `triangulate_multiple_polygons`           | Similar to `triangulate_polygon`, but accepts an array of both outer and inner polygons.           |
-| `decompose_polygon_into_convex`           | Decomposes a polygon into smaller convex polygons using Hertel-Mehlhorn algorithm (default).       |
+| `decompose_polygon_into_convex`           | Decomposes a polygon into smaller convex polygons using the Hertel-Mehlhorn algorithm (default).       |
 | `decompose_multiple_polygons_into_convex` | Similar to `decompose_polygon_into_convex`, but accepts an array of both outer and inner polygons. |
 | `decompose_polygons`                      | Decomposes polygons using any of the available algorithms from `PolyDecompType`.                   |
 
 ### Polygon and polyline queries
-| Method              | Short description                                                               |
+| Method              | Description                                                               |
 | ------------------- | ------------------------------------------------------------------------------- |
 | `polygon_centroid`  | Returns the center of mass of a polygon.                                        |
 | `polygon_area`      | Returns the signed area of a polygon.                                           |
@@ -79,7 +79,7 @@ Here's a quick overview of the currently implemented methods:
 | `point_in_polygon`  | Tells whether a point lies inside, outside, or exactly on a polygon's boundary. |
 
 ### Polygon and shapes generation
-| Method            | Short description                                                                                       |
+| Method            | Description                                                                                       |
 | ----------------- | ------------------------------------------------------------------------------------------------------- |
 | `regular_polygon` | Returns a regular polygon with all equal sides and angles (triangle, rectangle, pentagon, hexagon etc.) |
 | `circle`          | Returns vertices approximating a circle given the maximum error.                                        |
@@ -125,7 +125,7 @@ version which is still under development.
 
 `polypartition` backend takes advantage of the existing
 [PolyPartition](https://github.com/ivanfratric/polypartition) library bundled
-with Godot Engine by default.
+with the Godot Engine.
 
 `clipper10:polypartition` is an extension to `polypartition` backend which
 provides a more robust triangulation method (handles degenerate polygons), and
@@ -147,7 +147,7 @@ automatically):
 
 For instance:
 ```
-scons geomtools_scale_factor=10e3
+scons geomtools_scale_factor=1e3
 ```
 
 ## Contributing
