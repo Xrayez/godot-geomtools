@@ -81,9 +81,9 @@ public:
 	GeometryTools2D();
 };
 
-VARIANT_ENUM_CAST(GeometryTools2D::PolyBooleanOperation);
-VARIANT_ENUM_CAST(GeometryTools2D::PolyDecompType);
-
 } // namespace module_bind
+
+VARIANT_ENUM_CAST(module_bind::GeometryTools2D::PolyBooleanOperation);
+VARIANT_ENUM_CAST(module_bind::GeometryTools2D::PolyDecompType);
 
 #endif // GODOT_GEOMETRY_TOOLS_BIND_H
