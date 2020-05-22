@@ -1,9 +1,8 @@
-#ifndef GODOT_CLIPPER_PATH_CONVERT_H
-#define GODOT_CLIPPER_PATH_CONVERT_H
+#ifndef GODOT_CLIPPER10_PATH_CONVERT_H
+#define GODOT_CLIPPER10_PATH_CONVERT_H
 
 #include "core/vector.h"
 #include "core/math/vector2.h"
-
 #include "modules/geomtools/thirdparty/clipper/clipper.h"
 
 namespace GodotClipperUtils {
@@ -17,4 +16,4 @@ void scale_down_polypath(const Path &p_polypath_in, Vector<Point2> &p_polypath_o
 
 } // namespace GodotClipperUtils
 
-#endif // GODOT_CLIPPER_PATH_CONVERT_H
+#endif // GODOT_CLIPPER10_PATH_CONVERT_H

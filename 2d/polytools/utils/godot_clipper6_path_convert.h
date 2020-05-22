@@ -1,9 +1,19 @@
-#ifndef GODOT_CLIPPER_PATH_CONVERT_H
-#define GODOT_CLIPPER_PATH_CONVERT_H
+#ifndef GODOT_CLIPPER6_PATH_CONVERT_H
+#define GODOT_CLIPPER6_PATH_CONVERT_H
 
 #include "core/vector.h"
 #include "core/math/vector2.h"
 #include "thirdparty/misc/clipper.hpp"
+
+// Note: we provide a complete type for LocalMinimum as Clipper 6.4.2 only
+// forward-declares the struct, which leads to the compilation errors.
+namespace ClipperLib {
+    struct LocalMinimum {
+    cInt          Y;
+    TEdge        *LeftBound;
+    TEdge        *RightBound;
+    };
+}
 
 namespace GodotClipperUtils {
 
@@ -16,4 +26,4 @@ void scale_down_polypath(const Path &p_polypath_in, Vector<Point2> &p_polypath_o
 
 } // namespace GodotClipperUtils
 
-#endif // GODOT_CLIPPER_PATH_CONVERT_H
+#endif // GODOT_CLIPPER6_PATH_CONVERT_H
