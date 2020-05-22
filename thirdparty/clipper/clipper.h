@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cfloat>
 #include <cmath>
+#include <string>
 
 namespace clipperlib {
 
