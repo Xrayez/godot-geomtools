@@ -22,7 +22,7 @@ var solution = []
 
 
 func _ready():
-	poly_boundary.invert()
+	poly_hole.invert()
 
 	if not inspect_method.empty():
 		current_test = inspect_method

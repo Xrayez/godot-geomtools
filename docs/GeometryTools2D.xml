@@ -425,6 +425,7 @@
 			</argument>
 			<description>
 				Generates a regular polygon (triangle, rectangle, pentagon, hexagon etc.) with all equal sides and angles. The specified size can be seen as a radius, with an increasing number of sides approximating a [method circle].
+				The order of vertices returned is counterclockwise which makes it an outer polygon by default. To convert it to an inner polygon specifically, use [method PoolVector2Array.invert].
 			</description>
 		</method>
 		<method name="triangulate_multiple_polygons" qualifiers="const">

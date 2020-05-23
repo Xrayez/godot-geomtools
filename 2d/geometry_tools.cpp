@@ -382,7 +382,8 @@ Vector<Point2> GeometryTools2D::regular_polygon(int p_edge_count, real_t p_size)
 	
 	Vector<Point2> polygon;
 
-	for (int i = 0; i < p_edge_count; ++i) {
+	// Always generate polygons in counter-clockwise order by default.
+	for (int i = p_edge_count - 1; i >= 0; --i) {
 		const real_t phi = (Math_TAU / p_edge_count) * i;
 		polygon.push_back(Vector2(Math::sin(phi), Math::cos(phi)) * p_size);
 	}
