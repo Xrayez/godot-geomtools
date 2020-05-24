@@ -14,6 +14,7 @@
     - https://sourceforge.net/p/polyclipping/bugs/177/
 - Disabled exceptions (similarly to Godot's `clipper-no-exceptions.patch`)
 - Removed Windows-specific debugging calls.
+- Simple conditional version defines based on whether the older version was used.
 
 See [`clipper.10.0.0-r539-no-except.patch`](clipper/clipper.10.0.0-r539-no-except.patch)
 file for the exact changes.

@@ -149,10 +149,20 @@ index ba36de9..f393747 100644
      return result;
    }
 diff --git a/thirdparty/clipper/clipper.h b/thirdparty/clipper/clipper.h
-index 9888cf7..685c8f5 100644
+index 9888cf7..453b341 100644
 --- a/thirdparty/clipper/clipper.h
 +++ b/thirdparty/clipper/clipper.h
-@@ -17,6 +17,9 @@
+@@ -11,12 +11,18 @@
+ #ifndef clipper_h
+ #define clipper_h
+ 
+-#define CLIPPER_VERSION "10.0.0"
++#ifdef CLIPPER_VERSION
++  #undef CLIPPER_VERSION
++  #define CLIPPER_VERSION "10.0.0"
++#endif
+ 
+ #include <vector>
  #include <queue>
  #include <stdexcept>
  #include <cstdlib>
@@ -162,7 +172,7 @@ index 9888cf7..685c8f5 100644
  
  namespace clipperlib {
  
-@@ -60,6 +63,7 @@ class PolyPath
+@@ -60,6 +66,7 @@ class PolyPath
  	  Path path_;
  	  std::vector< PolyPath* > childs_;
    public:
@@ -170,7 +180,7 @@ index 9888cf7..685c8f5 100644
  	  PolyPath(PolyPath *parent, const Path &path);
  	  virtual ~PolyPath(){};
      PolyPath &AddChild(const Path &path);
-@@ -71,8 +75,6 @@ class PolyPath
+@@ -71,8 +78,6 @@ class PolyPath
  	  void Clear();
  };
  
@@ -179,7 +189,7 @@ index 9888cf7..685c8f5 100644
  struct Rect64 { 
  	int64_t left; 
  	int64_t top; 
-@@ -161,9 +163,9 @@ class Clipper {
+@@ -161,9 +166,9 @@ class Clipper {
      void SetWindingLeftEdgeOpen(Active &e);
      void InsertEdgeIntoAEL(Active &edge, Active *startEdge);
      virtual void InsertLocalMinimaIntoAEL(int64_t bot_y);
@@ -192,7 +202,7 @@ index 9888cf7..685c8f5 100644
      void JoinOutrecPaths(Active &e1, Active &e2);
      inline void TerminateHotOpen(Active &e);
      inline void StartOpenPath(Active &e, const Point64 pt);
-@@ -186,7 +188,7 @@ class Clipper {
+@@ -186,7 +191,7 @@ class Clipper {
      void DoTopOfScanbeam(const int64_t top_y);
      Active* DoMaxima(Active &e);
      void BuildResult(Paths &paths_closed, Paths *paths_open);
@@ -201,7 +211,7 @@ index 9888cf7..685c8f5 100644
    protected:
      void CleanUp();
      virtual OutPt* CreateOutPt();
-@@ -204,7 +206,7 @@ class Clipper {
+@@ -204,7 +209,7 @@ class Clipper {
      virtual void AddPaths(const Paths &paths, PathType polytype, bool is_open = false);
      virtual bool Execute(ClipType clipType, Paths &solution_closed, FillRule fr = frEvenOdd);
      virtual bool Execute(ClipType clipType, Paths &solution_closed, Paths &solution_open, FillRule fr = frEvenOdd);
@@ -210,6 +220,20 @@ index 9888cf7..685c8f5 100644
      void Clear();
      Rect64 GetBounds();
  };
+diff --git a/thirdparty/clipper/clipper_offset.h b/thirdparty/clipper/clipper_offset.h
+index 0a8f3b9..8649085 100644
+--- a/thirdparty/clipper/clipper_offset.h
++++ b/thirdparty/clipper/clipper_offset.h
+@@ -50,8 +50,8 @@ namespace clipperlib {
+     Path path_in_, path_out_;
+     NormalsList norms_;
+     NodeList nodes_;
+-    double arc_tolerance_;
+     double miter_limit_;
++    double arc_tolerance_;
+ 
+     //nb: miter_lim_ below is a temp field that differs from miter_limit
+     double delta_, sin_a_, sin_, cos_, miter_lim_, steps_per_radian_;
 diff --git a/thirdparty/clipper/clipper_triangulation.cpp b/thirdparty/clipper/clipper_triangulation.cpp
 index 909ab87..86b3a40 100644
 --- a/thirdparty/clipper/clipper_triangulation.cpp

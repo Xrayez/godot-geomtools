@@ -11,7 +11,10 @@
 #ifndef clipper_h
 #define clipper_h
 
-#define CLIPPER_VERSION "10.0.0"
+#ifdef CLIPPER_VERSION
+  #undef CLIPPER_VERSION
+  #define CLIPPER_VERSION "10.0.0"
+#endif
 
 #include <vector>
 #include <queue>
